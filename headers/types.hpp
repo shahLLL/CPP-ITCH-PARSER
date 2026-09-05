@@ -1,354 +1,271 @@
 #pragma once
+
 #include <cstdint>
-#include <array>
-#include <chrono>
+
+#pragma pack(push, 1)
 
 // Aliases
-using EnumType = std::uint8_t;
-using MessageType = char;
-using StockLocate = std::uint16_t;
-using TrackingNumber = std::uint16_t;
-using TimeStamp = std::uint64_t;
-using Stock = std::array<char, 8>;
-using RoundLotSize = std::uint32_t;
-using ETPLeverageFactor = std::uint32_t;
-using Reserved = bool;
-using LocateCode = std::uint16_t;
-using MPID = std::array<char, 4>;
-using Price = std::uint32_t;
-using IPOQuotationReleaseTime = std::uint32_t;
-using AuctionCollarExtension = std::uint32_t;
-using OrderReferenceNumber = std::uint64_t;
-using Shares = std::uint32_t;
-using MatchNumber = std::uint64_t;
-using BigShares = std::uint64_t;
-using ExecutionTime = std::chrono::high_resolution_clock::time_point;
+using Alpha = char;
+using UnsignedInt16 = std::uint16_t;
+using UnsignedInt32 = std::uint32_t;
+using UnsignedInt64 = std::uint64_t;
+using Alpha2 = Alpha[2];
+using Alpha4 = Alpha[4];
+using TimeStamp = std::uint8_t[6];
+using Alpha8 = Alpha[8];
 
-
-// Enums
-// View Nasdaq ITCH spec for more details on enums below.
-enum class SystemEventCode : EnumType {O, S, Q, M, E, C};
-enum class MarketCategory : EnumType {Q, G, S, N, A, P, Z, V};
-enum class FinancialStatusIndicator : EnumType {D, E, Q, S, G, H, J, K, C, N};
-enum class YesNo : EnumType {Y, N};
-enum class YesNoOptional : EnumType {Y, N, SPACE};
-enum class IssueClassification : EnumType {A, B, C, F, I, L, N, O, P, Q, R, S,
-    T, U, V, W};
-enum class IssueSubType : EnumType {A, AI, B, C, CB, CF, CL, CM, CO, CT, CU,
-    CW, D, E, EG, EI, EM, EN, EU, F, FI, FL, G, I, IR, IW, IX, J, L, LL, M,
-    MF, ML, MT, N, O, P, PP, Q, R, RC, RF, RT, RU, S, SC, SI, T, TC, TU, U,
-    V, W, WC, X, Y, Z};
-enum class Authenticity : EnumType {P, T};
-enum class PriceTier : EnumType {ONE, TWO, SPACE};
-enum class TradingActionReason : EnumType {};
-enum class TradingState : EnumType {H, P, Q, T};
-enum class RegSHOAction : EnumType {ZERO, ONE, TWO};
-enum class MarketMakerMode : EnumType {N, P, S, R, L};
-enum class MarketParticipantState : EnumType {A, E, W, S, D};
-enum class BreachedLevel : EnumType {ONE, TWO, THREE};
-enum class IPOQuotationReleaseQualifier : EnumType {A, C};
-enum class MarketCode : EnumType {Q, B, X};
-enum class OperationalHaltAction : EnumType {H, T};
-enum class BuySellIndicator : EnumType {B, S};
-enum class CrossType : EnumType {O, C, H, A};
-enum class ImbalanceDirection : EnumType {B, S, N, O, P};
-enum class PriceVariationIndicator : EnumType {L, ONE, TWO, THREE,
-    FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, A, B, C, SPACE};
-
-// Structs
-#pragma pack(1)
+// Structs, organized from largest to smallest data type for mem optimisation.
 struct SystemEventMessage final {
     TimeStamp timeStamp;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'S';
-    SystemEventCode eventCode;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'S';
+    Alpha eventCode;
 };
-#pragma pack()
 
-#pragma pack(1)
 struct StockDirectory final {
-    Stock stock{};
+    Alpha8 stock;
     TimeStamp timeStamp;
-    RoundLotSize roundLotSize;
-    ETPLeverageFactor etpLeverageFactor;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'R';
-    MarketCategory marketCategory;
-    FinancialStatusIndicator financialStatusIndicator;
-    YesNo roundLotsOnly;
-    IssueClassification issueClassification;
-    IssueSubType issueSubType;
-    Authenticity authenticity;
-    YesNoOptional shortSaleThresholdIndicator;
-    YesNoOptional IPOFlag;
-    PriceTier LULDReferencePriceTier;
-    YesNoOptional ETPFlag;
-    YesNo InverseIndicator;
+    UnsignedInt32 roundLotSize;
+    UnsignedInt32 etpLeverageFactor;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    Alpha2 issueSubType;
+    const Alpha messageType = 'R';
+    Alpha inverseIndicator;
+    Alpha marketCategory;
+    Alpha financialStatusIndicator;
+    Alpha roundLotsOnly;
+    Alpha issueClassification;
+    Alpha authenticity;
+    Alpha shortSaleThresholdIndicator;
+    Alpha ipoFlag;
+    Alpha luldReferencePriceTier;
+    Alpha etpFlag;
 };
-#pragma pack()
 
-#pragma pack(1)
 struct StockTradingAction final {
-    Stock stock{};
+    Alpha8 stock;
     TimeStamp timeStamp;
-    TradingActionReason reason;
-    StockLocate StockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'H';
-    TradingState tradingState;
-    Reserved reserved;
+    Alpha4 reason;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'H';
+    Alpha tradingState;
+    Alpha reserved;
 };
-#pragma pack()
 
-#pragma pack(1)
 struct RegSHORestriction final {
-    Stock stock{};
+    Alpha8 stock;
     TimeStamp timeStamp;
-    LocateCode locateCode;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'Y';
-    RegSHOAction regSHOAction;
+    UnsignedInt16 locateCode;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'Y';
+    Alpha regSHOAction;
 };
-#pragma pack()
 
-#pragma pack(1)
-struct MarketParticipationPostion final {
-    Stock stock{};
+struct MarketParticipantPosition final {
+    Alpha8 stock;
     TimeStamp timeStamp;
-    MPID mpid{};
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'L';
-    YesNo primaryMarketMaker;
-    MarketMakerMode marketMakerMode;
-    MarketParticipantState marketParticipantState;
+    Alpha4 mpid;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'L';
+    Alpha primaryMarketMaker;
+    Alpha marketMakerMode;
+    Alpha marketParticipantState;
 };
-#pragma pack()
 
-#pragma pack(1)
 struct MWCBDeclineLevelMessage final {
+    UnsignedInt64 level1;
+    UnsignedInt64 level2;
+    UnsignedInt64 level3;
     TimeStamp timeStamp;
-    Price levelOne;
-    Price levelTwo;
-    Price levelThree;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'V';
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'V';
 };
-#pragma pack()
 
-#pragma pack(1)
 struct MWCBStatusMessage final {
     TimeStamp timeStamp;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'W';
-    BreachedLevel breachedLevel;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'V';
+    Alpha breachedLevel;
 };
-#pragma pack()
 
-#pragma pack(1)
 struct QuotingPeriodUpdate final {
-    Stock stock{};
+    Alpha8 stock;
     TimeStamp timeStamp;
-    Price ipoPrice;
-    IPOQuotationReleaseTime ipoQuotationReleaseTime;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'K';
-    IPOQuotationReleaseQualifier ipoQuotationReleaseQualifier;
-
+    UnsignedInt32 ipoQuotationReleaseTime;
+    UnsignedInt32 ipoPrice;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'K';
+    Alpha ipoQuotationReleaseQualifier;
+    
 };
-#pragma pack()
 
-#pragma pack(1)
 struct LULDAuctionCollar final {
-    Stock stock{};
+    Alpha8 stock;
     TimeStamp timeStamp;
-    Price auctionCollarReferencePrice;
-    Price upperAuctionCollarPrice;
-    Price lowerAuctionCollarPrice;
-    AuctionCollarExtension auctionCollarExtension;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'J';
+    UnsignedInt32 auctionCollarReferencePrice;
+    UnsignedInt32 upperAuctionCollarPrice;
+    UnsignedInt32 lowerAuctionCollarPrice;
+    UnsignedInt32 auctionCollarExtension;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'J';
 };
-#pragma pack()
 
-#pragma pack(1)
 struct OperationalHalt final {
-    Stock stock{};
+    Alpha8 stock;
     TimeStamp timeStamp;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'h';
-    MarketCode marketCode;
-    OperationalHaltAction operationalHaltAction;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'h';
+    Alpha marketCode;
+    Alpha operationalHaltAction;
 };
-#pragma pack()
 
-#pragma pack(1)
 struct AddOrderMessage final {
-    Stock stock{};
+    UnsignedInt64 orderReferenceNumber;
+    Alpha8 stock;
     TimeStamp timeStamp;
-    OrderReferenceNumber orderReferenceNumber;
-    Price price;
-    Shares shares;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'A';
-    BuySellIndicator buySellIndicator;
+    UnsignedInt32 price;
+    UnsignedInt32 shares;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'A';
+    Alpha buySellIndicator;
 };
-#pragma pack()
 
-#pragma pack(1)
-struct AddOrderMessageMPID final {
-    Stock stock{};
+struct AddOrderMPIDAttributionMessage final {
+    UnsignedInt64 orderReferenceNumber;
+    Alpha8 stock;
     TimeStamp timeStamp;
-    OrderReferenceNumber orderReferenceNumber;
-    Price price;
-    Shares shares;
-    MPID attribution{};
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'F';
-    BuySellIndicator buySellIndicator;
+    UnsignedInt32 price;
+    UnsignedInt32 shares;
+    Alpha4 attribution;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'F';
+    Alpha buySellIndicator;
 };
-#pragma pack()
 
-#pragma pack(1)
 struct OrderExecutedMessage final {
-    MatchNumber matchNumber;
-    OrderReferenceNumber OrderReferenceNumber;
+    UnsignedInt64 orderReferenceNumber;
+    UnsignedInt64 matchNumber;
     TimeStamp timeStamp;
-    Shares executedShares;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'E';
+    UnsignedInt32 executedShares;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'E';
 };
-#pragma pack()
 
-#pragma pack(1)
 struct OrderExecutedWithPriceMessage final {
-    OrderReferenceNumber orderReferenceNumber;
-    MatchNumber matchNumber;
+    UnsignedInt64 orderReferenceNumber;
+    UnsignedInt64 matchNumber;
     TimeStamp timeStamp;
-    Price executionPrice;
-    Shares executedShares;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'C';
-    YesNo printable;
+    UnsignedInt32 executedShares;
+    UnsignedInt32 executionPrice;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'C';
+    Alpha printable;
 };
-#pragma pack()
 
-#pragma pack(1)
 struct OrderCancelMessage final {
-    OrderReferenceNumber orderReferenceNumber;
+    UnsignedInt64 orderReferenceNumber;
     TimeStamp timeStamp;
-    Shares cancelledShares;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'X';
+    UnsignedInt32 cancelledShares;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'X';
 };
-#pragma pack()
 
-#pragma pack(1)
-struct OrderDeletelMessage final {
-    OrderReferenceNumber orderReferenceNumber;
+struct OrderDeleteMessage final {
+    UnsignedInt64 orderReferenceNumber;
     TimeStamp timeStamp;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'D';
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'D';
 };
-#pragma pack()
 
-#pragma pack(1)
 struct OrderReplaceMessage final {
-    OrderReferenceNumber originalOrderReferenceNumber;
-    OrderReferenceNumber newOrderReferenceNumber;
+    UnsignedInt64 originalOrderReferenceNumber;
+    UnsignedInt64 newOrderReferenceNumber;
     TimeStamp timeStamp;
-    Price price;
-    Shares shares;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'U';
+    UnsignedInt32 shares;
+    UnsignedInt32 price;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'U';
 };
-#pragma pack()
 
-#pragma pack(1)
 struct TradeMessage final {
-    OrderReferenceNumber orderReferenceNumber;
-    MatchNumber matchNumber;
-    Stock stock{};
+    Alpha8 stock;
+    UnsignedInt64 orderReferenceNumber;
+    UnsignedInt64 matchNumber;
     TimeStamp timeStamp;
-    Price price;
-    Shares shares;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    BuySellIndicator buySellIndicator;
-    const MessageType messageType = 'P';
+    UnsignedInt32 shares;
+    UnsignedInt32 price;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'P';
+    Alpha buySellIndicator;
 };
-#pragma pack()
 
-#pragma pack(1)
 struct CrossTradeMessage final {
-    Stock stock{};
-    MatchNumber matchNumber;
-    BigShares shares;
-    TimeStamp timeStamp;
-    Price crossPrice;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'Q';
-    CrossType crossType;
-};
-#pragma pack()
+    UnsignedInt64 shares;
+    Alpha8 stock;
+    UnsignedInt64 matchNumber;
+    TimeStamp TimeStamp;
+    UnsignedInt32 crossPrice;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'Q';
+    Alpha crossType;
 
-#pragma pack(1)
+};
+
 struct BrokenTradeMessage final {
-    MatchNumber matchNumber;
+    UnsignedInt64 matchNumber;
     TimeStamp timeStamp;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'B';
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'B';
 };
-#pragma pack()
 
-#pragma pack(1)
 struct NOIIMessage final {
-    Stock stock{};
-    BigShares pairedShares;
-    BigShares imbalanceShares;
+    UnsignedInt64 pairedShares;
+    UnsignedInt64 imbalanceShares;
+    Alpha8 stock;
     TimeStamp timeStamp;
-    Price farPrice;
-    Price nearPrice;
-    Price currentReferencePrice;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'l';
-    ImbalanceDirection imbalanceDirection;
-    CrossType crossType;
-    PriceVariationIndicator priceVariationIndicator;
+    UnsignedInt32 farPrice;
+    UnsignedInt32 nearPrice;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'l';
+    Alpha crossType;
+    Alpha priceVariationIndicator;
+    Alpha imbalanceDirection;
 };
-#pragma pack()
 
-// DLWCRPD = Direct Lisiting with Capital Raise Price Discovery.
-#pragma pack(1)
-struct DLWCRPDMessage final {
-    Stock stock{};
-    ExecutionTime nearExecutionTime;
+// DLWCRPD = Direst Listing with Capital Raise Price Discovery
+struct DLWCRPD final {
+    Alpha8 stock;
+    Alpha openEligibilityStatus;
+    UnsignedInt64 nearExecutionTime;
     TimeStamp timeStamp;
-    Price minimumAllowablePrice;
-    Price maximumAllowablePrice;
-    Price nearExecutionPrice;
-    Price lowerPriceRangeCollar;
-    Price upperPriceRangeCollar;
-    StockLocate stockLocate;
-    TrackingNumber trackingNumber;
-    const MessageType messageType = 'O';
-    YesNo openEligibilityStatus;
+    UnsignedInt32 minimumAllowablePrice;
+    UnsignedInt32 maximumAllowablePrice;
+    UnsignedInt32 nearExecutionPrice;
+    UnsignedInt32 lowerPriceRangeCollar;
+    UnsignedInt32 upperPriceRangeCollar;
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    const Alpha messageType = 'O';
 };
-#pragma pack()
+
+#pragma pop()

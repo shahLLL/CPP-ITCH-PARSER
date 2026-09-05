@@ -15,7 +15,7 @@ using ETPLeverageFactor = std::uint32_t;
 using Reserved = bool;
 using LocateCode = std::uint16_t;
 using MPID = std::array<char, 4>;
-using Price = double;
+using Price = std::uint32_t;
 using IPOQuotationReleaseTime = std::uint32_t;
 using AuctionCollarExtension = std::uint32_t;
 using OrderReferenceNumber = std::uint64_t;
@@ -129,10 +129,10 @@ struct MarketParticipationPostion final {
 
 #pragma pack(1)
 struct MWCBDeclineLevelMessage final {
+    TimeStamp timeStamp;
     Price levelOne;
     Price levelTwo;
     Price levelThree;
-    TimeStamp timeStamp;
     StockLocate stockLocate;
     TrackingNumber trackingNumber;
     const MessageType messageType = 'V';
@@ -234,8 +234,8 @@ struct OrderExecutedMessage final {
 struct OrderExecutedWithPriceMessage final {
     OrderReferenceNumber orderReferenceNumber;
     MatchNumber matchNumber;
-    Price executionPrice;
     TimeStamp timeStamp;
+    Price executionPrice;
     Shares executedShares;
     StockLocate stockLocate;
     TrackingNumber trackingNumber;
@@ -269,8 +269,8 @@ struct OrderDeletelMessage final {
 struct OrderReplaceMessage final {
     OrderReferenceNumber originalOrderReferenceNumber;
     OrderReferenceNumber newOrderReferenceNumber;
-    Price price;
     TimeStamp timeStamp;
+    Price price;
     Shares shares;
     StockLocate stockLocate;
     TrackingNumber trackingNumber;
@@ -283,8 +283,8 @@ struct TradeMessage final {
     OrderReferenceNumber orderReferenceNumber;
     MatchNumber matchNumber;
     Stock stock{};
-    Price price;
     TimeStamp timeStamp;
+    Price price;
     Shares shares;
     StockLocate stockLocate;
     TrackingNumber trackingNumber;
@@ -298,8 +298,8 @@ struct CrossTradeMessage final {
     Stock stock{};
     MatchNumber matchNumber;
     BigShares shares;
-    Price crossPrice;
     TimeStamp timeStamp;
+    Price crossPrice;
     StockLocate stockLocate;
     TrackingNumber trackingNumber;
     const MessageType messageType = 'Q';
@@ -322,10 +322,10 @@ struct NOIIMessage final {
     Stock stock{};
     BigShares pairedShares;
     BigShares imbalanceShares;
+    TimeStamp timeStamp;
     Price farPrice;
     Price nearPrice;
     Price currentReferencePrice;
-    TimeStamp timeStamp;
     StockLocate stockLocate;
     TrackingNumber trackingNumber;
     const MessageType messageType = 'l';
@@ -339,13 +339,13 @@ struct NOIIMessage final {
 #pragma pack(1)
 struct DLWCRPDMessage final {
     Stock stock{};
+    ExecutionTime nearExecutionTime;
+    TimeStamp timeStamp;
     Price minimumAllowablePrice;
     Price maximumAllowablePrice;
     Price nearExecutionPrice;
     Price lowerPriceRangeCollar;
     Price upperPriceRangeCollar;
-    ExecutionTime nearExecutionTime;
-    TimeStamp timeStamp;
     StockLocate stockLocate;
     TrackingNumber trackingNumber;
     const MessageType messageType = 'O';

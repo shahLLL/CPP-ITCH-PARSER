@@ -328,7 +328,7 @@ struct NOIIMessage final {
     TimeStamp timeStamp;
     StockLocate stockLocate;
     TrackingNumber trackingNumber;
-    const MessageType messageType = 'I';
+    const MessageType messageType = 'l';
     ImbalanceDirection imbalanceDirection;
     CrossType crossType;
     PriceVariationIndicator priceVariationIndicator;

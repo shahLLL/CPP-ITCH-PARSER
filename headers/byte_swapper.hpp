@@ -2,16 +2,16 @@
 
 #include "types.hpp"
 
-[[nodiscard]] constexpr UnsignedInt16 bigEndianConvert16(UnsignedInt16 inputData) noexcept {
+[[nodiscard]] constexpr UnsignedInt16 byteSwap16(UnsignedInt16 inputData) noexcept {
     return static_cast<UnsignedInt16>((inputData << 8) | (inputData >> 8));
 }
 
-[[nodiscard]] constexpr UnsignedInt32 bigEndianConvert32(UnsignedInt32 inputData) noexcept {
+[[nodiscard]] constexpr UnsignedInt32 byteSwap32(UnsignedInt32 inputData) noexcept {
     return (inputData << 24) | ((inputData << 8) & 0x00FF0000) |
            ((inputData >> 8) & 0x0000FF00) | (inputData >> 24);
 }
 
-[[nodiscard]] constexpr UnsignedInt64 bigEndianConvert48(UnsignedInt64 inputData) noexcept {
+[[nodiscard]] constexpr UnsignedInt64 byteSwap48(UnsignedInt64 inputData) noexcept {
     inputData &= 0x0000'FFFF'FFFF'FFFFULL;
     return ((inputData & 0x0000'0000'0000'00FFULL) << 40) |
            ((inputData & 0x0000'0000'0000'FF00ULL) << 24) |
@@ -21,7 +21,7 @@
            ((inputData & 0x0000'FF00'0000'0000ULL) >> 40);
 }
 
-[[nodiscard]] constexpr UnsignedInt64 bigEndianConvert64(UnsignedInt64 inputData) noexcept {
+[[nodiscard]] constexpr UnsignedInt64 byteSwap64(UnsignedInt64 inputData) noexcept {
     return (inputData << 56) |
            ((inputData << 40) & 0x00FF000000000000ULL) |
            ((inputData << 24) & 0x0000FF0000000000ULL) |

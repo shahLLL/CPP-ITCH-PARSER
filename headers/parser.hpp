@@ -1,8 +1,5 @@
-#include <cstdint>
 #include <optional>
-
-// Aliases
-using MessageLength = std::uint8_t;
+#include "types.hpp"
 
 // Returns the message length, given message type.
-std::optional<MessageLength> parseMessageLength(char messageType) noexcept;
+std::optional<UnsignedInt8> parseMessageLength(char messageType) noexcept;

@@ -167,3 +167,26 @@ TEST_CASE("STRUCT MAPPER TESCASE #6", "[map_mwcb_status_message]") {
     REQUIRE(mwcbStatusMessage.breachedLevel == '1');
 
 }
+
+TEST_CASE("STRUCT MAPPER TESCASE #7", "[map_quotation_period_update]") {
+    std::byte testcase[] = {
+        std::byte{0x4B},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0xCE}, std::byte{0x07}, std::byte{0xF2}, std::byte{0x34},
+        std::byte{0x4E}, std::byte{0x56}, std::byte{0x44}, std::byte{0x41}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x85}, std::byte{0x98},
+        std::byte{0x41},
+        std::byte{0x00}, std::byte{0x02}, std::byte{0x49}, std::byte{0xF0}
+    };
+
+    QuotingPeriodUpdate quotationPeriodUpdate = mapQuotingPeriodUpdate(testcase);
+    REQUIRE(quotationPeriodUpdate.messageType == 'K');
+    REQUIRE(quotationPeriodUpdate.stockLocate == 1324);
+    REQUIRE(quotationPeriodUpdate.trackingNumber == 456);
+    REQUIRE(quotationPeriodUpdate.timeStamp == 3456627252);
+    REQUIRE(std::string_view(quotationPeriodUpdate.stock, alpha8Size) == "NVDA    ");
+    REQUIRE(quotationPeriodUpdate.ipoQuotationReleaseTime == 34200);
+    REQUIRE(quotationPeriodUpdate.ipoQuotationReleaseQualifier == 'A');
+    REQUIRE(quotationPeriodUpdate.ipoPrice == 150000);
+}

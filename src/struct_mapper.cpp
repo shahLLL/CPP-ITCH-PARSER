@@ -99,3 +99,17 @@
 
     return mwcbStatusMessage;
 }
+
+[[nodiscard]] QuotingPeriodUpdate mapQuotingPeriodUpdate(const std::byte* msg) noexcept {
+    QuotingPeriodUpdate quotingPeriodUpdate{};
+
+    quotingPeriodUpdate.stockLocate = endianConvert16(msg + 1);
+    quotingPeriodUpdate.trackingNumber = endianConvert16(msg + 3);
+    quotingPeriodUpdate.timeStamp = endianConvert48(msg + 5);
+    std::memcpy(quotingPeriodUpdate.stock, msg + 11, alpha8Size);
+    quotingPeriodUpdate.ipoQuotationReleaseTime = endianConvert32(msg + 19);
+    quotingPeriodUpdate.ipoQuotationReleaseQualifier = static_cast<Alpha>(msg[23]);
+    quotingPeriodUpdate.ipoPrice = endianConvert32(msg + 24);
+
+    return quotingPeriodUpdate;
+}

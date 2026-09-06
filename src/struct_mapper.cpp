@@ -113,3 +113,18 @@
 
     return quotingPeriodUpdate;
 }
+
+[[nodiscard]] LULDAuctionCollar mapLULDAuctionCollar(const std::byte* msg) noexcept {
+    LULDAuctionCollar luldAuctionCollar{};
+
+    luldAuctionCollar.stockLocate = endianConvert16(msg + 1);
+    luldAuctionCollar.trackingNumber = endianConvert16(msg + 3);
+    luldAuctionCollar.timeStamp = endianConvert48(msg + 5);
+    std::memcpy(luldAuctionCollar.stock, msg + 11, alpha8Size);
+    luldAuctionCollar.auctionCollarReferencePrice = endianConvert32(msg + 19);
+    luldAuctionCollar.upperAuctionCollarPrice = endianConvert32(msg + 23);
+    luldAuctionCollar.lowerAuctionCollarPrice = endianConvert32(msg + 27);
+    luldAuctionCollar.auctionCollarExtension = endianConvert32(msg + 31);
+
+    return luldAuctionCollar;
+}

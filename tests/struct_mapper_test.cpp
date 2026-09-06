@@ -190,3 +190,28 @@ TEST_CASE("STRUCT MAPPER TESCASE #7", "[map_quotation_period_update]") {
     REQUIRE(quotationPeriodUpdate.ipoQuotationReleaseQualifier == 'A');
     REQUIRE(quotationPeriodUpdate.ipoPrice == 150000);
 }
+
+TEST_CASE("STRUCT MAPPER TESCASE #8", "[map_luld_auction_collar]") {
+    std::byte testcase[] = {
+        std::byte{0x4A},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0xCE}, std::byte{0x07}, std::byte{0xF2}, std::byte{0x34},
+        std::byte{0x41}, std::byte{0x41}, std::byte{0x50}, std::byte{0x4C}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x00}, std::byte{0x1A}, std::byte{0xB3}, std::byte{0xF0},
+        std::byte{0x00}, std::byte{0x1D}, std::byte{0x5F}, std::byte{0x88},
+        std::byte{0x00}, std::byte{0x18}, std::byte{0x08}, std::byte{0x58},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x02}
+    };
+
+    LULDAuctionCollar luldAuctionCollar = mapLULDAuctionCollar(testcase);
+    REQUIRE(luldAuctionCollar.messageType == 'J');
+    REQUIRE(luldAuctionCollar.stockLocate == 1324);
+    REQUIRE(luldAuctionCollar.trackingNumber == 456);
+    REQUIRE(luldAuctionCollar.timeStamp == 3456627252);
+    REQUIRE(std::string_view(luldAuctionCollar.stock, alpha8Size) == "AAPL    ");
+    REQUIRE(luldAuctionCollar.auctionCollarReferencePrice == 1750000);
+    REQUIRE(luldAuctionCollar.upperAuctionCollarPrice == 1925000);
+    REQUIRE(luldAuctionCollar.lowerAuctionCollarPrice == 1575000);
+    REQUIRE(luldAuctionCollar.auctionCollarExtension == 2);
+}

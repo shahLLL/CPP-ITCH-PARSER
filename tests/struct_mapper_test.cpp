@@ -84,3 +84,22 @@ TEST_CASE("STRUCT MAPPER TESTCASE #3", "[map_stock_trading_action]") {
     REQUIRE(stockTradingAction.reserved == '\0');
     REQUIRE(std::string_view(stockTradingAction.reason, alpha4Size) == "MVI ");
 }
+
+TEST_CASE("STRUCT MAPPER TESCASE #4", "[map_reg_sho_restriction]") {
+    std::byte testcase[] = {
+        std::byte{0x59},
+        std::byte{0x02}, std::byte{0x00},
+        std::byte{0x00}, std::byte{0x0C},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x08}, std::byte{0x4A}, std::byte{0xEA},
+        std::byte{0x4D}, std::byte{0x53}, std::byte{0x46}, std::byte{0x54}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x31}
+    };
+
+    RegSHORestriction regSHORestriction = mapRegSHORestriction(testcase);
+    REQUIRE(regSHORestriction.messageType == 'Y');
+    REQUIRE(regSHORestriction.locateCode == 512);
+    REQUIRE(regSHORestriction.trackingNumber == 12);
+    REQUIRE(regSHORestriction.timeStamp == 543466);
+    REQUIRE(std::string_view(regSHORestriction.stock, alpha8Size) == "MSFT    ");
+    REQUIRE(regSHORestriction.regSHOAction == '1');
+}

@@ -48,3 +48,15 @@
 
     return stockTradingAction;
 }
+
+[[nodiscard]] RegSHORestriction mapRegSHORestriction(const std::byte* msg) noexcept {
+    RegSHORestriction regSHORestriction{};
+
+    regSHORestriction.locateCode = endianConvert16(msg + 1);
+    regSHORestriction.trackingNumber = endianConvert16(msg + 3);
+    regSHORestriction.timeStamp = endianConvert48(msg + 5);
+    std::memcpy(regSHORestriction.stock, msg + 11, alpha8Size);
+    regSHORestriction.regSHOAction = static_cast<Alpha>(msg[19]);
+
+    return regSHORestriction;
+}

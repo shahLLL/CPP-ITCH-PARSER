@@ -72,6 +72,19 @@
     marketParticipationPosition.primaryMarketMaker = static_cast<Alpha>(msg[23]);
     marketParticipationPosition.marketMakerMode = static_cast<Alpha>(msg[24]);
     marketParticipationPosition.marketParticipantState = static_cast<Alpha>(msg[25]);
-    
+
     return marketParticipationPosition;
+}
+
+[[nodiscard]] MWCBDeclineLevelMessage mapMWCBDeclineLevelMessage(const std::byte* msg) noexcept {
+    MWCBDeclineLevelMessage mwcbDeclineLevelMessage{};
+
+    mwcbDeclineLevelMessage.stockLocate = endianConvert16(msg + 1);
+    mwcbDeclineLevelMessage.trackingNumber = endianConvert16(msg + 3);
+    mwcbDeclineLevelMessage.timeStamp = endianConvert48(msg + 5);
+    mwcbDeclineLevelMessage.level1 = endianConvert64(msg + 11);
+    mwcbDeclineLevelMessage.level2 = endianConvert64(msg + 19);
+    mwcbDeclineLevelMessage.level3 = endianConvert64(msg + 27);
+
+    return mwcbDeclineLevelMessage;
 }

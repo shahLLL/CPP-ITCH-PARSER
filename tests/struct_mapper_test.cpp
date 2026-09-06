@@ -128,3 +128,24 @@ TEST_CASE("STRUCT MAPPER TESCASE #4", "[map_market_participation_position]") {
     REQUIRE(marketParticipationPosition.marketMakerMode == 'N');
     REQUIRE(marketParticipationPosition.marketParticipantState == 'A');
 }
+
+TEST_CASE("STRUCT MAPPER TESCASE #5", "[map_mwcb_decline_level_message]") {
+    std::byte testcase[] = {
+        std::byte{0x56},
+        std::byte{0x00}, std::byte{0x00},
+        std::byte{0x00}, std::byte{0x01},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x0C}, std::byte{0xE0}, std::byte{0x7F}, std::byte{0x23}, 
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x10}, std::byte{0x4C}, std::byte{0x53}, std::byte{0x3C}, std::byte{0x00},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x12}, std::byte{0xA0}, std::byte{0x5F}, std::byte{0x20}, std::byte{0x00},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x14}, std::byte{0xF4}, std::byte{0x6B}, std::byte{0x04}, std::byte{0x00}
+    };
+
+    MWCBDeclineLevelMessage mwcbDeclineLevelMessage = mapMWCBDeclineLevelMessage(testcase);
+    REQUIRE(mwcbDeclineLevelMessage.messageType == 'V');
+    REQUIRE(mwcbDeclineLevelMessage.stockLocate == 0);
+    REQUIRE(mwcbDeclineLevelMessage.trackingNumber == 1);
+    REQUIRE(mwcbDeclineLevelMessage.timeStamp == 216039203);
+    REQUIRE(mwcbDeclineLevelMessage.level1 == 70000000000);
+    REQUIRE(mwcbDeclineLevelMessage.level2 == 80000000000);
+    REQUIRE(mwcbDeclineLevelMessage.level3 == 90000000000);
+}

@@ -88,3 +88,14 @@
 
     return mwcbDeclineLevelMessage;
 }
+
+[[nodiscard]] MWCBStatusMessage mapMWCBStatusMessage(const std::byte* msg) noexcept {
+    MWCBStatusMessage mwcbStatusMessage{};
+
+    mwcbStatusMessage.stockLocate = endianConvert16(msg + 1);
+    mwcbStatusMessage.trackingNumber = endianConvert16(msg + 3);
+    mwcbStatusMessage.timeStamp = endianConvert48(msg + 5);
+    mwcbStatusMessage.breachedLevel = static_cast<Alpha>(msg[11]);
+
+    return mwcbStatusMessage;
+}

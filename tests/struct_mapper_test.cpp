@@ -149,3 +149,21 @@ TEST_CASE("STRUCT MAPPER TESCASE #5", "[map_mwcb_decline_level_message]") {
     REQUIRE(mwcbDeclineLevelMessage.level2 == 80000000000);
     REQUIRE(mwcbDeclineLevelMessage.level3 == 90000000000);
 }
+
+TEST_CASE("STRUCT MAPPER TESCASE #6", "[map_mwcb_status_message]") {
+    std::byte testcase[] = {
+        std::byte{0x57},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0xCE}, std::byte{0x07}, std::byte{0xF2}, std::byte{0x34},
+        std::byte{0x31}
+    };
+
+    MWCBStatusMessage mwcbStatusMessage = mapMWCBStatusMessage(testcase);
+    REQUIRE(mwcbStatusMessage.messageType == 'V');
+    REQUIRE(mwcbStatusMessage.stockLocate == 1324);
+    REQUIRE(mwcbStatusMessage.trackingNumber == 456);
+    REQUIRE(mwcbStatusMessage.timeStamp == 3456627252);
+    REQUIRE(mwcbStatusMessage.breachedLevel == '1');
+
+}

@@ -215,3 +215,24 @@ TEST_CASE("STRUCT MAPPER TESCASE #8", "[map_luld_auction_collar]") {
     REQUIRE(luldAuctionCollar.lowerAuctionCollarPrice == 1575000);
     REQUIRE(luldAuctionCollar.auctionCollarExtension == 2);
 }
+
+TEST_CASE("STRUCT MAPPER TESCASE #8", "[map_operational_halt]") {
+    std::byte testcase[] = {
+        std::byte{0x68},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0xCE}, std::byte{0x07}, std::byte{0xF2}, std::byte{0x34},
+        std::byte{0x41}, std::byte{0x4D}, std::byte{0x5A}, std::byte{0x4E}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x51},
+        std::byte{0x48}
+    };
+
+    OperationalHalt operationalHalt = mapOperationalHalt(testcase);
+    REQUIRE(operationalHalt.messageType == 'h');
+    REQUIRE(operationalHalt.stockLocate == 1324);
+    REQUIRE(operationalHalt.trackingNumber == 456);
+    REQUIRE(operationalHalt.timeStamp == 3456627252);
+    REQUIRE(std::string_view(operationalHalt.stock, alpha8Size) == "AMZN    ");
+    REQUIRE(operationalHalt.marketCode == 'Q');
+    REQUIRE(operationalHalt.operationalHaltAction == 'H');
+}

@@ -128,3 +128,16 @@
 
     return luldAuctionCollar;
 }
+
+[[nodiscard]] OperationalHalt mapOperationalHalt(const std::byte* msg) noexcept {
+    OperationalHalt operationalHalt{};
+
+    operationalHalt.stockLocate = endianConvert16(msg + 1);
+    operationalHalt.trackingNumber = endianConvert16(msg + 3);
+    operationalHalt.timeStamp = endianConvert48(msg + 5);
+    std::memcpy(operationalHalt.stock, msg + 11, alpha8Size);
+    operationalHalt.marketCode = static_cast<Alpha>(msg[19]);
+    operationalHalt.operationalHaltAction = static_cast<Alpha>(msg[20]);
+
+    return operationalHalt;
+}

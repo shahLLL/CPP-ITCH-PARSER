@@ -47,13 +47,13 @@ TEST_CASE("STRUCT MAPPER TESTCASE #2", "[map_stock_directory]") {
     REQUIRE(stockDirectory.stockLocate == 100);
     REQUIRE(stockDirectory.trackingNumber == 500);
     REQUIRE(stockDirectory.timeStamp == 1000);
-    REQUIRE(std::string_view(stockDirectory.stock, 8) == "AAPL    ");
+    REQUIRE(std::string_view(stockDirectory.stock, alpha8Size) == "AAPL    ");
     REQUIRE(stockDirectory.marketCategory == 'Q');
     REQUIRE(stockDirectory.financialStatusIndicator == 'N');
     REQUIRE(stockDirectory.roundLotSize == 100);
     REQUIRE(stockDirectory.roundLotsOnly == 'Y');
     REQUIRE(stockDirectory.issueClassification == 'C');
-    REQUIRE(std::string_view(stockDirectory.issueSubType, 2) == "NA");
+    REQUIRE(std::string_view(stockDirectory.issueSubType, alpha2Size) == "NA");
     REQUIRE(stockDirectory.authenticity == 'P');
     REQUIRE(stockDirectory.shortSaleThresholdIndicator == 'N');
     REQUIRE(stockDirectory.ipoFlag == 'N');
@@ -61,4 +61,26 @@ TEST_CASE("STRUCT MAPPER TESTCASE #2", "[map_stock_directory]") {
     REQUIRE(stockDirectory.etpFlag == 'N');
     REQUIRE(stockDirectory.etpLeverageFactor == 0);
     REQUIRE(stockDirectory.inverseIndicator == 'N');
+}
+
+TEST_CASE("STRUCT MAPPER TESTCASE #3", "[map_stock_trading_action]") {
+    std::byte testcase[] = {
+        std::byte{0x48},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x00}, std::byte{0x07},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x3A}, std::byte{0xDE}, std::byte{0x68}, std::byte{0xB1},
+        std::byte{0x41}, std::byte{0x41}, std::byte{0x50}, std::byte{0x4C}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x54},
+        std::byte{0x00},
+        std::byte{0x4D}, std::byte{0x56}, std::byte{0x49}, std::byte{0x20},
+    };
+
+    StockTradingAction stockTradingAction = mapStockTradingAction(testcase);
+    REQUIRE(stockTradingAction.messageType == 'H');
+    REQUIRE(stockTradingAction.stockLocate == 1324);
+    REQUIRE(stockTradingAction.trackingNumber == 7);
+    REQUIRE(stockTradingAction.timeStamp == 987654321);
+    REQUIRE(stockTradingAction.tradingState == 'T');
+    REQUIRE(stockTradingAction.reserved == '\0');
+    REQUIRE(std::string_view(stockTradingAction.reason, alpha4Size) == "MVI ");
 }

@@ -34,3 +34,17 @@
 
     return stockDirectory;
 }
+
+[[nodiscard]] StockTradingAction mapStockTradingAction(const std::byte* msg) noexcept {
+    StockTradingAction stockTradingAction{};
+
+    stockTradingAction.stockLocate = endianConvert16(msg + 1);
+    stockTradingAction.trackingNumber = endianConvert16(msg + 3);
+    stockTradingAction.timeStamp = endianConvert48(msg + 5);
+    std::memcpy(stockTradingAction.stock, msg + 11, alpha8Size);
+    stockTradingAction.tradingState = static_cast<Alpha>(msg[19]);
+    stockTradingAction.reserved = static_cast<Alpha>(msg[20]);
+    std::memcpy(stockTradingAction.reason, msg + 21, alpha4Size);
+
+    return stockTradingAction;
+}

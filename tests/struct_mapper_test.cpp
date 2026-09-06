@@ -103,3 +103,28 @@ TEST_CASE("STRUCT MAPPER TESCASE #4", "[map_reg_sho_restriction]") {
     REQUIRE(std::string_view(regSHORestriction.stock, alpha8Size) == "MSFT    ");
     REQUIRE(regSHORestriction.regSHOAction == '1');
 }
+
+TEST_CASE("STRUCT MAPPER TESCASE #4", "[map_market_participation_position]") { 
+    std::byte testcase[] = {
+        std::byte{0x4C},
+        std::byte{0x20}, std::byte{0x00},
+        std::byte{0x00}, std::byte{0x03},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0xCE}, std::byte{0x07}, std::byte{0xF2}, std::byte{0x34},
+        std::byte{0x42}, std::byte{0x41}, std::byte{0x52}, std::byte{0x43},
+        std::byte{0x54}, std::byte{0x53}, std::byte{0x4C}, std::byte{0x41}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x59},
+        std::byte{0x4E},
+        std::byte{0x41}
+    };
+
+    MarketParticipantPosition marketParticipationPosition = mapMarketParticipationPostion(testcase);
+    REQUIRE(marketParticipationPosition.messageType == 'L');
+    REQUIRE(marketParticipationPosition.stockLocate == 8192);
+    REQUIRE(marketParticipationPosition.trackingNumber == 3);
+    REQUIRE(marketParticipationPosition.timeStamp == 3456627252);
+    REQUIRE(std::string_view(marketParticipationPosition.mpid, alpha4Size) == "BARC");
+    REQUIRE(std::string_view(marketParticipationPosition.stock, alpha8Size) == "TSLA    ");
+    REQUIRE(marketParticipationPosition.primaryMarketMaker == 'Y');
+    REQUIRE(marketParticipationPosition.marketMakerMode == 'N');
+    REQUIRE(marketParticipationPosition.marketParticipantState == 'A');
+}

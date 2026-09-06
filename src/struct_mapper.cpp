@@ -60,3 +60,18 @@
 
     return regSHORestriction;
 }
+
+[[nodiscard]] MarketParticipantPosition mapMarketParticipationPostion(const std::byte* msg) noexcept {
+    MarketParticipantPosition marketParticipationPosition{};
+
+    marketParticipationPosition.stockLocate = endianConvert16(msg + 1);
+    marketParticipationPosition.trackingNumber = endianConvert16(msg + 3);
+    marketParticipationPosition.timeStamp = endianConvert48(msg + 5);
+    std::memcpy(marketParticipationPosition.mpid, msg + 11, alpha4Size);
+    std::memcpy(marketParticipationPosition.stock, msg + 15, alpha8Size);
+    marketParticipationPosition.primaryMarketMaker = static_cast<Alpha>(msg[23]);
+    marketParticipationPosition.marketMakerMode = static_cast<Alpha>(msg[24]);
+    marketParticipationPosition.marketParticipantState = static_cast<Alpha>(msg[25]);
+    
+    return marketParticipationPosition;
+}

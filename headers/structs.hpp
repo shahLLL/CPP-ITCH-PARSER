@@ -6,256 +6,255 @@
 
 // Structs, organized from largest to smallest data type for mem optimisation.
 struct SystemEventMessage final {
-    TimeStamp timeStamp;
+    const Alpha messageType = 'S';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'S';
+    TimeStamp timeStamp;
     Alpha eventCode;
 };
 
 struct StockDirectory final {
-    Alpha8 stock;
-    TimeStamp timeStamp;
-    UnsignedInt32 roundLotSize;
-    UnsignedInt32 etpLeverageFactor;
+    const Alpha messageType = 'R';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    Alpha2 issueSubType;
-    const Alpha messageType = 'R';
-    Alpha inverseIndicator;
+    TimeStamp timeStamp;
+    Alpha8 stock{};
     Alpha marketCategory;
     Alpha financialStatusIndicator;
+    UnsignedInt32 roundLotSize;
     Alpha roundLotsOnly;
     Alpha issueClassification;
+    Alpha2 issueSubType{};
     Alpha authenticity;
     Alpha shortSaleThresholdIndicator;
     Alpha ipoFlag;
     Alpha luldReferencePriceTier;
     Alpha etpFlag;
+    UnsignedInt32 etpLeverageFactor;
+    Alpha inverseIndicator;
 };
 
 struct StockTradingAction final {
-    Alpha8 stock;
-    TimeStamp timeStamp;
-    Alpha4 reason;
+    const Alpha messageType = 'H';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'H';
+    TimeStamp timeStamp;
+    Alpha8 stock{};
     Alpha tradingState;
     Alpha reserved;
+    Alpha4 reason{};
 };
 
 struct RegSHORestriction final {
-    Alpha8 stock;
-    TimeStamp timeStamp;
+    const Alpha messageType = 'Y';
     UnsignedInt16 locateCode;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'Y';
+    TimeStamp timeStamp;
+    Alpha8 stock{};
     Alpha regSHOAction;
 };
 
 struct MarketParticipantPosition final {
-    Alpha8 stock;
-    TimeStamp timeStamp;
-    Alpha4 mpid;
+    const Alpha messageType = 'L';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'L';
+    TimeStamp timeStamp;
+    Alpha4 mpid{};
+    Alpha8 stock{};
     Alpha primaryMarketMaker;
     Alpha marketMakerMode;
     Alpha marketParticipantState;
 };
 
 struct MWCBDeclineLevelMessage final {
+    const Alpha messageType = 'V';
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
+    TimeStamp timeStamp;
     UnsignedInt64 level1;
     UnsignedInt64 level2;
     UnsignedInt64 level3;
-    TimeStamp timeStamp;
-    UnsignedInt16 stockLocate;
-    UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'V';
 };
 
 struct MWCBStatusMessage final {
-    TimeStamp timeStamp;
+    const Alpha messageType = 'V';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'V';
+    TimeStamp timeStamp;
     Alpha breachedLevel;
 };
 
 struct QuotingPeriodUpdate final {
-    Alpha8 stock;
-    TimeStamp timeStamp;
-    UnsignedInt32 ipoQuotationReleaseTime;
-    UnsignedInt32 ipoPrice;
+    const Alpha messageType = 'K';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'K';
+    TimeStamp timeStamp;
+    Alpha8 stock{};
+    UnsignedInt32 ipoQuotationReleaseTime;
     Alpha ipoQuotationReleaseQualifier;
-    
+    UnsignedInt32 ipoPrice;
 };
 
 struct LULDAuctionCollar final {
-    Alpha8 stock;
+    const Alpha messageType = 'J';
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
     TimeStamp timeStamp;
+    Alpha8 stock{};
     UnsignedInt32 auctionCollarReferencePrice;
     UnsignedInt32 upperAuctionCollarPrice;
     UnsignedInt32 lowerAuctionCollarPrice;
     UnsignedInt32 auctionCollarExtension;
-    UnsignedInt16 stockLocate;
-    UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'J';
 };
 
 struct OperationalHalt final {
-    Alpha8 stock;
-    TimeStamp timeStamp;
+    const Alpha messageType = 'h';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'h';
+    TimeStamp timeStamp;
+    Alpha8 stock{};
     Alpha marketCode;
     Alpha operationalHaltAction;
 };
 
 struct AddOrderMessage final {
-    UnsignedInt64 orderReferenceNumber;
-    Alpha8 stock;
-    TimeStamp timeStamp;
-    UnsignedInt32 price;
-    UnsignedInt32 shares;
+    const Alpha messageType = 'A';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'A';
+    TimeStamp timeStamp;
+    UnsignedInt64 orderReferenceNumber;
     Alpha buySellIndicator;
+    UnsignedInt32 shares;
+    Alpha8 stock{};
+    UnsignedInt32 price;
 };
 
 struct AddOrderMPIDAttributionMessage final {
-    UnsignedInt64 orderReferenceNumber;
-    Alpha8 stock;
-    TimeStamp timeStamp;
-    UnsignedInt32 price;
-    UnsignedInt32 shares;
-    Alpha4 attribution;
+    const Alpha messageType = 'F';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'F';
+    TimeStamp timeStamp;
+    UnsignedInt64 orderReferenceNumber;
     Alpha buySellIndicator;
+    UnsignedInt32 shares;
+    Alpha8 stock{};
+    UnsignedInt32 price;
+    Alpha4 attribution{};
 };
 
 struct OrderExecutedMessage final {
-    UnsignedInt64 orderReferenceNumber;
-    UnsignedInt64 matchNumber;
-    TimeStamp timeStamp;
-    UnsignedInt32 executedShares;
+    const Alpha messageType = 'E';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'E';
+    TimeStamp timeStamp;
+    UnsignedInt64 orderReferenceNumber;
+    UnsignedInt32 executedShares;
+    UnsignedInt64 matchNumber;
 };
 
 struct OrderExecutedWithPriceMessage final {
-    UnsignedInt64 orderReferenceNumber;
-    UnsignedInt64 matchNumber;
-    TimeStamp timeStamp;
-    UnsignedInt32 executedShares;
-    UnsignedInt32 executionPrice;
+    const Alpha messageType = 'C';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'C';
+    TimeStamp timeStamp;
+    UnsignedInt64 orderReferenceNumber;
+    UnsignedInt32 executedShares;
+    UnsignedInt64 matchNumber;
     Alpha printable;
+    UnsignedInt32 executionPrice;
 };
 
 struct OrderCancelMessage final {
-    UnsignedInt64 orderReferenceNumber;
-    TimeStamp timeStamp;
-    UnsignedInt32 cancelledShares;
+    const Alpha messageType = 'X';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'X';
+    TimeStamp timeStamp;
+    UnsignedInt64 orderReferenceNumber;
+    UnsignedInt32 cancelledShares;
 };
 
 struct OrderDeleteMessage final {
-    UnsignedInt64 orderReferenceNumber;
-    TimeStamp timeStamp;
+    const Alpha messageType = 'D';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'D';
+    TimeStamp timeStamp;
+    UnsignedInt64 orderReferenceNumber;
 };
 
 struct OrderReplaceMessage final {
-    UnsignedInt64 originalOrderReferenceNumber;
-    UnsignedInt64 newOrderReferenceNumber;
-    TimeStamp timeStamp;
-    UnsignedInt32 shares;
-    UnsignedInt32 price;
+    const Alpha messageType = 'U';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'U';
+    TimeStamp timeStamp;
+    UnsignedInt64 originalOrderReferenceNumber;
+    UnsignedInt64 newOrderReferenceNumber;
+    UnsignedInt32 shares;
+    UnsignedInt32 price;
 };
 
 struct TradeMessage final {
-    Alpha8 stock;
-    UnsignedInt64 orderReferenceNumber;
-    UnsignedInt64 matchNumber;
-    TimeStamp timeStamp;
-    UnsignedInt32 shares;
-    UnsignedInt32 price;
+    const Alpha messageType = 'P';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'P';
+    TimeStamp timeStamp;
+    UnsignedInt64 orderReferenceNumber;
     Alpha buySellIndicator;
+    UnsignedInt32 shares;
+    Alpha8 stock{};
+    UnsignedInt32 price;
+    UnsignedInt64 matchNumber;
 };
 
 struct CrossTradeMessage final {
-    UnsignedInt64 shares;
-    Alpha8 stock;
-    UnsignedInt64 matchNumber;
-    TimeStamp TimeStamp;
-    UnsignedInt32 crossPrice;
+    const Alpha messageType = 'Q';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'Q';
+    TimeStamp TimeStamp;
+    UnsignedInt64 shares;
+    Alpha8 stock{};
+    UnsignedInt32 crossPrice;
+    UnsignedInt64 matchNumber;
     Alpha crossType;
-
 };
 
 struct BrokenTradeMessage final {
-    UnsignedInt64 matchNumber;
-    TimeStamp timeStamp;
+    const Alpha messageType = 'B';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'B';
+    TimeStamp timeStamp;
+    UnsignedInt64 matchNumber;
 };
 
 struct NOIIMessage final {
-    UnsignedInt64 pairedShares;
-    UnsignedInt64 imbalanceShares;
-    Alpha8 stock;
-    TimeStamp timeStamp;
-    UnsignedInt32 farPrice;
-    UnsignedInt32 nearPrice;
+    const Alpha messageType = 'l';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'l';
+    TimeStamp timeStamp;
+    UnsignedInt64 pairedShares;
+    UnsignedInt64 imbalanceShares;
+    Alpha imbalanceDirection;
+    Alpha8 stock{};
+    UnsignedInt32 farPrice;
+    UnsignedInt32 nearPrice;
+    UnsignedInt32 currentReferencePrice;
     Alpha crossType;
     Alpha priceVariationIndicator;
-    Alpha imbalanceDirection;
 };
 
 // DLWCRPD = Direst Listing with Capital Raise Price Discovery
 struct DLWCRPD final {
-    Alpha8 stock;
-    Alpha openEligibilityStatus;
-    UnsignedInt64 nearExecutionTime;
+    const Alpha messageType = 'O';
+    UnsignedInt16 stockLocate;
+    UnsignedInt16 trackingNumber;
     TimeStamp timeStamp;
+    Alpha8 stock{};
+    Alpha openEligibilityStatus;
     UnsignedInt32 minimumAllowablePrice;
     UnsignedInt32 maximumAllowablePrice;
     UnsignedInt32 nearExecutionPrice;
+    UnsignedInt64 nearExecutionTime;
     UnsignedInt32 lowerPriceRangeCollar;
     UnsignedInt32 upperPriceRangeCollar;
-    UnsignedInt16 stockLocate;
-    UnsignedInt16 trackingNumber;
-    const Alpha messageType = 'O';
 };
 
-#pragma pop()
+#pragma pack(pop)

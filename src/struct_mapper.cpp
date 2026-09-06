@@ -141,3 +141,18 @@
 
     return operationalHalt;
 }
+
+[[nodiscard]] AddOrderMessage mapAddOrderMessage(const std::byte* msg) noexcept {
+    AddOrderMessage addOrderMessage{};
+
+    addOrderMessage.stockLocate = endianConvert16(msg + 1);
+    addOrderMessage.trackingNumber = endianConvert16(msg + 3);
+    addOrderMessage.timeStamp = endianConvert48(msg + 5);
+    addOrderMessage.orderReferenceNumber = endianConvert64(msg + 11);
+    addOrderMessage.buySellIndicator = static_cast<Alpha>(msg[19]);
+    addOrderMessage.shares = endianConvert32(msg + 20);
+    std::memcpy(addOrderMessage.stock, msg + 24, alpha8Size);
+    addOrderMessage.price = endianConvert32(msg + 32);
+
+    return addOrderMessage;
+}

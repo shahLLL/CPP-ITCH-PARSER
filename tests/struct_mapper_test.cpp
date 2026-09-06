@@ -85,7 +85,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #3", "[map_stock_trading_action]") {
     REQUIRE(std::string_view(stockTradingAction.reason, alpha4Size) == "MVI ");
 }
 
-TEST_CASE("STRUCT MAPPER TESCASE #4", "[map_reg_sho_restriction]") {
+TEST_CASE("STRUCT MAPPER TESTCASE #4", "[map_reg_sho_restriction]") {
     std::byte testcase[] = {
         std::byte{0x59},
         std::byte{0x02}, std::byte{0x00},
@@ -104,7 +104,7 @@ TEST_CASE("STRUCT MAPPER TESCASE #4", "[map_reg_sho_restriction]") {
     REQUIRE(regSHORestriction.regSHOAction == '1');
 }
 
-TEST_CASE("STRUCT MAPPER TESCASE #4", "[map_market_participation_position]") { 
+TEST_CASE("STRUCT MAPPER TESTCASE #5", "[map_market_participation_position]") { 
     std::byte testcase[] = {
         std::byte{0x4C},
         std::byte{0x20}, std::byte{0x00},
@@ -129,7 +129,7 @@ TEST_CASE("STRUCT MAPPER TESCASE #4", "[map_market_participation_position]") {
     REQUIRE(marketParticipationPosition.marketParticipantState == 'A');
 }
 
-TEST_CASE("STRUCT MAPPER TESCASE #5", "[map_mwcb_decline_level_message]") {
+TEST_CASE("STRUCT MAPPER TESTCASE #6", "[map_mwcb_decline_level_message]") {
     std::byte testcase[] = {
         std::byte{0x56},
         std::byte{0x00}, std::byte{0x00},
@@ -150,7 +150,7 @@ TEST_CASE("STRUCT MAPPER TESCASE #5", "[map_mwcb_decline_level_message]") {
     REQUIRE(mwcbDeclineLevelMessage.level3 == 90000000000);
 }
 
-TEST_CASE("STRUCT MAPPER TESCASE #6", "[map_mwcb_status_message]") {
+TEST_CASE("STRUCT MAPPER TESTCASE #7", "[map_mwcb_status_message]") {
     std::byte testcase[] = {
         std::byte{0x57},
         std::byte{0x05}, std::byte{0x2C},
@@ -168,7 +168,7 @@ TEST_CASE("STRUCT MAPPER TESCASE #6", "[map_mwcb_status_message]") {
 
 }
 
-TEST_CASE("STRUCT MAPPER TESCASE #7", "[map_quotation_period_update]") {
+TEST_CASE("STRUCT MAPPER TESTCASE #8", "[map_quotation_period_update]") {
     std::byte testcase[] = {
         std::byte{0x4B},
         std::byte{0x05}, std::byte{0x2C},
@@ -191,7 +191,7 @@ TEST_CASE("STRUCT MAPPER TESCASE #7", "[map_quotation_period_update]") {
     REQUIRE(quotationPeriodUpdate.ipoPrice == 150000);
 }
 
-TEST_CASE("STRUCT MAPPER TESCASE #8", "[map_luld_auction_collar]") {
+TEST_CASE("STRUCT MAPPER TESTCASE #9", "[map_luld_auction_collar]") {
     std::byte testcase[] = {
         std::byte{0x4A},
         std::byte{0x05}, std::byte{0x2C},
@@ -216,7 +216,7 @@ TEST_CASE("STRUCT MAPPER TESCASE #8", "[map_luld_auction_collar]") {
     REQUIRE(luldAuctionCollar.auctionCollarExtension == 2);
 }
 
-TEST_CASE("STRUCT MAPPER TESCASE #8", "[map_operational_halt]") {
+TEST_CASE("STRUCT MAPPER TESTCASE #10", "[map_operational_halt]") {
     std::byte testcase[] = {
         std::byte{0x68},
         std::byte{0x05}, std::byte{0x2C},
@@ -235,4 +235,29 @@ TEST_CASE("STRUCT MAPPER TESCASE #8", "[map_operational_halt]") {
     REQUIRE(std::string_view(operationalHalt.stock, alpha8Size) == "AMZN    ");
     REQUIRE(operationalHalt.marketCode == 'Q');
     REQUIRE(operationalHalt.operationalHaltAction == 'H');
+}
+
+TEST_CASE("STRUCT MAPPER TESTCASE #11", "[map_add_order_message]") {
+    std::byte testcase[] = {
+        std::byte{0x41},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0xCE}, std::byte{0x07}, std::byte{0xF2}, std::byte{0x34},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x02}, std::byte{0x4C}, std::byte{0xBC}, std::byte{0x6B}, std::byte{0x4A},
+        std::byte{0x42},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x4D}, std::byte{0x53}, std::byte{0x46}, std::byte{0x54}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x00}, std::byte{0x40}, std::byte{0x2A}, std::byte{0x88}
+    };
+
+    AddOrderMessage addOrderMessage = mapAddOrderMessage(testcase);
+    REQUIRE(addOrderMessage.messageType == 'A');
+    REQUIRE(addOrderMessage.stockLocate == 1324);
+    REQUIRE(addOrderMessage.trackingNumber == 456);
+    REQUIRE(addOrderMessage.timeStamp == 3456627252);
+    REQUIRE(addOrderMessage.orderReferenceNumber == 9877351242);
+    REQUIRE(addOrderMessage.buySellIndicator == 'B');
+    REQUIRE(addOrderMessage.shares == 500);
+    REQUIRE(std::string_view(addOrderMessage.stock, alpha8Size) == "MSFT    ");
+    REQUIRE(addOrderMessage.price == 4205192);
 }

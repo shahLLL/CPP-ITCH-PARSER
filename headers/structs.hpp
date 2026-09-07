@@ -209,7 +209,7 @@ struct CrossTradeMessage final {
     const Alpha messageType = 'Q';
     UnsignedInt16 stockLocate;
     UnsignedInt16 trackingNumber;
-    TimeStamp TimeStamp;
+    TimeStamp timeStamp;
     UnsignedInt64 shares;
     Alpha8 stock{};
     UnsignedInt32 crossPrice;

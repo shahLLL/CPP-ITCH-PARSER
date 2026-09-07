@@ -253,3 +253,18 @@
 
     return tradeMessage;
 }
+
+[[nodiscard]] CrossTradeMessage mapCrossTradeMessage(const std::byte* msg) noexcept {
+    CrossTradeMessage crossTradeMessage {};
+
+    crossTradeMessage.stockLocate = endianConvert16(msg + 1);
+    crossTradeMessage.trackingNumber = endianConvert16(msg + 3);
+    crossTradeMessage.timeStamp = endianConvert48(msg + 5);
+    crossTradeMessage.shares = endianConvert64(msg + 11);
+    std::memcpy(crossTradeMessage.stock, msg + 19, alpha8Size);
+    crossTradeMessage.crossPrice = endianConvert32(msg + 27);
+    crossTradeMessage.matchNumber = endianConvert64(msg + 31);
+    crossTradeMessage.crossType = static_cast<Alpha>(msg[39]);
+
+    return crossTradeMessage;
+}

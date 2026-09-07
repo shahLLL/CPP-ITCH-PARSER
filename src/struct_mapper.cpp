@@ -156,3 +156,19 @@
 
     return addOrderMessage;
 }
+
+[[nodiscard]] AddOrderMPIDAttributionMessage mapAddOrderMPIDAttributionMessage(const std::byte* msg) noexcept {
+    AddOrderMPIDAttributionMessage addOrderMPIDAttributionMessage = AddOrderMPIDAttributionMessage{};
+
+    addOrderMPIDAttributionMessage.stockLocate = endianConvert16(msg + 1);
+    addOrderMPIDAttributionMessage.trackingNumber = endianConvert16(msg + 3);
+    addOrderMPIDAttributionMessage.timeStamp = endianConvert48(msg + 5);
+    addOrderMPIDAttributionMessage.orderReferenceNumber = endianConvert64(msg + 11);
+    addOrderMPIDAttributionMessage.buySellIndicator = static_cast<Alpha>(msg[19]);
+    addOrderMPIDAttributionMessage.shares = endianConvert32(msg + 20);
+    std::memcpy(addOrderMPIDAttributionMessage.stock, msg + 24, alpha8Size);
+    addOrderMPIDAttributionMessage.price = endianConvert32(msg + 32);
+    std::memcpy(addOrderMPIDAttributionMessage.attribution, msg + 36, alpha4Size);
+
+    return addOrderMPIDAttributionMessage;
+}

@@ -261,3 +261,30 @@ TEST_CASE("STRUCT MAPPER TESTCASE #11", "[map_add_order_message]") {
     REQUIRE(std::string_view(addOrderMessage.stock, alpha8Size) == "MSFT    ");
     REQUIRE(addOrderMessage.price == 4205192);
 }
+
+TEST_CASE("STRUCT MAPPER TESTCASE #12", "[map_add_order_mpid_attribution_message]") {
+    std::byte testcase[] = {
+        std::byte{0x46},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0xCE}, std::byte{0x07}, std::byte{0xF2}, std::byte{0x34},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x02}, std::byte{0x4C}, std::byte{0xBC}, std::byte{0x6B}, std::byte{0x4A},
+        std::byte{0x42},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x4D}, std::byte{0x53}, std::byte{0x46}, std::byte{0x54}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x00}, std::byte{0x40}, std::byte{0x2A}, std::byte{0x88},
+        std::byte{0x41}, std::byte{0x42}, std::byte{0x43}, std::byte{0x44}
+    };
+
+    AddOrderMPIDAttributionMessage addOrderMPIDAttributionMessage = mapAddOrderMPIDAttributionMessage(testcase);
+    REQUIRE(addOrderMPIDAttributionMessage.messageType == 'F');
+    REQUIRE(addOrderMPIDAttributionMessage.stockLocate == 1324);
+    REQUIRE(addOrderMPIDAttributionMessage.trackingNumber == 456);
+    REQUIRE(addOrderMPIDAttributionMessage.timeStamp == 3456627252);
+    REQUIRE(addOrderMPIDAttributionMessage.orderReferenceNumber == 9877351242);
+    REQUIRE(addOrderMPIDAttributionMessage.buySellIndicator == 'B');
+    REQUIRE(addOrderMPIDAttributionMessage.shares == 500);
+    REQUIRE(std::string_view(addOrderMPIDAttributionMessage.stock, alpha8Size) == "MSFT    ");
+    REQUIRE(addOrderMPIDAttributionMessage.price == 4205192);
+    REQUIRE(std::string_view(addOrderMPIDAttributionMessage.attribution, alpha4Size) == "ABCD");
+}

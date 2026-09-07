@@ -47,13 +47,13 @@ TEST_CASE("STRUCT MAPPER TESTCASE #2", "[map_stock_directory]") {
     REQUIRE(stockDirectory.stockLocate == 100);
     REQUIRE(stockDirectory.trackingNumber == 500);
     REQUIRE(stockDirectory.timeStamp == 1000);
-    REQUIRE(std::string_view(stockDirectory.stock, alpha8Size) == "AAPL    ");
+    REQUIRE(std::string_view(stockDirectory.stock, ItchType::alpha8Size) == "AAPL    ");
     REQUIRE(stockDirectory.marketCategory == 'Q');
     REQUIRE(stockDirectory.financialStatusIndicator == 'N');
     REQUIRE(stockDirectory.roundLotSize == 100);
     REQUIRE(stockDirectory.roundLotsOnly == 'Y');
     REQUIRE(stockDirectory.issueClassification == 'C');
-    REQUIRE(std::string_view(stockDirectory.issueSubType, alpha2Size) == "NA");
+    REQUIRE(std::string_view(stockDirectory.issueSubType, ItchType::alpha2Size) == "NA");
     REQUIRE(stockDirectory.authenticity == 'P');
     REQUIRE(stockDirectory.shortSaleThresholdIndicator == 'N');
     REQUIRE(stockDirectory.ipoFlag == 'N');
@@ -82,7 +82,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #3", "[map_stock_trading_action]") {
     REQUIRE(stockTradingAction.timeStamp == 987654321);
     REQUIRE(stockTradingAction.tradingState == 'T');
     REQUIRE(stockTradingAction.reserved == '\0');
-    REQUIRE(std::string_view(stockTradingAction.reason, alpha4Size) == "MVI ");
+    REQUIRE(std::string_view(stockTradingAction.reason, ItchType::alpha4Size) == "MVI ");
 }
 
 TEST_CASE("STRUCT MAPPER TESTCASE #4", "[map_reg_sho_restriction]") {
@@ -100,7 +100,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #4", "[map_reg_sho_restriction]") {
     REQUIRE(regSHORestriction.locateCode == 512);
     REQUIRE(regSHORestriction.trackingNumber == 12);
     REQUIRE(regSHORestriction.timeStamp == 543466);
-    REQUIRE(std::string_view(regSHORestriction.stock, alpha8Size) == "MSFT    ");
+    REQUIRE(std::string_view(regSHORestriction.stock, ItchType::alpha8Size) == "MSFT    ");
     REQUIRE(regSHORestriction.regSHOAction == '1');
 }
 
@@ -122,8 +122,8 @@ TEST_CASE("STRUCT MAPPER TESTCASE #5", "[map_market_participation_position]") {
     REQUIRE(marketParticipationPosition.stockLocate == 8192);
     REQUIRE(marketParticipationPosition.trackingNumber == 3);
     REQUIRE(marketParticipationPosition.timeStamp == 3456627252);
-    REQUIRE(std::string_view(marketParticipationPosition.mpid, alpha4Size) == "BARC");
-    REQUIRE(std::string_view(marketParticipationPosition.stock, alpha8Size) == "TSLA    ");
+    REQUIRE(std::string_view(marketParticipationPosition.mpid, ItchType::alpha4Size) == "BARC");
+    REQUIRE(std::string_view(marketParticipationPosition.stock, ItchType::alpha8Size) == "TSLA    ");
     REQUIRE(marketParticipationPosition.primaryMarketMaker == 'Y');
     REQUIRE(marketParticipationPosition.marketMakerMode == 'N');
     REQUIRE(marketParticipationPosition.marketParticipantState == 'A');
@@ -185,7 +185,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #8", "[map_quotation_period_update]") {
     REQUIRE(quotationPeriodUpdate.stockLocate == 1324);
     REQUIRE(quotationPeriodUpdate.trackingNumber == 456);
     REQUIRE(quotationPeriodUpdate.timeStamp == 3456627252);
-    REQUIRE(std::string_view(quotationPeriodUpdate.stock, alpha8Size) == "NVDA    ");
+    REQUIRE(std::string_view(quotationPeriodUpdate.stock, ItchType::alpha8Size) == "NVDA    ");
     REQUIRE(quotationPeriodUpdate.ipoQuotationReleaseTime == 34200);
     REQUIRE(quotationPeriodUpdate.ipoQuotationReleaseQualifier == 'A');
     REQUIRE(quotationPeriodUpdate.ipoPrice == 150000);
@@ -209,7 +209,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #9", "[map_luld_auction_collar]") {
     REQUIRE(luldAuctionCollar.stockLocate == 1324);
     REQUIRE(luldAuctionCollar.trackingNumber == 456);
     REQUIRE(luldAuctionCollar.timeStamp == 3456627252);
-    REQUIRE(std::string_view(luldAuctionCollar.stock, alpha8Size) == "AAPL    ");
+    REQUIRE(std::string_view(luldAuctionCollar.stock, ItchType::alpha8Size) == "AAPL    ");
     REQUIRE(luldAuctionCollar.auctionCollarReferencePrice == 1750000);
     REQUIRE(luldAuctionCollar.upperAuctionCollarPrice == 1925000);
     REQUIRE(luldAuctionCollar.lowerAuctionCollarPrice == 1575000);
@@ -232,7 +232,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #10", "[map_operational_halt]") {
     REQUIRE(operationalHalt.stockLocate == 1324);
     REQUIRE(operationalHalt.trackingNumber == 456);
     REQUIRE(operationalHalt.timeStamp == 3456627252);
-    REQUIRE(std::string_view(operationalHalt.stock, alpha8Size) == "AMZN    ");
+    REQUIRE(std::string_view(operationalHalt.stock, ItchType::alpha8Size) == "AMZN    ");
     REQUIRE(operationalHalt.marketCode == 'Q');
     REQUIRE(operationalHalt.operationalHaltAction == 'H');
 }
@@ -258,7 +258,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #11", "[map_add_order_message]") {
     REQUIRE(addOrderMessage.orderReferenceNumber == 9877351242);
     REQUIRE(addOrderMessage.buySellIndicator == 'B');
     REQUIRE(addOrderMessage.shares == 500);
-    REQUIRE(std::string_view(addOrderMessage.stock, alpha8Size) == "MSFT    ");
+    REQUIRE(std::string_view(addOrderMessage.stock, ItchType::alpha8Size) == "MSFT    ");
     REQUIRE(addOrderMessage.price == 4205192);
 }
 
@@ -284,9 +284,9 @@ TEST_CASE("STRUCT MAPPER TESTCASE #12", "[map_add_order_mpid_attribution_message
     REQUIRE(addOrderMPIDAttributionMessage.orderReferenceNumber == 9877351242);
     REQUIRE(addOrderMPIDAttributionMessage.buySellIndicator == 'B');
     REQUIRE(addOrderMPIDAttributionMessage.shares == 500);
-    REQUIRE(std::string_view(addOrderMPIDAttributionMessage.stock, alpha8Size) == "MSFT    ");
+    REQUIRE(std::string_view(addOrderMPIDAttributionMessage.stock, ItchType::alpha8Size) == "MSFT    ");
     REQUIRE(addOrderMPIDAttributionMessage.price == 4205192);
-    REQUIRE(std::string_view(addOrderMPIDAttributionMessage.attribution, alpha4Size) == "ABCD");
+    REQUIRE(std::string_view(addOrderMPIDAttributionMessage.attribution, ItchType::alpha4Size) == "ABCD");
 }
 
 TEST_CASE("STRUCT MAPPER TESTCASE #13", "[map_order_executed_message]") {
@@ -416,7 +416,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #18", "[map_trade_message]") {
     REQUIRE(tradeMessage.orderReferenceNumber == 10502789962);
     REQUIRE(tradeMessage.buySellIndicator == 'Y');
     REQUIRE(tradeMessage.shares == 500);
-    REQUIRE(std::string_view(tradeMessage.stock, alpha8Size) == "AAPL    ");
+    REQUIRE(std::string_view(tradeMessage.stock, ItchType::alpha8Size) == "AAPL    ");
     REQUIRE(tradeMessage.price == 4205192);
     REQUIRE(tradeMessage.matchNumber == 123456789);
 }
@@ -440,7 +440,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #19", "[map_cross_trade_message]") {
     REQUIRE(crossTradeMessage.trackingNumber == 456);
     REQUIRE(crossTradeMessage.timeStamp == 22282804);
     REQUIRE(crossTradeMessage.shares == 123456789);
-    REQUIRE(std::string_view(crossTradeMessage.stock, alpha8Size) == "AAPL    ");
+    REQUIRE(std::string_view(crossTradeMessage.stock, ItchType::alpha8Size) == "AAPL    ");
     REQUIRE(crossTradeMessage.crossPrice == 500);
     REQUIRE(crossTradeMessage.matchNumber == 123456789);
     REQUIRE(crossTradeMessage.crossType == 'O');
@@ -488,7 +488,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #21", "[map_noii_message]") {
     REQUIRE(noiiMessage.pairedShares == 123456789);
     REQUIRE(noiiMessage.imbalanceShares == 123456789);
     REQUIRE(noiiMessage.imbalanceDirection == 'O');
-    REQUIRE(std::string_view(noiiMessage.stock, alpha8Size) == "AAPL    ");
+    REQUIRE(std::string_view(noiiMessage.stock, ItchType::alpha8Size) == "AAPL    ");
     REQUIRE(noiiMessage.farPrice == 500);
     REQUIRE(noiiMessage.nearPrice == 500);
     REQUIRE(noiiMessage.currentReferencePrice == 500);
@@ -517,7 +517,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #22", "[map_dlwcrpd]") {
     REQUIRE(dlwcrpd.stockLocate == 1324);
     REQUIRE(dlwcrpd.trackingNumber == 456);
     REQUIRE(dlwcrpd.timeStamp == 22282804);
-    REQUIRE(std::string_view(dlwcrpd.stock, alpha8Size) == "AAPL    ");
+    REQUIRE(std::string_view(dlwcrpd.stock, ItchType::alpha8Size) == "AAPL    ");
     REQUIRE(dlwcrpd.openEligibilityStatus == 'N');
     REQUIRE(dlwcrpd.maximumAllowablePrice == 500);
     REQUIRE(dlwcrpd.maximumAllowablePrice == 500);

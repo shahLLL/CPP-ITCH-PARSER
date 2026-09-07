@@ -6,7 +6,7 @@
     systemEventMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     systemEventMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     systemEventMessage.timeStamp = EndianConverter::endianConvert48(msg + 5);
-    systemEventMessage.eventCode = static_cast<Alpha>(msg[11]);
+    systemEventMessage.eventCode = static_cast<ItchType::Alpha>(msg[11]);
 
     return systemEventMessage;
 };
@@ -17,20 +17,20 @@
     stockDirectory.stockLocate = EndianConverter::endianConvert16(msg + 1);
     stockDirectory.trackingNumber =  EndianConverter::endianConvert16(msg + 3);
     stockDirectory.timeStamp = EndianConverter::endianConvert48(msg + 5);
-    std::memcpy(stockDirectory.stock, msg + 11, alpha8Size);
-    stockDirectory.marketCategory = static_cast<Alpha>(msg[19]);
-    stockDirectory.financialStatusIndicator = static_cast<Alpha>(msg[20]);
+    std::memcpy(stockDirectory.stock, msg + 11, ItchType::alpha8Size);
+    stockDirectory.marketCategory = static_cast<ItchType::Alpha>(msg[19]);
+    stockDirectory.financialStatusIndicator = static_cast<ItchType::Alpha>(msg[20]);
     stockDirectory.roundLotSize = EndianConverter::endianConvert32(msg + 21);
-    stockDirectory.roundLotsOnly = static_cast<Alpha>(msg[25]);
-    stockDirectory.issueClassification = static_cast<Alpha>(msg[26]);
-    std::memcpy(stockDirectory.issueSubType, msg + 27, alpha2Size);
-    stockDirectory.authenticity = static_cast<Alpha>(msg[29]);
-    stockDirectory.shortSaleThresholdIndicator = static_cast<Alpha>(msg[30]);
-    stockDirectory.ipoFlag = static_cast<Alpha>(msg[31]);
-    stockDirectory.luldReferencePriceTier = static_cast<Alpha>(msg[32]);
-    stockDirectory.etpFlag = static_cast<Alpha>(msg[33]);
+    stockDirectory.roundLotsOnly = static_cast<ItchType::Alpha>(msg[25]);
+    stockDirectory.issueClassification = static_cast<ItchType::Alpha>(msg[26]);
+    std::memcpy(stockDirectory.issueSubType, msg + 27, ItchType::alpha2Size);
+    stockDirectory.authenticity = static_cast<ItchType::Alpha>(msg[29]);
+    stockDirectory.shortSaleThresholdIndicator = static_cast<ItchType::Alpha>(msg[30]);
+    stockDirectory.ipoFlag = static_cast<ItchType::Alpha>(msg[31]);
+    stockDirectory.luldReferencePriceTier = static_cast<ItchType::Alpha>(msg[32]);
+    stockDirectory.etpFlag = static_cast<ItchType::Alpha>(msg[33]);
     stockDirectory.etpLeverageFactor = EndianConverter::endianConvert32(msg + 34);
-    stockDirectory.inverseIndicator = static_cast<Alpha>(msg[38]);
+    stockDirectory.inverseIndicator = static_cast<ItchType::Alpha>(msg[38]);
 
     return stockDirectory;
 }
@@ -41,10 +41,10 @@
     stockTradingAction.stockLocate = EndianConverter::endianConvert16(msg + 1);
     stockTradingAction.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     stockTradingAction.timeStamp = EndianConverter::endianConvert48(msg + 5);
-    std::memcpy(stockTradingAction.stock, msg + 11, alpha8Size);
-    stockTradingAction.tradingState = static_cast<Alpha>(msg[19]);
-    stockTradingAction.reserved = static_cast<Alpha>(msg[20]);
-    std::memcpy(stockTradingAction.reason, msg + 21, alpha4Size);
+    std::memcpy(stockTradingAction.stock, msg + 11, ItchType::alpha8Size);
+    stockTradingAction.tradingState = static_cast<ItchType::Alpha>(msg[19]);
+    stockTradingAction.reserved = static_cast<ItchType::Alpha>(msg[20]);
+    std::memcpy(stockTradingAction.reason, msg + 21, ItchType::alpha4Size);
 
     return stockTradingAction;
 }
@@ -55,8 +55,8 @@
     regSHORestriction.locateCode = EndianConverter::endianConvert16(msg + 1);
     regSHORestriction.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     regSHORestriction.timeStamp = EndianConverter::endianConvert48(msg + 5);
-    std::memcpy(regSHORestriction.stock, msg + 11, alpha8Size);
-    regSHORestriction.regSHOAction = static_cast<Alpha>(msg[19]);
+    std::memcpy(regSHORestriction.stock, msg + 11, ItchType::alpha8Size);
+    regSHORestriction.regSHOAction = static_cast<ItchType::Alpha>(msg[19]);
 
     return regSHORestriction;
 }
@@ -67,11 +67,11 @@
     marketParticipationPosition.stockLocate = EndianConverter::endianConvert16(msg + 1);
     marketParticipationPosition.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     marketParticipationPosition.timeStamp = EndianConverter::endianConvert48(msg + 5);
-    std::memcpy(marketParticipationPosition.mpid, msg + 11, alpha4Size);
-    std::memcpy(marketParticipationPosition.stock, msg + 15, alpha8Size);
-    marketParticipationPosition.primaryMarketMaker = static_cast<Alpha>(msg[23]);
-    marketParticipationPosition.marketMakerMode = static_cast<Alpha>(msg[24]);
-    marketParticipationPosition.marketParticipantState = static_cast<Alpha>(msg[25]);
+    std::memcpy(marketParticipationPosition.mpid, msg + 11, ItchType::alpha4Size);
+    std::memcpy(marketParticipationPosition.stock, msg + 15, ItchType::alpha8Size);
+    marketParticipationPosition.primaryMarketMaker = static_cast<ItchType::Alpha>(msg[23]);
+    marketParticipationPosition.marketMakerMode = static_cast<ItchType::Alpha>(msg[24]);
+    marketParticipationPosition.marketParticipantState = static_cast<ItchType::Alpha>(msg[25]);
 
     return marketParticipationPosition;
 }
@@ -95,7 +95,7 @@
     mwcbStatusMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     mwcbStatusMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     mwcbStatusMessage.timeStamp = EndianConverter::endianConvert48(msg + 5);
-    mwcbStatusMessage.breachedLevel = static_cast<Alpha>(msg[11]);
+    mwcbStatusMessage.breachedLevel = static_cast<ItchType::Alpha>(msg[11]);
 
     return mwcbStatusMessage;
 }
@@ -106,9 +106,9 @@
     quotingPeriodUpdate.stockLocate = EndianConverter::endianConvert16(msg + 1);
     quotingPeriodUpdate.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     quotingPeriodUpdate.timeStamp = EndianConverter::endianConvert48(msg + 5);
-    std::memcpy(quotingPeriodUpdate.stock, msg + 11, alpha8Size);
+    std::memcpy(quotingPeriodUpdate.stock, msg + 11, ItchType::alpha8Size);
     quotingPeriodUpdate.ipoQuotationReleaseTime = EndianConverter::endianConvert32(msg + 19);
-    quotingPeriodUpdate.ipoQuotationReleaseQualifier = static_cast<Alpha>(msg[23]);
+    quotingPeriodUpdate.ipoQuotationReleaseQualifier = static_cast<ItchType::Alpha>(msg[23]);
     quotingPeriodUpdate.ipoPrice = EndianConverter::endianConvert32(msg + 24);
 
     return quotingPeriodUpdate;
@@ -120,7 +120,7 @@
     luldAuctionCollar.stockLocate = EndianConverter::endianConvert16(msg + 1);
     luldAuctionCollar.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     luldAuctionCollar.timeStamp = EndianConverter::endianConvert48(msg + 5);
-    std::memcpy(luldAuctionCollar.stock, msg + 11, alpha8Size);
+    std::memcpy(luldAuctionCollar.stock, msg + 11, ItchType::alpha8Size);
     luldAuctionCollar.auctionCollarReferencePrice = EndianConverter::endianConvert32(msg + 19);
     luldAuctionCollar.upperAuctionCollarPrice = EndianConverter::endianConvert32(msg + 23);
     luldAuctionCollar.lowerAuctionCollarPrice = EndianConverter::endianConvert32(msg + 27);
@@ -135,9 +135,9 @@
     operationalHalt.stockLocate = EndianConverter::endianConvert16(msg + 1);
     operationalHalt.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     operationalHalt.timeStamp = EndianConverter::endianConvert48(msg + 5);
-    std::memcpy(operationalHalt.stock, msg + 11, alpha8Size);
-    operationalHalt.marketCode = static_cast<Alpha>(msg[19]);
-    operationalHalt.operationalHaltAction = static_cast<Alpha>(msg[20]);
+    std::memcpy(operationalHalt.stock, msg + 11, ItchType::alpha8Size);
+    operationalHalt.marketCode = static_cast<ItchType::Alpha>(msg[19]);
+    operationalHalt.operationalHaltAction = static_cast<ItchType::Alpha>(msg[20]);
 
     return operationalHalt;
 }
@@ -149,9 +149,9 @@
     addOrderMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     addOrderMessage.timeStamp = EndianConverter::endianConvert48(msg + 5);
     addOrderMessage.orderReferenceNumber = EndianConverter::endianConvert64(msg + 11);
-    addOrderMessage.buySellIndicator = static_cast<Alpha>(msg[19]);
+    addOrderMessage.buySellIndicator = static_cast<ItchType::Alpha>(msg[19]);
     addOrderMessage.shares = EndianConverter::endianConvert32(msg + 20);
-    std::memcpy(addOrderMessage.stock, msg + 24, alpha8Size);
+    std::memcpy(addOrderMessage.stock, msg + 24, ItchType::alpha8Size);
     addOrderMessage.price = EndianConverter::endianConvert32(msg + 32);
 
     return addOrderMessage;
@@ -164,11 +164,11 @@
     addOrderMPIDAttributionMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     addOrderMPIDAttributionMessage.timeStamp = EndianConverter::endianConvert48(msg + 5);
     addOrderMPIDAttributionMessage.orderReferenceNumber = EndianConverter::endianConvert64(msg + 11);
-    addOrderMPIDAttributionMessage.buySellIndicator = static_cast<Alpha>(msg[19]);
+    addOrderMPIDAttributionMessage.buySellIndicator = static_cast<ItchType::Alpha>(msg[19]);
     addOrderMPIDAttributionMessage.shares = EndianConverter::endianConvert32(msg + 20);
-    std::memcpy(addOrderMPIDAttributionMessage.stock, msg + 24, alpha8Size);
+    std::memcpy(addOrderMPIDAttributionMessage.stock, msg + 24, ItchType::alpha8Size);
     addOrderMPIDAttributionMessage.price = EndianConverter::endianConvert32(msg + 32);
-    std::memcpy(addOrderMPIDAttributionMessage.attribution, msg + 36, alpha4Size);
+    std::memcpy(addOrderMPIDAttributionMessage.attribution, msg + 36, ItchType::alpha4Size);
 
     return addOrderMPIDAttributionMessage;
 }
@@ -195,7 +195,7 @@
     orderExecutedWithPriceMessage.orderReferenceNumber = EndianConverter::endianConvert64(msg + 11);
     orderExecutedWithPriceMessage.executedShares = EndianConverter::endianConvert32(msg + 19);
     orderExecutedWithPriceMessage.matchNumber = EndianConverter::endianConvert64(msg + 23);
-    orderExecutedWithPriceMessage.printable = static_cast<Alpha>(msg[31]);
+    orderExecutedWithPriceMessage.printable = static_cast<ItchType::Alpha>(msg[31]);
     orderExecutedWithPriceMessage.executionPrice = EndianConverter::endianConvert32(msg + 32);
 
     return orderExecutedWithPriceMessage;
@@ -245,9 +245,9 @@
     tradeMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     tradeMessage.timeStamp = EndianConverter::endianConvert48(msg + 5);
     tradeMessage.orderReferenceNumber = EndianConverter::endianConvert64(msg + 11);
-    tradeMessage.buySellIndicator = static_cast<Alpha>(msg[19]);
+    tradeMessage.buySellIndicator = static_cast<ItchType::Alpha>(msg[19]);
     tradeMessage.shares = EndianConverter::endianConvert32(msg + 20);
-    std::memcpy(tradeMessage.stock, msg + 24, alpha8Size);
+    std::memcpy(tradeMessage.stock, msg + 24, ItchType::alpha8Size);
     tradeMessage.price = EndianConverter::endianConvert32(msg + 32);
     tradeMessage.matchNumber = EndianConverter::endianConvert64(msg + 36);
 
@@ -261,10 +261,10 @@
     crossTradeMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     crossTradeMessage.timeStamp = EndianConverter::endianConvert48(msg + 5);
     crossTradeMessage.shares = EndianConverter::endianConvert64(msg + 11);
-    std::memcpy(crossTradeMessage.stock, msg + 19, alpha8Size);
+    std::memcpy(crossTradeMessage.stock, msg + 19, ItchType::alpha8Size);
     crossTradeMessage.crossPrice = EndianConverter::endianConvert32(msg + 27);
     crossTradeMessage.matchNumber = EndianConverter::endianConvert64(msg + 31);
-    crossTradeMessage.crossType = static_cast<Alpha>(msg[39]);
+    crossTradeMessage.crossType = static_cast<ItchType::Alpha>(msg[39]);
 
     return crossTradeMessage;
 }
@@ -288,13 +288,13 @@
     noiiMessage.timeStamp = EndianConverter::endianConvert48(msg + 5);
     noiiMessage.pairedShares = EndianConverter::endianConvert64(msg + 11);
     noiiMessage.imbalanceShares = EndianConverter::endianConvert64(msg + 19);
-    noiiMessage.imbalanceDirection = static_cast<Alpha>(msg[27]);
-    std::memcpy(noiiMessage.stock, msg + 28, alpha8Size);
+    noiiMessage.imbalanceDirection = static_cast<ItchType::Alpha>(msg[27]);
+    std::memcpy(noiiMessage.stock, msg + 28, ItchType::alpha8Size);
     noiiMessage.farPrice = EndianConverter::endianConvert32(msg + 36);
     noiiMessage.nearPrice = EndianConverter::endianConvert32(msg + 40);
     noiiMessage.currentReferencePrice = EndianConverter::endianConvert32(msg + 44);
-    noiiMessage.crossType = static_cast<Alpha>(msg[48]);
-    noiiMessage.priceVariationIndicator = static_cast<Alpha>(msg[49]);
+    noiiMessage.crossType = static_cast<ItchType::Alpha>(msg[48]);
+    noiiMessage.priceVariationIndicator = static_cast<ItchType::Alpha>(msg[49]);
 
     return noiiMessage;
 }
@@ -305,8 +305,8 @@
     dlwcrpd.stockLocate = EndianConverter::endianConvert16(msg + 1);
     dlwcrpd.trackingNumber = EndianConverter::endianConvert16(msg + 3);
     dlwcrpd.timeStamp = EndianConverter::endianConvert48(msg + 5);
-    std::memcpy(dlwcrpd.stock, msg + 11, alpha8Size);
-    dlwcrpd.openEligibilityStatus = static_cast<Alpha>(msg[19]);
+    std::memcpy(dlwcrpd.stock, msg + 11, ItchType::alpha8Size);
+    dlwcrpd.openEligibilityStatus = static_cast<ItchType::Alpha>(msg[19]);
     dlwcrpd.minimumAllowablePrice = EndianConverter::endianConvert32(msg + 20);
     dlwcrpd.maximumAllowablePrice = EndianConverter::endianConvert32(msg + 24);
     dlwcrpd.nearExecutionPrice = EndianConverter::endianConvert32(msg + 28);

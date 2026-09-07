@@ -3,5 +3,5 @@
 
 namespace Parser {
     // Returns the message length, given message type.
-    std::optional<UnsignedInt8> parseMessageLength(char messageType) noexcept;
+    std::optional<ItchType::UnsignedInt8> parseMessageLength(ItchType::Alpha messageType) noexcept;
 }

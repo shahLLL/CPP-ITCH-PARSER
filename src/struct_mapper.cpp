@@ -1,6 +1,6 @@
 #include "../headers/struct_mapper.hpp"
 
-[[nodiscard]] SystemEventMessage mapSystemEventMessage(const std::byte* msg) noexcept {
+[[nodiscard]] SystemEventMessage StructMapper::mapSystemEventMessage(const std::byte* msg) noexcept {
     SystemEventMessage systemEventMessage {};
 
     systemEventMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -11,7 +11,7 @@
     return systemEventMessage;
 };
 
-[[nodiscard]] StockDirectory mapStockDirectory(const std::byte* msg) noexcept {
+[[nodiscard]] StockDirectory StructMapper::mapStockDirectory(const std::byte* msg) noexcept {
     StockDirectory stockDirectory {};
 
     stockDirectory.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -35,7 +35,7 @@
     return stockDirectory;
 }
 
-[[nodiscard]] StockTradingAction mapStockTradingAction(const std::byte* msg) noexcept {
+[[nodiscard]] StockTradingAction StructMapper::mapStockTradingAction(const std::byte* msg) noexcept {
     StockTradingAction stockTradingAction {};
 
     stockTradingAction.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -49,7 +49,7 @@
     return stockTradingAction;
 }
 
-[[nodiscard]] RegSHORestriction mapRegSHORestriction(const std::byte* msg) noexcept {
+[[nodiscard]] RegSHORestriction StructMapper::mapRegSHORestriction(const std::byte* msg) noexcept {
     RegSHORestriction regSHORestriction {};
 
     regSHORestriction.locateCode = EndianConverter::endianConvert16(msg + 1);
@@ -61,7 +61,7 @@
     return regSHORestriction;
 }
 
-[[nodiscard]] MarketParticipantPosition mapMarketParticipationPostion(const std::byte* msg) noexcept {
+[[nodiscard]] MarketParticipantPosition StructMapper::mapMarketParticipationPostion(const std::byte* msg) noexcept {
     MarketParticipantPosition marketParticipationPosition {};
 
     marketParticipationPosition.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -76,7 +76,7 @@
     return marketParticipationPosition;
 }
 
-[[nodiscard]] MWCBDeclineLevelMessage mapMWCBDeclineLevelMessage(const std::byte* msg) noexcept {
+[[nodiscard]] MWCBDeclineLevelMessage StructMapper::mapMWCBDeclineLevelMessage(const std::byte* msg) noexcept {
     MWCBDeclineLevelMessage mwcbDeclineLevelMessage {};
 
     mwcbDeclineLevelMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -89,7 +89,7 @@
     return mwcbDeclineLevelMessage;
 }
 
-[[nodiscard]] MWCBStatusMessage mapMWCBStatusMessage(const std::byte* msg) noexcept {
+[[nodiscard]] MWCBStatusMessage StructMapper::mapMWCBStatusMessage(const std::byte* msg) noexcept {
     MWCBStatusMessage mwcbStatusMessage {};
 
     mwcbStatusMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -100,7 +100,7 @@
     return mwcbStatusMessage;
 }
 
-[[nodiscard]] QuotingPeriodUpdate mapQuotingPeriodUpdate(const std::byte* msg) noexcept {
+[[nodiscard]] QuotingPeriodUpdate StructMapper::mapQuotingPeriodUpdate(const std::byte* msg) noexcept {
     QuotingPeriodUpdate quotingPeriodUpdate {};
 
     quotingPeriodUpdate.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -114,7 +114,7 @@
     return quotingPeriodUpdate;
 }
 
-[[nodiscard]] LULDAuctionCollar mapLULDAuctionCollar(const std::byte* msg) noexcept {
+[[nodiscard]] LULDAuctionCollar StructMapper::mapLULDAuctionCollar(const std::byte* msg) noexcept {
     LULDAuctionCollar luldAuctionCollar {};
 
     luldAuctionCollar.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -129,7 +129,7 @@
     return luldAuctionCollar;
 }
 
-[[nodiscard]] OperationalHalt mapOperationalHalt(const std::byte* msg) noexcept {
+[[nodiscard]] OperationalHalt StructMapper::mapOperationalHalt(const std::byte* msg) noexcept {
     OperationalHalt operationalHalt {};
 
     operationalHalt.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -142,7 +142,7 @@
     return operationalHalt;
 }
 
-[[nodiscard]] AddOrderMessage mapAddOrderMessage(const std::byte* msg) noexcept {
+[[nodiscard]] AddOrderMessage StructMapper::mapAddOrderMessage(const std::byte* msg) noexcept {
     AddOrderMessage addOrderMessage {};
 
     addOrderMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -157,7 +157,7 @@
     return addOrderMessage;
 }
 
-[[nodiscard]] AddOrderMPIDAttributionMessage mapAddOrderMPIDAttributionMessage(const std::byte* msg) noexcept {
+[[nodiscard]] AddOrderMPIDAttributionMessage StructMapper::mapAddOrderMPIDAttributionMessage(const std::byte* msg) noexcept {
     AddOrderMPIDAttributionMessage addOrderMPIDAttributionMessage = AddOrderMPIDAttributionMessage {};
 
     addOrderMPIDAttributionMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -173,7 +173,7 @@
     return addOrderMPIDAttributionMessage;
 }
 
-[[nodiscard]] OrderExecutedMessage mapOrderExecutedMessage(const std::byte* msg) noexcept {
+[[nodiscard]] OrderExecutedMessage StructMapper::mapOrderExecutedMessage(const std::byte* msg) noexcept {
     OrderExecutedMessage orderExecutedMessage {};
 
     orderExecutedMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -186,7 +186,7 @@
     return orderExecutedMessage;
 }
 
-[[nodiscard]] OrderExecutedWithPriceMessage mapOrderExecutedWithPriceMessage(const std::byte* msg) noexcept {
+[[nodiscard]] OrderExecutedWithPriceMessage StructMapper::mapOrderExecutedWithPriceMessage(const std::byte* msg) noexcept {
     OrderExecutedWithPriceMessage orderExecutedWithPriceMessage {};
 
     orderExecutedWithPriceMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -201,7 +201,7 @@
     return orderExecutedWithPriceMessage;
 }
 
-[[nodiscard]] OrderCancelMessage mapOrderCancelMessage(const std::byte* msg) noexcept {
+[[nodiscard]] OrderCancelMessage StructMapper::mapOrderCancelMessage(const std::byte* msg) noexcept {
     OrderCancelMessage orderCancelMessage {};
 
     orderCancelMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -213,7 +213,7 @@
     return orderCancelMessage;
 }
 
-[[nodiscard]] OrderDeleteMessage mapOrderDeleteMessage(const std::byte* msg) noexcept {
+[[nodiscard]] OrderDeleteMessage StructMapper::mapOrderDeleteMessage(const std::byte* msg) noexcept {
     OrderDeleteMessage orderDeleteMessage;
 
     orderDeleteMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -224,7 +224,7 @@
     return orderDeleteMessage;
 }
 
-[[nodiscard]] OrderReplaceMessage mapOrderReplaceMessage(const std::byte* msg) noexcept {
+[[nodiscard]] OrderReplaceMessage StructMapper::mapOrderReplaceMessage(const std::byte* msg) noexcept {
     OrderReplaceMessage orderReplaceMessage {};
 
     orderReplaceMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -238,7 +238,7 @@
     return orderReplaceMessage;
 }
 
-[[nodiscard]] TradeMessage mapTradeMessage(const std::byte* msg) noexcept {
+[[nodiscard]] TradeMessage StructMapper::mapTradeMessage(const std::byte* msg) noexcept {
     TradeMessage tradeMessage {};
 
     tradeMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -254,7 +254,7 @@
     return tradeMessage;
 }
 
-[[nodiscard]] CrossTradeMessage mapCrossTradeMessage(const std::byte* msg) noexcept {
+[[nodiscard]] CrossTradeMessage StructMapper::mapCrossTradeMessage(const std::byte* msg) noexcept {
     CrossTradeMessage crossTradeMessage {};
 
     crossTradeMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -269,7 +269,7 @@
     return crossTradeMessage;
 }
 
-[[nodiscard]] BrokenTradeMessage mapBrokenTradeMessage(const std::byte* msg) noexcept {
+[[nodiscard]] BrokenTradeMessage StructMapper::mapBrokenTradeMessage(const std::byte* msg) noexcept {
     BrokenTradeMessage brokenTradeMessage {};
 
     brokenTradeMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -280,7 +280,7 @@
     return brokenTradeMessage;
 }
 
-[[nodiscard]] NOIIMessage mapNOIIMessage(const std::byte* msg) noexcept {
+[[nodiscard]] NOIIMessage StructMapper::mapNOIIMessage(const std::byte* msg) noexcept {
     NOIIMessage noiiMessage {};
 
     noiiMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
@@ -299,7 +299,7 @@
     return noiiMessage;
 }
 
-[[nodiscard]] DLWCRPD mapDLWCRPD(const std::byte* msg) noexcept {
+[[nodiscard]] DLWCRPD StructMapper::mapDLWCRPD(const std::byte* msg) noexcept {
     DLWCRPD dlwcrpd {};
 
     dlwcrpd.stockLocate = EndianConverter::endianConvert16(msg + 1);

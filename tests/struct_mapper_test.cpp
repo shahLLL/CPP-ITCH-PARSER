@@ -393,3 +393,30 @@ TEST_CASE("STRUCT MAPPER TESTCASE #17", "[map_order_replace_message]") {
     REQUIRE(orderReplaceMessage.shares == 500);
     REQUIRE(orderReplaceMessage.price == 4205192);
 }
+
+TEST_CASE("STRUCT MAPPER TESTCASE #17", "[map_trade_message]") {
+    std::byte testcase[] = {
+        std::byte{0x50},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0x54}, std::byte{0x02}, std::byte{0x34},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x02}, std::byte{0x72}, std::byte{0x03}, std::byte{0xDB}, std::byte{0x4A},
+        std::byte{0x59},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x41}, std::byte{0x41}, std::byte{0x50}, std::byte{0x4C}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x00}, std::byte{0x40}, std::byte{0x2A}, std::byte{0x88},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x07}, std::byte{0x5B}, std::byte{0xCD}, std::byte{0x15}
+    };
+
+    TradeMessage tradeMessage = mapTradeMessage(testcase);
+    REQUIRE(tradeMessage.messageType == 'P');
+    REQUIRE(tradeMessage.stockLocate == 1324);
+    REQUIRE(tradeMessage.trackingNumber == 456);
+    REQUIRE(tradeMessage.timeStamp == 22282804);
+    REQUIRE(tradeMessage.orderReferenceNumber == 10502789962);
+    REQUIRE(tradeMessage.buySellIndicator == 'Y');
+    REQUIRE(tradeMessage.shares == 500);
+    REQUIRE(std::string_view(tradeMessage.stock, alpha8Size) == "AAPL    ");
+    REQUIRE(tradeMessage.price == 4205192);
+    REQUIRE(tradeMessage.matchNumber == 123456789);
+}

@@ -237,3 +237,19 @@
 
     return orderReplaceMessage;
 }
+
+[[nodiscard]] TradeMessage mapTradeMessage(const std::byte* msg) noexcept {
+    TradeMessage tradeMessage {};
+
+    tradeMessage.stockLocate = endianConvert16(msg + 1);
+    tradeMessage.trackingNumber = endianConvert16(msg + 3);
+    tradeMessage.timeStamp = endianConvert48(msg + 5);
+    tradeMessage.orderReferenceNumber = endianConvert64(msg + 11);
+    tradeMessage.buySellIndicator = static_cast<Alpha>(msg[19]);
+    tradeMessage.shares = endianConvert32(msg + 20);
+    std::memcpy(tradeMessage.stock, msg + 24, alpha8Size);
+    tradeMessage.price = endianConvert32(msg + 32);
+    tradeMessage.matchNumber = endianConvert64(msg + 36);
+
+    return tradeMessage;
+}

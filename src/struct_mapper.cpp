@@ -185,3 +185,18 @@
 
     return orderExecutedMessage;
 }
+
+[[nodiscard]] OrderExecutedWithPriceMessage mapOrderExecutedWithPriceMessage(const std::byte* msg) noexcept {
+    OrderExecutedWithPriceMessage orderExecutedWithPriceMessage {};
+
+    orderExecutedWithPriceMessage.stockLocate = endianConvert16(msg + 1);
+    orderExecutedWithPriceMessage.trackingNumber = endianConvert16(msg + 3);
+    orderExecutedWithPriceMessage.timeStamp = endianConvert48(msg + 5);
+    orderExecutedWithPriceMessage.orderReferenceNumber = endianConvert64(msg + 11);
+    orderExecutedWithPriceMessage.executedShares = endianConvert32(msg + 19);
+    orderExecutedWithPriceMessage.matchNumber = endianConvert64(msg + 23);
+    orderExecutedWithPriceMessage.printable = static_cast<Alpha>(msg[31]);
+    orderExecutedWithPriceMessage.executionPrice = endianConvert32(msg + 32);
+
+    return orderExecutedWithPriceMessage;
+}

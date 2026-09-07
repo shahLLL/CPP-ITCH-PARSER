@@ -309,3 +309,28 @@ TEST_CASE("STRUCT MAPPER TESTCASE #13", "[map_order_executed_message]") {
     REQUIRE(orderExecutedMessage.executedShares == 500);
     REQUIRE(orderExecutedMessage.matchNumber == 123456789);
 }
+
+TEST_CASE("STRUCT MAPPER TESTCASE #14", "[map_order_executed_with_price_message]") {
+    std::byte testcase[] = {
+        std::byte{0x43},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0x54}, std::byte{0x02}, std::byte{0x34},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x02}, std::byte{0x72}, std::byte{0x03}, std::byte{0xDB}, std::byte{0x4A},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x07}, std::byte{0x5B}, std::byte{0xCD}, std::byte{0x15},
+        std::byte{0x59},
+        std::byte{0x00}, std::byte{0x40}, std::byte{0x2A}, std::byte{0x88}
+    };
+
+    OrderExecutedWithPriceMessage orderExecutedWithPriceMessage = mapOrderExecutedWithPriceMessage(testcase);
+    REQUIRE(orderExecutedWithPriceMessage.messageType == 'C');
+    REQUIRE(orderExecutedWithPriceMessage.stockLocate == 1324);
+    REQUIRE(orderExecutedWithPriceMessage.trackingNumber == 456);
+    REQUIRE(orderExecutedWithPriceMessage.timeStamp == 22282804);
+    REQUIRE(orderExecutedWithPriceMessage.orderReferenceNumber == 10502789962);
+    REQUIRE(orderExecutedWithPriceMessage.executedShares == 500);
+    REQUIRE(orderExecutedWithPriceMessage.matchNumber == 123456789);
+    REQUIRE(orderExecutedWithPriceMessage.printable == 'Y');
+    REQUIRE(orderExecutedWithPriceMessage.executionPrice == 4205192);
+}

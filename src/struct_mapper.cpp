@@ -1,7 +1,7 @@
 #include "../headers/struct_mapper.hpp"
 
-[[nodiscard]] SystemEventMessage StructMapper::mapSystemEventMessage(const std::byte* msg) noexcept {
-    SystemEventMessage systemEventMessage {};
+[[nodiscard]] ItchStruct::SystemEventMessage StructMapper::mapSystemEventMessage(const std::byte* msg) noexcept {
+    ItchStruct::SystemEventMessage systemEventMessage {};
 
     systemEventMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     systemEventMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -11,8 +11,8 @@
     return systemEventMessage;
 };
 
-[[nodiscard]] StockDirectory StructMapper::mapStockDirectory(const std::byte* msg) noexcept {
-    StockDirectory stockDirectory {};
+[[nodiscard]] ItchStruct::StockDirectory StructMapper::mapStockDirectory(const std::byte* msg) noexcept {
+    ItchStruct::StockDirectory stockDirectory {};
 
     stockDirectory.stockLocate = EndianConverter::endianConvert16(msg + 1);
     stockDirectory.trackingNumber =  EndianConverter::endianConvert16(msg + 3);
@@ -35,8 +35,8 @@
     return stockDirectory;
 }
 
-[[nodiscard]] StockTradingAction StructMapper::mapStockTradingAction(const std::byte* msg) noexcept {
-    StockTradingAction stockTradingAction {};
+[[nodiscard]] ItchStruct::StockTradingAction StructMapper::mapStockTradingAction(const std::byte* msg) noexcept {
+    ItchStruct::StockTradingAction stockTradingAction {};
 
     stockTradingAction.stockLocate = EndianConverter::endianConvert16(msg + 1);
     stockTradingAction.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -49,8 +49,8 @@
     return stockTradingAction;
 }
 
-[[nodiscard]] RegSHORestriction StructMapper::mapRegSHORestriction(const std::byte* msg) noexcept {
-    RegSHORestriction regSHORestriction {};
+[[nodiscard]] ItchStruct::RegSHORestriction StructMapper::mapRegSHORestriction(const std::byte* msg) noexcept {
+    ItchStruct::RegSHORestriction regSHORestriction {};
 
     regSHORestriction.locateCode = EndianConverter::endianConvert16(msg + 1);
     regSHORestriction.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -61,8 +61,8 @@
     return regSHORestriction;
 }
 
-[[nodiscard]] MarketParticipantPosition StructMapper::mapMarketParticipationPostion(const std::byte* msg) noexcept {
-    MarketParticipantPosition marketParticipationPosition {};
+[[nodiscard]] ItchStruct::MarketParticipantPosition StructMapper::mapMarketParticipationPostion(const std::byte* msg) noexcept {
+    ItchStruct::MarketParticipantPosition marketParticipationPosition {};
 
     marketParticipationPosition.stockLocate = EndianConverter::endianConvert16(msg + 1);
     marketParticipationPosition.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -76,8 +76,8 @@
     return marketParticipationPosition;
 }
 
-[[nodiscard]] MWCBDeclineLevelMessage StructMapper::mapMWCBDeclineLevelMessage(const std::byte* msg) noexcept {
-    MWCBDeclineLevelMessage mwcbDeclineLevelMessage {};
+[[nodiscard]] ItchStruct::MWCBDeclineLevelMessage StructMapper::mapMWCBDeclineLevelMessage(const std::byte* msg) noexcept {
+    ItchStruct::MWCBDeclineLevelMessage mwcbDeclineLevelMessage {};
 
     mwcbDeclineLevelMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     mwcbDeclineLevelMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -89,8 +89,8 @@
     return mwcbDeclineLevelMessage;
 }
 
-[[nodiscard]] MWCBStatusMessage StructMapper::mapMWCBStatusMessage(const std::byte* msg) noexcept {
-    MWCBStatusMessage mwcbStatusMessage {};
+[[nodiscard]] ItchStruct::MWCBStatusMessage StructMapper::mapMWCBStatusMessage(const std::byte* msg) noexcept {
+    ItchStruct::MWCBStatusMessage mwcbStatusMessage {};
 
     mwcbStatusMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     mwcbStatusMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -100,8 +100,8 @@
     return mwcbStatusMessage;
 }
 
-[[nodiscard]] QuotingPeriodUpdate StructMapper::mapQuotingPeriodUpdate(const std::byte* msg) noexcept {
-    QuotingPeriodUpdate quotingPeriodUpdate {};
+[[nodiscard]] ItchStruct::QuotingPeriodUpdate StructMapper::mapQuotingPeriodUpdate(const std::byte* msg) noexcept {
+    ItchStruct::QuotingPeriodUpdate quotingPeriodUpdate {};
 
     quotingPeriodUpdate.stockLocate = EndianConverter::endianConvert16(msg + 1);
     quotingPeriodUpdate.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -114,8 +114,8 @@
     return quotingPeriodUpdate;
 }
 
-[[nodiscard]] LULDAuctionCollar StructMapper::mapLULDAuctionCollar(const std::byte* msg) noexcept {
-    LULDAuctionCollar luldAuctionCollar {};
+[[nodiscard]] ItchStruct::LULDAuctionCollar StructMapper::mapLULDAuctionCollar(const std::byte* msg) noexcept {
+    ItchStruct::LULDAuctionCollar luldAuctionCollar {};
 
     luldAuctionCollar.stockLocate = EndianConverter::endianConvert16(msg + 1);
     luldAuctionCollar.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -129,8 +129,8 @@
     return luldAuctionCollar;
 }
 
-[[nodiscard]] OperationalHalt StructMapper::mapOperationalHalt(const std::byte* msg) noexcept {
-    OperationalHalt operationalHalt {};
+[[nodiscard]] ItchStruct::OperationalHalt StructMapper::mapOperationalHalt(const std::byte* msg) noexcept {
+    ItchStruct::OperationalHalt operationalHalt {};
 
     operationalHalt.stockLocate = EndianConverter::endianConvert16(msg + 1);
     operationalHalt.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -142,8 +142,8 @@
     return operationalHalt;
 }
 
-[[nodiscard]] AddOrderMessage StructMapper::mapAddOrderMessage(const std::byte* msg) noexcept {
-    AddOrderMessage addOrderMessage {};
+[[nodiscard]] ItchStruct::AddOrderMessage StructMapper::mapAddOrderMessage(const std::byte* msg) noexcept {
+    ItchStruct::AddOrderMessage addOrderMessage {};
 
     addOrderMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     addOrderMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -157,8 +157,8 @@
     return addOrderMessage;
 }
 
-[[nodiscard]] AddOrderMPIDAttributionMessage StructMapper::mapAddOrderMPIDAttributionMessage(const std::byte* msg) noexcept {
-    AddOrderMPIDAttributionMessage addOrderMPIDAttributionMessage = AddOrderMPIDAttributionMessage {};
+[[nodiscard]] ItchStruct::AddOrderMPIDAttributionMessage StructMapper::mapAddOrderMPIDAttributionMessage(const std::byte* msg) noexcept {
+    ItchStruct::AddOrderMPIDAttributionMessage addOrderMPIDAttributionMessage {};
 
     addOrderMPIDAttributionMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     addOrderMPIDAttributionMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -173,8 +173,8 @@
     return addOrderMPIDAttributionMessage;
 }
 
-[[nodiscard]] OrderExecutedMessage StructMapper::mapOrderExecutedMessage(const std::byte* msg) noexcept {
-    OrderExecutedMessage orderExecutedMessage {};
+[[nodiscard]] ItchStruct::OrderExecutedMessage StructMapper::mapOrderExecutedMessage(const std::byte* msg) noexcept {
+    ItchStruct::OrderExecutedMessage orderExecutedMessage {};
 
     orderExecutedMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     orderExecutedMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -186,8 +186,8 @@
     return orderExecutedMessage;
 }
 
-[[nodiscard]] OrderExecutedWithPriceMessage StructMapper::mapOrderExecutedWithPriceMessage(const std::byte* msg) noexcept {
-    OrderExecutedWithPriceMessage orderExecutedWithPriceMessage {};
+[[nodiscard]] ItchStruct::OrderExecutedWithPriceMessage StructMapper::mapOrderExecutedWithPriceMessage(const std::byte* msg) noexcept {
+    ItchStruct::OrderExecutedWithPriceMessage orderExecutedWithPriceMessage {};
 
     orderExecutedWithPriceMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     orderExecutedWithPriceMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -201,8 +201,8 @@
     return orderExecutedWithPriceMessage;
 }
 
-[[nodiscard]] OrderCancelMessage StructMapper::mapOrderCancelMessage(const std::byte* msg) noexcept {
-    OrderCancelMessage orderCancelMessage {};
+[[nodiscard]] ItchStruct::OrderCancelMessage StructMapper::mapOrderCancelMessage(const std::byte* msg) noexcept {
+    ItchStruct::OrderCancelMessage orderCancelMessage {};
 
     orderCancelMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     orderCancelMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -213,8 +213,8 @@
     return orderCancelMessage;
 }
 
-[[nodiscard]] OrderDeleteMessage StructMapper::mapOrderDeleteMessage(const std::byte* msg) noexcept {
-    OrderDeleteMessage orderDeleteMessage;
+[[nodiscard]] ItchStruct::OrderDeleteMessage StructMapper::mapOrderDeleteMessage(const std::byte* msg) noexcept {
+    ItchStruct::OrderDeleteMessage orderDeleteMessage;
 
     orderDeleteMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     orderDeleteMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -224,8 +224,8 @@
     return orderDeleteMessage;
 }
 
-[[nodiscard]] OrderReplaceMessage StructMapper::mapOrderReplaceMessage(const std::byte* msg) noexcept {
-    OrderReplaceMessage orderReplaceMessage {};
+[[nodiscard]] ItchStruct::OrderReplaceMessage StructMapper::mapOrderReplaceMessage(const std::byte* msg) noexcept {
+    ItchStruct::OrderReplaceMessage orderReplaceMessage {};
 
     orderReplaceMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     orderReplaceMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -238,8 +238,8 @@
     return orderReplaceMessage;
 }
 
-[[nodiscard]] TradeMessage StructMapper::mapTradeMessage(const std::byte* msg) noexcept {
-    TradeMessage tradeMessage {};
+[[nodiscard]] ItchStruct::TradeMessage StructMapper::mapTradeMessage(const std::byte* msg) noexcept {
+    ItchStruct::TradeMessage tradeMessage {};
 
     tradeMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     tradeMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -254,8 +254,8 @@
     return tradeMessage;
 }
 
-[[nodiscard]] CrossTradeMessage StructMapper::mapCrossTradeMessage(const std::byte* msg) noexcept {
-    CrossTradeMessage crossTradeMessage {};
+[[nodiscard]] ItchStruct::CrossTradeMessage StructMapper::mapCrossTradeMessage(const std::byte* msg) noexcept {
+    ItchStruct::CrossTradeMessage crossTradeMessage {};
 
     crossTradeMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     crossTradeMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -269,8 +269,8 @@
     return crossTradeMessage;
 }
 
-[[nodiscard]] BrokenTradeMessage StructMapper::mapBrokenTradeMessage(const std::byte* msg) noexcept {
-    BrokenTradeMessage brokenTradeMessage {};
+[[nodiscard]] ItchStruct::BrokenTradeMessage StructMapper::mapBrokenTradeMessage(const std::byte* msg) noexcept {
+    ItchStruct::BrokenTradeMessage brokenTradeMessage {};
 
     brokenTradeMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     brokenTradeMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -280,8 +280,8 @@
     return brokenTradeMessage;
 }
 
-[[nodiscard]] NOIIMessage StructMapper::mapNOIIMessage(const std::byte* msg) noexcept {
-    NOIIMessage noiiMessage {};
+[[nodiscard]] ItchStruct::NOIIMessage StructMapper::mapNOIIMessage(const std::byte* msg) noexcept {
+    ItchStruct::NOIIMessage noiiMessage {};
 
     noiiMessage.stockLocate = EndianConverter::endianConvert16(msg + 1);
     noiiMessage.trackingNumber = EndianConverter::endianConvert16(msg + 3);
@@ -299,8 +299,8 @@
     return noiiMessage;
 }
 
-[[nodiscard]] DLWCRPD StructMapper::mapDLWCRPD(const std::byte* msg) noexcept {
-    DLWCRPD dlwcrpd {};
+[[nodiscard]] ItchStruct::DLWCRPD StructMapper::mapDLWCRPD(const std::byte* msg) noexcept {
+    ItchStruct::DLWCRPD dlwcrpd {};
 
     dlwcrpd.stockLocate = EndianConverter::endianConvert16(msg + 1);
     dlwcrpd.trackingNumber = EndianConverter::endianConvert16(msg + 3);

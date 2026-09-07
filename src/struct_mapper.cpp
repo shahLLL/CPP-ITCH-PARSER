@@ -200,3 +200,15 @@
 
     return orderExecutedWithPriceMessage;
 }
+
+[[nodiscard]] OrderCancelMessage mapOrderCancelMessage(const std::byte* msg) noexcept {
+    OrderCancelMessage orderCancelMessage {};
+
+    orderCancelMessage.stockLocate = endianConvert16(msg + 1);
+    orderCancelMessage.trackingNumber = endianConvert16(msg + 3);
+    orderCancelMessage.timeStamp = endianConvert48(msg + 5);
+    orderCancelMessage.orderReferenceNumber = endianConvert64(msg + 11);
+    orderCancelMessage.cancelledShares = endianConvert32(msg + 19);
+
+    return orderCancelMessage;
+}

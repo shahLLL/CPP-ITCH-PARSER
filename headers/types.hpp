@@ -1,4 +1,6 @@
+#pragma once
 #include <cstdint>
+#include <cstddef>
 
 // Aliases
 using Alpha = char;
@@ -10,3 +12,8 @@ using Alpha2 = Alpha[2];
 using Alpha4 = Alpha[4];
 using TimeStamp = std::uint64_t;
 using Alpha8 = Alpha[8];
+
+// Constant Expressions
+constexpr std::size_t alpha2Size = 2;
+constexpr std::size_t alpha4Size = 4;
+constexpr std::size_t alpha8Size = 8;

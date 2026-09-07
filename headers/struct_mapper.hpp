@@ -1,10 +1,7 @@
-#include <cstddef>
 #include "structs.hpp"
+#include "types.hpp"
 #include "endian_converter.hpp"
 
-constexpr std::size_t alpha2Size = 2;
-constexpr std::size_t alpha4Size = 4;
-constexpr std::size_t alpha8Size = 8;
 
 [[nodiscard]] SystemEventMessage mapSystemEventMessage(const std::byte* msg) noexcept;
 [[nodiscard]] StockDirectory mapStockDirectory(const std::byte* msg) noexcept;

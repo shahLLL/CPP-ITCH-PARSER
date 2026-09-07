@@ -1,6 +1,6 @@
 #include "../headers/parser.hpp"
 
-std::optional<UnsignedInt8> parseMessageLength(Alpha messageType) noexcept {
+std::optional<UnsignedInt8> Parser::parseMessageLength(Alpha messageType) noexcept {
     switch(messageType) {
         case 'S': return 12;
         case 'R': return 39;

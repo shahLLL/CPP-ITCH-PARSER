@@ -223,3 +223,17 @@
 
     return orderDeleteMessage;
 }
+
+[[nodiscard]] OrderReplaceMessage mapOrderReplaceMessage(const std::byte* msg) noexcept {
+    OrderReplaceMessage orderReplaceMessage {};
+
+    orderReplaceMessage.stockLocate = endianConvert16(msg + 1);
+    orderReplaceMessage.trackingNumber = endianConvert16(msg + 3);
+    orderReplaceMessage.timeStamp = endianConvert48(msg + 5);
+    orderReplaceMessage.originalOrderReferenceNumber = endianConvert64(msg + 11);
+    orderReplaceMessage.newOrderReferenceNumber = endianConvert64(msg + 19);
+    orderReplaceMessage.shares = endianConvert32(msg + 27);
+    orderReplaceMessage.price = endianConvert32(msg + 31);
+
+    return orderReplaceMessage;
+}

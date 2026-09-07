@@ -212,3 +212,14 @@
 
     return orderCancelMessage;
 }
+
+[[nodiscard]] OrderDeleteMessage mapOrderDeleteMessage(const std::byte* msg) noexcept {
+    OrderDeleteMessage orderDeleteMessage;
+
+    orderDeleteMessage.stockLocate = endianConvert16(msg + 1);
+    orderDeleteMessage.trackingNumber = endianConvert16(msg + 3);
+    orderDeleteMessage.timeStamp = endianConvert48(msg + 5);
+    orderDeleteMessage.orderReferenceNumber = endianConvert64(msg + 11);
+
+    return orderDeleteMessage;
+}

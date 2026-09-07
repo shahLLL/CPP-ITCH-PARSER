@@ -353,3 +353,20 @@ TEST_CASE("STRUCT MAPPER TESTCASE #15", "[map_order_cancel_message]") {
     REQUIRE(orderCancelMessage.orderReferenceNumber == 10502789962);
     REQUIRE(orderCancelMessage.cancelledShares == 500);
 }
+
+TEST_CASE("STRUCT MAPPER TESTCASE #15", "[map_order_delete_message]") {
+    std::byte testcase[] = {
+        std::byte{0x44},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0x54}, std::byte{0x02}, std::byte{0x34},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x02}, std::byte{0x72}, std::byte{0x03}, std::byte{0xDB}, std::byte{0x4A},
+    };
+
+    OrderDeleteMessage orderDeleteMessage = mapOrderDeleteMessage(testcase);
+    REQUIRE(orderDeleteMessage.messageType == 'D');
+    REQUIRE(orderDeleteMessage.stockLocate == 1324);
+    REQUIRE(orderDeleteMessage.trackingNumber == 456);
+    REQUIRE(orderDeleteMessage.timeStamp == 22282804);
+    REQUIRE(orderDeleteMessage.orderReferenceNumber == 10502789962);
+}

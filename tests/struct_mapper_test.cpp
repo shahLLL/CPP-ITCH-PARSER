@@ -463,7 +463,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #20", "[map_broken_trade_message]") {
     REQUIRE(brokenTradeMessage.matchNumber == 123456789);
 }
 
-TEST_CASE("STRUCT MAPPER TESTCASE #20", "[map_noii_message]") {
+TEST_CASE("STRUCT MAPPER TESTCASE #21", "[map_noii_message]") {
     std::byte testcase[] = {
         std::byte{0x6C},
         std::byte{0x05}, std::byte{0x2C},
@@ -494,4 +494,35 @@ TEST_CASE("STRUCT MAPPER TESTCASE #20", "[map_noii_message]") {
     REQUIRE(noiiMessage.currentReferencePrice == 500);
     REQUIRE(noiiMessage.crossType == 'O');
     REQUIRE(noiiMessage.priceVariationIndicator == 'A');
+}
+
+TEST_CASE("STRUCT MAPPER TESTCASE #22", "[map_dlwcrpd]") {
+    std::byte testcase[] = {
+        std::byte{0x4F},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0x54}, std::byte{0x02}, std::byte{0x34},
+        std::byte{0x41}, std::byte{0x41}, std::byte{0x50}, std::byte{0x4C}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x4E},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x07}, std::byte{0x5B}, std::byte{0xCD}, std::byte{0x15},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+    };
+
+    DLWCRPD dlwcrpd = mapDLWCRPD(testcase);
+    REQUIRE(dlwcrpd.messageType == 'O');
+    REQUIRE(dlwcrpd.stockLocate == 1324);
+    REQUIRE(dlwcrpd.trackingNumber == 456);
+    REQUIRE(dlwcrpd.timeStamp == 22282804);
+    REQUIRE(std::string_view(dlwcrpd.stock, alpha8Size) == "AAPL    ");
+    REQUIRE(dlwcrpd.openEligibilityStatus == 'N');
+    REQUIRE(dlwcrpd.maximumAllowablePrice == 500);
+    REQUIRE(dlwcrpd.maximumAllowablePrice == 500);
+    REQUIRE(dlwcrpd.nearExecutionPrice == 500);
+    REQUIRE(dlwcrpd.nearExecutionTime == 123456789);
+    REQUIRE(dlwcrpd.lowerPriceRangeCollar == 500);
+    REQUIRE(dlwcrpd.upperPriceRangeCollar == 500);
 }

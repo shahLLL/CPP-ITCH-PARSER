@@ -298,3 +298,21 @@
 
     return noiiMessage;
 }
+
+[[nodiscard]] DLWCRPD mapDLWCRPD(const std::byte* msg) noexcept {
+    DLWCRPD dlwcrpd {};
+
+    dlwcrpd.stockLocate = endianConvert16(msg + 1);
+    dlwcrpd.trackingNumber = endianConvert16(msg + 3);
+    dlwcrpd.timeStamp = endianConvert48(msg + 5);
+    std::memcpy(dlwcrpd.stock, msg + 11, alpha8Size);
+    dlwcrpd.openEligibilityStatus = static_cast<Alpha>(msg[19]);
+    dlwcrpd.minimumAllowablePrice = endianConvert32(msg + 20);
+    dlwcrpd.maximumAllowablePrice = endianConvert32(msg + 24);
+    dlwcrpd.nearExecutionPrice = endianConvert32(msg + 28);
+    dlwcrpd.nearExecutionTime = endianConvert64(msg + 32);
+    dlwcrpd.lowerPriceRangeCollar = endianConvert32(msg + 40);
+    dlwcrpd.upperPriceRangeCollar = endianConvert32(msg + 44);
+
+    return dlwcrpd;
+}

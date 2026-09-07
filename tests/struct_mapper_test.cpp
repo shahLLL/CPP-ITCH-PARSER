@@ -288,3 +288,24 @@ TEST_CASE("STRUCT MAPPER TESTCASE #12", "[map_add_order_mpid_attribution_message
     REQUIRE(addOrderMPIDAttributionMessage.price == 4205192);
     REQUIRE(std::string_view(addOrderMPIDAttributionMessage.attribution, alpha4Size) == "ABCD");
 }
+
+TEST_CASE("STRUCT MAPPER TESTCASE #13", "[map_order_executed_message]") {
+    std::byte testcase[] = {
+        std::byte{0x45},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0x54}, std::byte{0x02}, std::byte{0x34},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x02}, std::byte{0x72}, std::byte{0x03}, std::byte{0xDB}, std::byte{0x4A},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x07}, std::byte{0x5B}, std::byte{0xCD}, std::byte{0x15}
+    };
+
+    OrderExecutedMessage orderExecutedMessage = mapOrderExecutedMessage(testcase);
+    REQUIRE(orderExecutedMessage.messageType == 'E');
+    REQUIRE(orderExecutedMessage.stockLocate == 1324);
+    REQUIRE(orderExecutedMessage.trackingNumber == 456);
+    REQUIRE(orderExecutedMessage.timeStamp == 22282804);
+    REQUIRE(orderExecutedMessage.orderReferenceNumber == 10502789962);
+    REQUIRE(orderExecutedMessage.executedShares == 500);
+    REQUIRE(orderExecutedMessage.matchNumber == 123456789);
+}

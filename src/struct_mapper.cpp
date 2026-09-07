@@ -1,7 +1,7 @@
 #include "../headers/struct_mapper.hpp"
 
 [[nodiscard]] SystemEventMessage mapSystemEventMessage(const std::byte* msg) noexcept {
-    SystemEventMessage systemEventMessage{};
+    SystemEventMessage systemEventMessage {};
 
     systemEventMessage.stockLocate = endianConvert16(msg + 1);
     systemEventMessage.trackingNumber = endianConvert16(msg + 3);
@@ -12,7 +12,7 @@
 };
 
 [[nodiscard]] StockDirectory mapStockDirectory(const std::byte* msg) noexcept {
-    StockDirectory stockDirectory{};
+    StockDirectory stockDirectory {};
 
     stockDirectory.stockLocate = endianConvert16(msg + 1);
     stockDirectory.trackingNumber =  endianConvert16(msg + 3);
@@ -36,7 +36,7 @@
 }
 
 [[nodiscard]] StockTradingAction mapStockTradingAction(const std::byte* msg) noexcept {
-    StockTradingAction stockTradingAction{};
+    StockTradingAction stockTradingAction {};
 
     stockTradingAction.stockLocate = endianConvert16(msg + 1);
     stockTradingAction.trackingNumber = endianConvert16(msg + 3);
@@ -50,7 +50,7 @@
 }
 
 [[nodiscard]] RegSHORestriction mapRegSHORestriction(const std::byte* msg) noexcept {
-    RegSHORestriction regSHORestriction{};
+    RegSHORestriction regSHORestriction {};
 
     regSHORestriction.locateCode = endianConvert16(msg + 1);
     regSHORestriction.trackingNumber = endianConvert16(msg + 3);
@@ -62,7 +62,7 @@
 }
 
 [[nodiscard]] MarketParticipantPosition mapMarketParticipationPostion(const std::byte* msg) noexcept {
-    MarketParticipantPosition marketParticipationPosition{};
+    MarketParticipantPosition marketParticipationPosition {};
 
     marketParticipationPosition.stockLocate = endianConvert16(msg + 1);
     marketParticipationPosition.trackingNumber = endianConvert16(msg + 3);
@@ -77,7 +77,7 @@
 }
 
 [[nodiscard]] MWCBDeclineLevelMessage mapMWCBDeclineLevelMessage(const std::byte* msg) noexcept {
-    MWCBDeclineLevelMessage mwcbDeclineLevelMessage{};
+    MWCBDeclineLevelMessage mwcbDeclineLevelMessage {};
 
     mwcbDeclineLevelMessage.stockLocate = endianConvert16(msg + 1);
     mwcbDeclineLevelMessage.trackingNumber = endianConvert16(msg + 3);
@@ -90,7 +90,7 @@
 }
 
 [[nodiscard]] MWCBStatusMessage mapMWCBStatusMessage(const std::byte* msg) noexcept {
-    MWCBStatusMessage mwcbStatusMessage{};
+    MWCBStatusMessage mwcbStatusMessage {};
 
     mwcbStatusMessage.stockLocate = endianConvert16(msg + 1);
     mwcbStatusMessage.trackingNumber = endianConvert16(msg + 3);
@@ -101,7 +101,7 @@
 }
 
 [[nodiscard]] QuotingPeriodUpdate mapQuotingPeriodUpdate(const std::byte* msg) noexcept {
-    QuotingPeriodUpdate quotingPeriodUpdate{};
+    QuotingPeriodUpdate quotingPeriodUpdate {};
 
     quotingPeriodUpdate.stockLocate = endianConvert16(msg + 1);
     quotingPeriodUpdate.trackingNumber = endianConvert16(msg + 3);
@@ -115,7 +115,7 @@
 }
 
 [[nodiscard]] LULDAuctionCollar mapLULDAuctionCollar(const std::byte* msg) noexcept {
-    LULDAuctionCollar luldAuctionCollar{};
+    LULDAuctionCollar luldAuctionCollar {};
 
     luldAuctionCollar.stockLocate = endianConvert16(msg + 1);
     luldAuctionCollar.trackingNumber = endianConvert16(msg + 3);
@@ -130,7 +130,7 @@
 }
 
 [[nodiscard]] OperationalHalt mapOperationalHalt(const std::byte* msg) noexcept {
-    OperationalHalt operationalHalt{};
+    OperationalHalt operationalHalt {};
 
     operationalHalt.stockLocate = endianConvert16(msg + 1);
     operationalHalt.trackingNumber = endianConvert16(msg + 3);
@@ -143,7 +143,7 @@
 }
 
 [[nodiscard]] AddOrderMessage mapAddOrderMessage(const std::byte* msg) noexcept {
-    AddOrderMessage addOrderMessage{};
+    AddOrderMessage addOrderMessage {};
 
     addOrderMessage.stockLocate = endianConvert16(msg + 1);
     addOrderMessage.trackingNumber = endianConvert16(msg + 3);
@@ -158,7 +158,7 @@
 }
 
 [[nodiscard]] AddOrderMPIDAttributionMessage mapAddOrderMPIDAttributionMessage(const std::byte* msg) noexcept {
-    AddOrderMPIDAttributionMessage addOrderMPIDAttributionMessage = AddOrderMPIDAttributionMessage{};
+    AddOrderMPIDAttributionMessage addOrderMPIDAttributionMessage = AddOrderMPIDAttributionMessage {};
 
     addOrderMPIDAttributionMessage.stockLocate = endianConvert16(msg + 1);
     addOrderMPIDAttributionMessage.trackingNumber = endianConvert16(msg + 3);
@@ -171,4 +171,17 @@
     std::memcpy(addOrderMPIDAttributionMessage.attribution, msg + 36, alpha4Size);
 
     return addOrderMPIDAttributionMessage;
+}
+
+[[nodiscard]] OrderExecutedMessage mapOrderExecutedMessage(const std::byte* msg) noexcept {
+    OrderExecutedMessage orderExecutedMessage {};
+
+    orderExecutedMessage.stockLocate = endianConvert16(msg + 1);
+    orderExecutedMessage.trackingNumber = endianConvert16(msg + 3);
+    orderExecutedMessage.timeStamp = endianConvert48(msg + 5);
+    orderExecutedMessage.orderReferenceNumber = endianConvert64(msg + 11);
+    orderExecutedMessage.executedShares = endianConvert32(msg + 19);
+    orderExecutedMessage.matchNumber = endianConvert64(msg + 23);
+
+    return orderExecutedMessage;
 }

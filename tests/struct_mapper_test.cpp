@@ -459,5 +459,39 @@ TEST_CASE("STRUCT MAPPER TESTCASE #20", "[map_broken_trade_message]") {
     REQUIRE(brokenTradeMessage.messageType == 'B');
     REQUIRE(brokenTradeMessage.stockLocate == 1324);
     REQUIRE(brokenTradeMessage.trackingNumber == 456);
+    REQUIRE(brokenTradeMessage.timeStamp == 22282804);
     REQUIRE(brokenTradeMessage.matchNumber == 123456789);
+}
+
+TEST_CASE("STRUCT MAPPER TESTCASE #20", "[map_noii_message]") {
+    std::byte testcase[] = {
+        std::byte{0x6C},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0x54}, std::byte{0x02}, std::byte{0x34},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x07}, std::byte{0x5B}, std::byte{0xCD}, std::byte{0x15},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x07}, std::byte{0x5B}, std::byte{0xCD}, std::byte{0x15},
+        std::byte{0x4F},
+        std::byte{0x41}, std::byte{0x41}, std::byte{0x50}, std::byte{0x4C}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20}, std::byte{0x20},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
+        std::byte{0x4F},
+        std::byte{0x41},
+    };
+
+    NOIIMessage noiiMessage = mapNOIIMessage(testcase);
+    REQUIRE(noiiMessage.messageType == 'l');
+    REQUIRE(noiiMessage.stockLocate == 1324);
+    REQUIRE(noiiMessage.trackingNumber == 456);
+    REQUIRE(noiiMessage.timeStamp == 22282804);
+    REQUIRE(noiiMessage.pairedShares == 123456789);
+    REQUIRE(noiiMessage.imbalanceShares == 123456789);
+    REQUIRE(noiiMessage.imbalanceDirection == 'O');
+    REQUIRE(std::string_view(noiiMessage.stock, alpha8Size) == "AAPL    ");
+    REQUIRE(noiiMessage.farPrice == 500);
+    REQUIRE(noiiMessage.nearPrice == 500);
+    REQUIRE(noiiMessage.currentReferencePrice == 500);
+    REQUIRE(noiiMessage.crossType == 'O');
+    REQUIRE(noiiMessage.priceVariationIndicator == 'A');
 }

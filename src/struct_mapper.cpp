@@ -279,3 +279,22 @@
 
     return brokenTradeMessage;
 }
+
+[[nodiscard]] NOIIMessage mapNOIIMessage(const std::byte* msg) noexcept {
+    NOIIMessage noiiMessage {};
+
+    noiiMessage.stockLocate = endianConvert16(msg + 1);
+    noiiMessage.trackingNumber = endianConvert16(msg + 3);
+    noiiMessage.timeStamp = endianConvert48(msg + 5);
+    noiiMessage.pairedShares = endianConvert64(msg + 11);
+    noiiMessage.imbalanceShares = endianConvert64(msg + 19);
+    noiiMessage.imbalanceDirection = static_cast<Alpha>(msg[27]);
+    std::memcpy(noiiMessage.stock, msg + 28, alpha8Size);
+    noiiMessage.farPrice = endianConvert32(msg + 36);
+    noiiMessage.nearPrice = endianConvert32(msg + 40);
+    noiiMessage.currentReferencePrice = endianConvert32(msg + 44);
+    noiiMessage.crossType = static_cast<Alpha>(msg[48]);
+    noiiMessage.priceVariationIndicator = static_cast<Alpha>(msg[49]);
+
+    return noiiMessage;
+}

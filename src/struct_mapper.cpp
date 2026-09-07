@@ -268,3 +268,14 @@
 
     return crossTradeMessage;
 }
+
+[[nodiscard]] BrokenTradeMessage mapBrokenTradeMessage(const std::byte* msg) noexcept {
+    BrokenTradeMessage brokenTradeMessage {};
+
+    brokenTradeMessage.stockLocate = endianConvert16(msg + 1);
+    brokenTradeMessage.trackingNumber = endianConvert16(msg + 3);
+    brokenTradeMessage.timeStamp = endianConvert48(msg + 5);
+    brokenTradeMessage.matchNumber = endianConvert64(msg + 11);
+
+    return brokenTradeMessage;
+}

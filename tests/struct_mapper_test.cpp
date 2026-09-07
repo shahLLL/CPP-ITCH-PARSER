@@ -445,3 +445,19 @@ TEST_CASE("STRUCT MAPPER TESTCASE #19", "[map_cross_trade_message]") {
     REQUIRE(crossTradeMessage.matchNumber == 123456789);
     REQUIRE(crossTradeMessage.crossType == 'O');
 }
+
+TEST_CASE("STRUCT MAPPER TESTCASE #20", "[map_broken_trade_message]") {
+    std::byte testcase[] = {
+        std::byte{0x42},
+        std::byte{0x05}, std::byte{0x2C},
+        std::byte{0x01}, std::byte{0xC8},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0x54}, std::byte{0x02}, std::byte{0x34},
+        std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x07}, std::byte{0x5B}, std::byte{0xCD}, std::byte{0x15}
+    };
+
+    BrokenTradeMessage brokenTradeMessage = mapBrokenTradeMessage(testcase);
+    REQUIRE(brokenTradeMessage.messageType == 'B');
+    REQUIRE(brokenTradeMessage.stockLocate == 1324);
+    REQUIRE(brokenTradeMessage.trackingNumber == 456);
+    REQUIRE(brokenTradeMessage.matchNumber == 123456789);
+}

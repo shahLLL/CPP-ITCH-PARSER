@@ -67,3 +67,9 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+# Mac Specific .DS_Store
+.DS_Store
+
+# Sample Data
+sample/

@@ -22,7 +22,7 @@ std::optional<ItchType::UnsignedInt8> Parser::parseMessageLength(ItchType::Alpha
         case 'P': return 44;
         case 'Q': return 40;
         case 'B': return 19;
-        case 'l': return 50;
+        case 'I': return 50;
         case 'O': return 48;
         default: return std::nullopt;
     }

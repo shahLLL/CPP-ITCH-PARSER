@@ -48,8 +48,8 @@ TEST_CASE("PARSER TESTCASES #1", "[parse_message_length]") {
     REQUIRE(Parser::parseMessageLength('Q').value() == 40);
     REQUIRE(Parser::parseMessageLength('B').has_value());
     REQUIRE(Parser::parseMessageLength('B').value() == 19);
-    REQUIRE(Parser::parseMessageLength('l').has_value());
-    REQUIRE(Parser::parseMessageLength('l').value() == 50);
+    REQUIRE(Parser::parseMessageLength('I').has_value());
+    REQUIRE(Parser::parseMessageLength('I').value() == 50);
     REQUIRE(Parser::parseMessageLength('O').has_value());
     REQUIRE(Parser::parseMessageLength('O').value() == 48);
 }

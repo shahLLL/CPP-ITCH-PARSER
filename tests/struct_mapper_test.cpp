@@ -465,7 +465,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #20", "[map_broken_trade_message]") {
 
 TEST_CASE("STRUCT MAPPER TESTCASE #21", "[map_noii_message]") {
     std::byte testcase[] = {
-        std::byte{0x6C},
+        std::byte{0x49},
         std::byte{0x05}, std::byte{0x2C},
         std::byte{0x01}, std::byte{0xC8},
         std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0x54}, std::byte{0x02}, std::byte{0x34},
@@ -481,7 +481,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #21", "[map_noii_message]") {
     };
 
     ItchStruct::NOIIMessage noiiMessage = StructMapper::mapNOIIMessage(testcase);
-    REQUIRE(noiiMessage.messageType == 'l');
+    REQUIRE(noiiMessage.messageType == 'I');
     REQUIRE(noiiMessage.stockLocate == 1324);
     REQUIRE(noiiMessage.trackingNumber == 456);
     REQUIRE(noiiMessage.timeStamp == 22282804);

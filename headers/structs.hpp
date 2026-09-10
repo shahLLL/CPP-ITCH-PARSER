@@ -226,7 +226,7 @@ namespace ItchStruct {
     };
 
     struct NOIIMessage final {
-        const ItchType::Alpha messageType = 'l';
+        const ItchType::Alpha messageType = 'I';
         ItchType::UnsignedInt16 stockLocate;
         ItchType::UnsignedInt16 trackingNumber;
         ItchType::TimeStamp timeStamp;

@@ -77,7 +77,7 @@ namespace ItchStruct {
     };
 
     struct MWCBStatusMessage final {
-        const ItchType::Alpha messageType = 'V';
+        const ItchType::Alpha messageType = 'W';
         ItchType::UnsignedInt16 stockLocate;
         ItchType::UnsignedInt16 trackingNumber;
         ItchType::TimeStamp timeStamp;

@@ -160,7 +160,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #7", "[map_mwcb_status_message]") {
     };
 
     ItchStruct::MWCBStatusMessage mwcbStatusMessage = StructMapper::mapMWCBStatusMessage(testcase);
-    REQUIRE(mwcbStatusMessage.messageType == 'V');
+    REQUIRE(mwcbStatusMessage.messageType == 'W');
     REQUIRE(mwcbStatusMessage.stockLocate == 1324);
     REQUIRE(mwcbStatusMessage.trackingNumber == 456);
     REQUIRE(mwcbStatusMessage.timeStamp == 3456627252);

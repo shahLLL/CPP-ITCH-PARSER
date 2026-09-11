@@ -129,6 +129,19 @@ void prettyPrintLULDAuctionCollar(const ItchStruct::LULDAuctionCollar &luldAucti
     std::cout << std::endl;
 }
 
+void prettyPrintOperationalHalt(const ItchStruct::OperationalHalt& operationalHalt) noexcept {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "OPERATIONAL HALT" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << operationalHalt.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << operationalHalt.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << operationalHalt.timeStamp << std::endl;
+    std::cout << "Stock: " << operationalHalt.stock << std::endl;
+    std::cout << "Market Code: " << operationalHalt.marketCode << std::endl;
+    std::cout << "Operational Halt Action: " << operationalHalt.operationalHaltAction << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -140,7 +153,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::MWCBStatusMessage& mwcbStatusMessage)  { prettyPrintMWCBStatusMessage(mwcbStatusMessage); },
         [](const ItchStruct::QuotingPeriodUpdate& quotingPeriodUpdate)  { prettyPrintQuotingPeriodUpdate(quotingPeriodUpdate); },
         [](const ItchStruct::LULDAuctionCollar& luldAuctionCollar)  { prettyPrintLULDAuctionCollar(luldAuctionCollar); },
-        [](const ItchStruct::OperationalHalt& operationalHalt)  { },
+        [](const ItchStruct::OperationalHalt& operationalHalt)  { prettyPrintOperationalHalt(operationalHalt); },
         [](const ItchStruct::AddOrderMessage& addOrderMessage)  { },
         [](const ItchStruct::AddOrderMPIDAttributionMessage& addOrderMPIDAttributionMessage)  { },
         [](const ItchStruct::OrderExecutedMessage& orderExecutedMessage)  { },

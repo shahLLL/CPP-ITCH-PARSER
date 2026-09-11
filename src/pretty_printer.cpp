@@ -1,6 +1,6 @@
 #include "../headers/pretty_printer.hpp"
 
-void prettyPrintSystemEventMessage(const ItchStruct::SystemEventMessage& systemEventMessage) {
+void prettyPrintSystemEventMessage(const ItchStruct::SystemEventMessage& systemEventMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "SYSTEM EVENT MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -11,10 +11,34 @@ void prettyPrintSystemEventMessage(const ItchStruct::SystemEventMessage& systemE
     std::cout << std::endl;
 }
 
+void prettyPrintStockDirectory(const ItchStruct::StockDirectory& stockDirectory) noexcept {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "STOCK DIRECTORY" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << stockDirectory.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << stockDirectory.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << stockDirectory.timeStamp << std::endl;
+    std::cout << "Stock: " << stockDirectory.stock << std::endl;
+    std::cout << "Market Category: " << stockDirectory.marketCategory << std::endl;
+    std::cout << "Financial Status Indicator: " << stockDirectory.financialStatusIndicator << std::endl;
+    std::cout << "Round Lot Size: " << stockDirectory.roundLotSize << std::endl;
+    std::cout << "Round Lots Only: " << stockDirectory.roundLotsOnly << std::endl;
+    std::cout << "Issue Classification: " << stockDirectory.issueClassification << std::endl;
+    std::cout << "Issue Subtype: " << stockDirectory.issueSubType << std::endl;
+    std::cout << "Authenticity: " << stockDirectory.authenticity << std::endl;
+    std::cout << "Short Sale Threshold Indicator: " << stockDirectory.shortSaleThresholdIndicator << std::endl;
+    std::cout << "IPO Flag: " << stockDirectory.ipoFlag << std::endl;
+    std::cout << "LULD Reference Price Tier: " << stockDirectory.luldReferencePriceTier << std::endl;
+    std::cout << "ETP Flag: " << stockDirectory.etpFlag << std::endl;
+    std::cout << "ETP Leverage Factor: " << stockDirectory.etpLeverageFactor << std::endl;
+    std::cout << "Inverse Indicator: " << stockDirectory.inverseIndicator << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
-        [](const ItchStruct::StockDirectory& stockDirectory)  { },
+        [](const ItchStruct::StockDirectory& stockDirectory)  { prettyPrintStockDirectory(stockDirectory); },
         [](const ItchStruct::StockTradingAction& stockTradingAction)  { },
         [](const ItchStruct::RegSHORestriction& regSHORestriction)  { },
         [](const ItchStruct::MarketParticipantPosition& marketParticipantPosition)  { },

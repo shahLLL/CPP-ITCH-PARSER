@@ -49,12 +49,24 @@ void prettyPrintStockTradingAction(const ItchStruct::StockTradingAction& stockTr
     std::cout << std::endl;
 }
 
+void prettyPrintRegSHORestriction(const ItchStruct::RegSHORestriction& regSHORestriction) noexcept {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "REG SHO RESTRICTION" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Locate Code: " << regSHORestriction.locateCode << std::endl;
+    std::cout << "Tracking Number: " << regSHORestriction.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << regSHORestriction.timeStamp << std::endl;
+    std::cout << "Stock: " << regSHORestriction.stock << std::endl;
+    std::cout << "RegSHO Action: " << regSHORestriction.regSHOAction << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
         [](const ItchStruct::StockDirectory& stockDirectory)  { prettyPrintStockDirectory(stockDirectory); },
         [](const ItchStruct::StockTradingAction& stockTradingAction)  { prettyPrintStockTradingAction(stockTradingAction); },
-        [](const ItchStruct::RegSHORestriction& regSHORestriction)  { },
+        [](const ItchStruct::RegSHORestriction& regSHORestriction)  { prettyPrintRegSHORestriction(regSHORestriction); },
         [](const ItchStruct::MarketParticipantPosition& marketParticipantPosition)  { },
         [](const ItchStruct::MWCBDeclineLevelMessage& mwcbDeclineLevelMessage)  { },
         [](const ItchStruct::MWCBStatusMessage& mwcbStatusMessage)  { },

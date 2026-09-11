@@ -11,7 +11,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #1", "[map_system_event_message]") {
         std::byte{0x4F}
     };
 
-    ItchStruct::SystemEventMessage systemEventMessage = StructMapper::mapSystemEventMessage(testcase);
+    ItchStruct::SystemEventMessage systemEventMessage = ItchStructMapper::mapSystemEventMessage(testcase);
     REQUIRE(systemEventMessage.messageType == 'S');
     REQUIRE(systemEventMessage.stockLocate == 42);
     REQUIRE(systemEventMessage.trackingNumber == 1001);
@@ -42,7 +42,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #2", "[map_stock_directory]") {
         std::byte{0x4E}
     };
 
-    ItchStruct::StockDirectory stockDirectory = StructMapper::mapStockDirectory(testcase);
+    ItchStruct::StockDirectory stockDirectory = ItchStructMapper::mapStockDirectory(testcase);
     REQUIRE(stockDirectory.messageType == 'R');
     REQUIRE(stockDirectory.stockLocate == 100);
     REQUIRE(stockDirectory.trackingNumber == 500);
@@ -75,7 +75,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #3", "[map_stock_trading_action]") {
         std::byte{0x4D}, std::byte{0x56}, std::byte{0x49}, std::byte{0x20},
     };
 
-    ItchStruct::StockTradingAction stockTradingAction = StructMapper::mapStockTradingAction(testcase);
+    ItchStruct::StockTradingAction stockTradingAction = ItchStructMapper::mapStockTradingAction(testcase);
     REQUIRE(stockTradingAction.messageType == 'H');
     REQUIRE(stockTradingAction.stockLocate == 1324);
     REQUIRE(stockTradingAction.trackingNumber == 7);
@@ -95,7 +95,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #4", "[map_reg_sho_restriction]") {
         std::byte{0x31}
     };
 
-    ItchStruct::RegSHORestriction regSHORestriction = StructMapper::mapRegSHORestriction(testcase);
+    ItchStruct::RegSHORestriction regSHORestriction = ItchStructMapper::mapRegSHORestriction(testcase);
     REQUIRE(regSHORestriction.messageType == 'Y');
     REQUIRE(regSHORestriction.locateCode == 512);
     REQUIRE(regSHORestriction.trackingNumber == 12);
@@ -117,7 +117,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #5", "[map_market_participation_position]") {
         std::byte{0x41}
     };
 
-    ItchStruct::MarketParticipantPosition marketParticipationPosition = StructMapper::mapMarketParticipationPostion(testcase);
+    ItchStruct::MarketParticipantPosition marketParticipationPosition = ItchStructMapper::mapMarketParticipationPostion(testcase);
     REQUIRE(marketParticipationPosition.messageType == 'L');
     REQUIRE(marketParticipationPosition.stockLocate == 8192);
     REQUIRE(marketParticipationPosition.trackingNumber == 3);
@@ -140,7 +140,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #6", "[map_mwcb_decline_level_message]") {
         std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x14}, std::byte{0xF4}, std::byte{0x6B}, std::byte{0x04}, std::byte{0x00}
     };
 
-    ItchStruct::MWCBDeclineLevelMessage mwcbDeclineLevelMessage = StructMapper::mapMWCBDeclineLevelMessage(testcase);
+    ItchStruct::MWCBDeclineLevelMessage mwcbDeclineLevelMessage = ItchStructMapper::mapMWCBDeclineLevelMessage(testcase);
     REQUIRE(mwcbDeclineLevelMessage.messageType == 'V');
     REQUIRE(mwcbDeclineLevelMessage.stockLocate == 0);
     REQUIRE(mwcbDeclineLevelMessage.trackingNumber == 1);
@@ -159,7 +159,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #7", "[map_mwcb_status_message]") {
         std::byte{0x31}
     };
 
-    ItchStruct::MWCBStatusMessage mwcbStatusMessage = StructMapper::mapMWCBStatusMessage(testcase);
+    ItchStruct::MWCBStatusMessage mwcbStatusMessage = ItchStructMapper::mapMWCBStatusMessage(testcase);
     REQUIRE(mwcbStatusMessage.messageType == 'W');
     REQUIRE(mwcbStatusMessage.stockLocate == 1324);
     REQUIRE(mwcbStatusMessage.trackingNumber == 456);
@@ -180,7 +180,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #8", "[map_quotation_period_update]") {
         std::byte{0x00}, std::byte{0x02}, std::byte{0x49}, std::byte{0xF0}
     };
 
-    ItchStruct::QuotingPeriodUpdate quotationPeriodUpdate = StructMapper::mapQuotingPeriodUpdate(testcase);
+    ItchStruct::QuotingPeriodUpdate quotationPeriodUpdate = ItchStructMapper::mapQuotingPeriodUpdate(testcase);
     REQUIRE(quotationPeriodUpdate.messageType == 'K');
     REQUIRE(quotationPeriodUpdate.stockLocate == 1324);
     REQUIRE(quotationPeriodUpdate.trackingNumber == 456);
@@ -204,7 +204,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #9", "[map_luld_auction_collar]") {
         std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x02}
     };
 
-    ItchStruct::LULDAuctionCollar luldAuctionCollar = StructMapper::mapLULDAuctionCollar(testcase);
+    ItchStruct::LULDAuctionCollar luldAuctionCollar = ItchStructMapper::mapLULDAuctionCollar(testcase);
     REQUIRE(luldAuctionCollar.messageType == 'J');
     REQUIRE(luldAuctionCollar.stockLocate == 1324);
     REQUIRE(luldAuctionCollar.trackingNumber == 456);
@@ -227,7 +227,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #10", "[map_operational_halt]") {
         std::byte{0x48}
     };
 
-    ItchStruct::OperationalHalt operationalHalt = StructMapper::mapOperationalHalt(testcase);
+    ItchStruct::OperationalHalt operationalHalt = ItchStructMapper::mapOperationalHalt(testcase);
     REQUIRE(operationalHalt.messageType == 'h');
     REQUIRE(operationalHalt.stockLocate == 1324);
     REQUIRE(operationalHalt.trackingNumber == 456);
@@ -250,7 +250,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #11", "[map_add_order_message]") {
         std::byte{0x00}, std::byte{0x40}, std::byte{0x2A}, std::byte{0x88}
     };
 
-    ItchStruct::AddOrderMessage addOrderMessage = StructMapper::mapAddOrderMessage(testcase);
+    ItchStruct::AddOrderMessage addOrderMessage = ItchStructMapper::mapAddOrderMessage(testcase);
     REQUIRE(addOrderMessage.messageType == 'A');
     REQUIRE(addOrderMessage.stockLocate == 1324);
     REQUIRE(addOrderMessage.trackingNumber == 456);
@@ -276,7 +276,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #12", "[map_add_order_mpid_attribution_message
         std::byte{0x41}, std::byte{0x42}, std::byte{0x43}, std::byte{0x44}
     };
 
-    ItchStruct::AddOrderMPIDAttributionMessage addOrderMPIDAttributionMessage = StructMapper::mapAddOrderMPIDAttributionMessage(testcase);
+    ItchStruct::AddOrderMPIDAttributionMessage addOrderMPIDAttributionMessage = ItchStructMapper::mapAddOrderMPIDAttributionMessage(testcase);
     REQUIRE(addOrderMPIDAttributionMessage.messageType == 'F');
     REQUIRE(addOrderMPIDAttributionMessage.stockLocate == 1324);
     REQUIRE(addOrderMPIDAttributionMessage.trackingNumber == 456);
@@ -300,7 +300,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #13", "[map_order_executed_message]") {
         std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x07}, std::byte{0x5B}, std::byte{0xCD}, std::byte{0x15}
     };
 
-    ItchStruct::OrderExecutedMessage orderExecutedMessage = StructMapper::mapOrderExecutedMessage(testcase);
+    ItchStruct::OrderExecutedMessage orderExecutedMessage = ItchStructMapper::mapOrderExecutedMessage(testcase);
     REQUIRE(orderExecutedMessage.messageType == 'E');
     REQUIRE(orderExecutedMessage.stockLocate == 1324);
     REQUIRE(orderExecutedMessage.trackingNumber == 456);
@@ -323,7 +323,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #14", "[map_order_executed_with_price_message]
         std::byte{0x00}, std::byte{0x40}, std::byte{0x2A}, std::byte{0x88}
     };
 
-    ItchStruct::OrderExecutedWithPriceMessage orderExecutedWithPriceMessage = StructMapper::mapOrderExecutedWithPriceMessage(testcase);
+    ItchStruct::OrderExecutedWithPriceMessage orderExecutedWithPriceMessage = ItchStructMapper::mapOrderExecutedWithPriceMessage(testcase);
     REQUIRE(orderExecutedWithPriceMessage.messageType == 'C');
     REQUIRE(orderExecutedWithPriceMessage.stockLocate == 1324);
     REQUIRE(orderExecutedWithPriceMessage.trackingNumber == 456);
@@ -345,7 +345,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #15", "[map_order_cancel_message]") {
         std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
     };
 
-    ItchStruct::OrderCancelMessage orderCancelMessage = StructMapper::mapOrderCancelMessage(testcase);
+    ItchStruct::OrderCancelMessage orderCancelMessage = ItchStructMapper::mapOrderCancelMessage(testcase);
     REQUIRE(orderCancelMessage.messageType == 'X');
     REQUIRE(orderCancelMessage.stockLocate == 1324);
     REQUIRE(orderCancelMessage.trackingNumber == 456);
@@ -363,7 +363,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #16", "[map_order_delete_message]") {
         std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x02}, std::byte{0x72}, std::byte{0x03}, std::byte{0xDB}, std::byte{0x4A},
     };
 
-    ItchStruct::OrderDeleteMessage orderDeleteMessage = StructMapper::mapOrderDeleteMessage(testcase);
+    ItchStruct::OrderDeleteMessage orderDeleteMessage = ItchStructMapper::mapOrderDeleteMessage(testcase);
     REQUIRE(orderDeleteMessage.messageType == 'D');
     REQUIRE(orderDeleteMessage.stockLocate == 1324);
     REQUIRE(orderDeleteMessage.trackingNumber == 456);
@@ -383,7 +383,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #17", "[map_order_replace_message]") {
         std::byte{0x00}, std::byte{0x40}, std::byte{0x2A}, std::byte{0x88}
     };
 
-    ItchStruct::OrderReplaceMessage orderReplaceMessage = StructMapper::mapOrderReplaceMessage(testcase);
+    ItchStruct::OrderReplaceMessage orderReplaceMessage = ItchStructMapper::mapOrderReplaceMessage(testcase);
     REQUIRE(orderReplaceMessage.messageType == 'U');
     REQUIRE(orderReplaceMessage.stockLocate == 1324);
     REQUIRE(orderReplaceMessage.trackingNumber == 456);
@@ -408,7 +408,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #18", "[map_trade_message]") {
         std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x07}, std::byte{0x5B}, std::byte{0xCD}, std::byte{0x15}
     };
 
-    ItchStruct::TradeMessage tradeMessage = StructMapper::mapTradeMessage(testcase);
+    ItchStruct::TradeMessage tradeMessage = ItchStructMapper::mapTradeMessage(testcase);
     REQUIRE(tradeMessage.messageType == 'P');
     REQUIRE(tradeMessage.stockLocate == 1324);
     REQUIRE(tradeMessage.trackingNumber == 456);
@@ -434,7 +434,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #19", "[map_cross_trade_message]") {
         std::byte{0x4F},
     };
 
-    ItchStruct::CrossTradeMessage crossTradeMessage = StructMapper::mapCrossTradeMessage(testcase);
+    ItchStruct::CrossTradeMessage crossTradeMessage = ItchStructMapper::mapCrossTradeMessage(testcase);
     REQUIRE(crossTradeMessage.messageType == 'Q');
     REQUIRE(crossTradeMessage.stockLocate == 1324);
     REQUIRE(crossTradeMessage.trackingNumber == 456);
@@ -455,7 +455,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #20", "[map_broken_trade_message]") {
         std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x00}, std::byte{0x07}, std::byte{0x5B}, std::byte{0xCD}, std::byte{0x15}
     };
 
-    ItchStruct::BrokenTradeMessage brokenTradeMessage = StructMapper::mapBrokenTradeMessage(testcase);
+    ItchStruct::BrokenTradeMessage brokenTradeMessage = ItchStructMapper::mapBrokenTradeMessage(testcase);
     REQUIRE(brokenTradeMessage.messageType == 'B');
     REQUIRE(brokenTradeMessage.stockLocate == 1324);
     REQUIRE(brokenTradeMessage.trackingNumber == 456);
@@ -480,7 +480,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #21", "[map_noii_message]") {
         std::byte{0x41},
     };
 
-    ItchStruct::NOIIMessage noiiMessage = StructMapper::mapNOIIMessage(testcase);
+    ItchStruct::NOIIMessage noiiMessage = ItchStructMapper::mapNOIIMessage(testcase);
     REQUIRE(noiiMessage.messageType == 'I');
     REQUIRE(noiiMessage.stockLocate == 1324);
     REQUIRE(noiiMessage.trackingNumber == 456);
@@ -512,7 +512,7 @@ TEST_CASE("STRUCT MAPPER TESTCASE #22", "[map_dlwcrpd]") {
         std::byte{0x00}, std::byte{0x00}, std::byte{0x01}, std::byte{0xF4},
     };
 
-    ItchStruct::DLWCRPD dlwcrpd = StructMapper::mapDLWCRPD(testcase);
+    ItchStruct::DLWCRPD dlwcrpd = ItchStructMapper::mapDLWCRPD(testcase);
     REQUIRE(dlwcrpd.messageType == 'O');
     REQUIRE(dlwcrpd.stockLocate == 1324);
     REQUIRE(dlwcrpd.trackingNumber == 456);

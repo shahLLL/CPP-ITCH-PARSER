@@ -3,7 +3,7 @@
 #include "endian_converter.hpp"
 
 
-namespace StructMapper {
+namespace ItchStructMapper {
     [[nodiscard]] ItchStruct::SystemEventMessage mapSystemEventMessage(const std::byte* msg) noexcept;
     [[nodiscard]] ItchStruct::StockDirectory mapStockDirectory(const std::byte* msg) noexcept;
     [[nodiscard]] ItchStruct::StockTradingAction mapStockTradingAction(const std::byte* msg) noexcept;

@@ -213,6 +213,17 @@ void prettyPrintOrderCancelMessage(const ItchStruct::OrderCancelMessage& orderCa
     std::cout << std::endl;
 }
 
+void prettyPrintOrderDeleteMessage(const ItchStruct::OrderDeleteMessage& orderDeleteMessage) {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "ORDER DELETE MESSAGE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << orderDeleteMessage.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << orderDeleteMessage.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << orderDeleteMessage.timeStamp << std::endl;
+    std::cout << "Order Reference Number: " << orderDeleteMessage.orderReferenceNumber << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -230,7 +241,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::OrderExecutedMessage& orderExecutedMessage)  { prettyPrintOrderExecutedMessage(orderExecutedMessage); },
         [](const ItchStruct::OrderExecutedWithPriceMessage& orderExecutedWithPriceMessage)  { prettyPrintOrderExecutedWithPriceMessage(orderExecutedWithPriceMessage); },
         [](const ItchStruct::OrderCancelMessage& orderCancelMessage)  { prettyPrintOrderCancelMessage(orderCancelMessage); },
-        [](const ItchStruct::OrderDeleteMessage& orderDeleteMessage)  { },
+        [](const ItchStruct::OrderDeleteMessage& orderDeleteMessage)  { prettyPrintOrderDeleteMessage(orderDeleteMessage); },
         [](const ItchStruct::OrderReplaceMessage& orderReplaceMessage)  { },
         [](const ItchStruct::TradeMessage& tradeMessage)  { },
         [](const ItchStruct::CrossTradeMessage& crossTradeMessage)  { },

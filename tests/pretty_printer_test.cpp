@@ -364,3 +364,20 @@ TEST_CASE("ITCH PRINTER TESTCASE #15", "[pretty_print_order_cancel_message]") {
     std::string output = redirectedOutput.str();
     REQUIRE(output == expected);
 }
+
+TEST_CASE("ITCH PRINTER TESTCASE #16", "[pretty_print_order_delete_message]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nORDER DELETE MESSAGE\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 872" + 
+        "\nTracking Number: 11" + "\nTimestamp: 50000" + "\nOrder Reference Number: 190\n\n";
+
+    ItchStruct::OrderDeleteMessage test = ItchStruct::OrderDeleteMessage{};
+    test.stockLocate = 872;
+    test.trackingNumber = 11;
+    test.timeStamp = 50000;
+    test.orderReferenceNumber = 190;
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}

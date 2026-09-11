@@ -14,8 +14,8 @@ namespace ItchType {
     using UnsignedInt16 = std::uint16_t;
     using UnsignedInt32 = std::uint32_t;
     using UnsignedInt64 = std::uint64_t;
-    using Alpha2 = Alpha[alpha2Size];
-    using Alpha4 = Alpha[alpha4Size];
+    using Alpha2 = Alpha[alpha2Size + 1];
+    using Alpha4 = Alpha[alpha4Size + 1];
     using TimeStamp = std::uint64_t;
-    using Alpha8 = Alpha[alpha8Size];
+    using Alpha8 = Alpha[alpha8Size + 1];
 }

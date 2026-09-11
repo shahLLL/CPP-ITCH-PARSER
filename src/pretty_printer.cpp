@@ -186,6 +186,21 @@ void prettyPrintOrderExecutedMessage(const ItchStruct::OrderExecutedMessage& ord
     std::cout << std::endl;
 }
 
+void prettyPrintOrderExecutedWithPriceMessage(const ItchStruct::OrderExecutedWithPriceMessage& orderExecutedWithPriceMessage) {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "ORDER EXECUTED WITH PRICE MESSAGE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << orderExecutedWithPriceMessage.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << orderExecutedWithPriceMessage.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << orderExecutedWithPriceMessage.timeStamp << std::endl;
+    std::cout << "Order Reference Number: " << orderExecutedWithPriceMessage.orderReferenceNumber << std::endl;
+    std::cout << "Executed Shares: " << orderExecutedWithPriceMessage.executedShares << std::endl;
+    std::cout << "Match Number: " << orderExecutedWithPriceMessage.matchNumber << std::endl;
+    std::cout << "Printable: " << orderExecutedWithPriceMessage.printable << std::endl;
+    std::cout << "Execution Price: " << orderExecutedWithPriceMessage.executionPrice << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -201,7 +216,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::AddOrderMessage& addOrderMessage)  { prettyPrintAddOrderMessage(addOrderMessage); },
         [](const ItchStruct::AddOrderMPIDAttributionMessage& addOrderMPIDAttributionMessage)  { prettyPrintAddOrderMPIDAttributionMessage(addOrderMPIDAttributionMessage); },
         [](const ItchStruct::OrderExecutedMessage& orderExecutedMessage)  { prettyPrintOrderExecutedMessage(orderExecutedMessage); },
-        [](const ItchStruct::OrderExecutedWithPriceMessage& orderExecutedWithPriceMessage)  { },
+        [](const ItchStruct::OrderExecutedWithPriceMessage& orderExecutedWithPriceMessage)  { prettyPrintOrderExecutedWithPriceMessage(orderExecutedWithPriceMessage); },
         [](const ItchStruct::OrderCancelMessage& orderCancelMessage)  { },
         [](const ItchStruct::OrderDeleteMessage& orderDeleteMessage)  { },
         [](const ItchStruct::OrderReplaceMessage& orderReplaceMessage)  { },

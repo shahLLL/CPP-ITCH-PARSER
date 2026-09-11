@@ -89,6 +89,17 @@ void prettyPrintMWCBDeclineLevelMessage(const ItchStruct::MWCBDeclineLevelMessag
     std::cout << std::endl;
 }
 
+void prettyPrintMWCBStatusMessage(const ItchStruct::MWCBStatusMessage &mwcbStatusMessage) noexcept {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "MWCB STATUS MESSAGE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << mwcbStatusMessage.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << mwcbStatusMessage.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << mwcbStatusMessage.timeStamp << std::endl;
+    std::cout << "Breached Level: " << mwcbStatusMessage.breachedLevel << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -97,7 +108,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::RegSHORestriction& regSHORestriction)  { prettyPrintRegSHORestriction(regSHORestriction); },
         [](const ItchStruct::MarketParticipantPosition& marketParticipantPosition)  { prettyPrintMarketParticipantPosition(marketParticipantPosition); },
         [](const ItchStruct::MWCBDeclineLevelMessage& mwcbDeclineLevelMessage)  { prettyPrintMWCBDeclineLevelMessage(mwcbDeclineLevelMessage); },
-        [](const ItchStruct::MWCBStatusMessage& mwcbStatusMessage)  { },
+        [](const ItchStruct::MWCBStatusMessage& mwcbStatusMessage)  { prettyPrintMWCBStatusMessage(mwcbStatusMessage); },
         [](const ItchStruct::QuotingPeriodUpdate& quotingPeriodUpdate)  { },
         [](const ItchStruct::LULDAuctionCollar& luldAuctionCollar)  { },
         [](const ItchStruct::OperationalHalt& operationalHalt)  { },

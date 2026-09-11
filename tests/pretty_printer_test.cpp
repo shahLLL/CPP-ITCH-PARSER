@@ -106,3 +106,32 @@ TEST_CASE("ITCH PRINTER TESTCASE #4", "[pretty_print_reg_sho_restriction]") {
     std::string output = redirectedOutput.str();
     REQUIRE(output == expected);
 }
+
+TEST_CASE("ITCH PRINTER TESTCASE #5", "[pretty_print_market_participant_position]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nMARKET PARTICIPANT POSITION\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 134" + 
+        "\nTracking Number: 90" + "\nTimestamp: 788990" +  "\nMPID: BARC" + 
+        "\nStock: TSLA" + "\nPrimary Market Maker: Y" + 
+        "\nMarket Maker Mode: N" + "\nMarket Participant State: A\n\n";
+
+    ItchStruct::MarketParticipantPosition test = ItchStruct::MarketParticipantPosition{};
+    test.stockLocate = 134;
+    test.trackingNumber = 90;
+    test.timeStamp = 788990;
+    test.mpid[0] = 'B';
+    test.mpid[1] = 'A';
+    test.mpid[2] = 'R';
+    test.mpid[3] = 'C';
+    test.stock[0] = 'T';
+    test.stock[1] = 'S';
+    test.stock[2] = 'L';
+    test.stock[3] = 'A';
+    test.primaryMarketMaker = 'Y';
+    test.marketMakerMode = 'N';
+    test.marketParticipantState = 'A';
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}

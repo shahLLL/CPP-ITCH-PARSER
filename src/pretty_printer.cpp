@@ -61,13 +61,28 @@ void prettyPrintRegSHORestriction(const ItchStruct::RegSHORestriction& regSHORes
     std::cout << std::endl;
 }
 
+void prettyPrintMarketParticipantPosition(const ItchStruct::MarketParticipantPosition& marketParticipantPosition) noexcept {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "MARKET PARTICIPANT POSITION" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << marketParticipantPosition.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << marketParticipantPosition.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << marketParticipantPosition.timeStamp << std::endl;
+    std::cout << "MPID: " << marketParticipantPosition.mpid << std::endl;
+    std::cout << "Stock: " << marketParticipantPosition.stock << std::endl;
+    std::cout << "Primary Market Maker: " << marketParticipantPosition.primaryMarketMaker << std::endl;
+    std::cout << "Market Maker Mode: " << marketParticipantPosition.marketMakerMode << std::endl;
+    std::cout << "Market Participant State: " << marketParticipantPosition.marketParticipantState << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
         [](const ItchStruct::StockDirectory& stockDirectory)  { prettyPrintStockDirectory(stockDirectory); },
         [](const ItchStruct::StockTradingAction& stockTradingAction)  { prettyPrintStockTradingAction(stockTradingAction); },
         [](const ItchStruct::RegSHORestriction& regSHORestriction)  { prettyPrintRegSHORestriction(regSHORestriction); },
-        [](const ItchStruct::MarketParticipantPosition& marketParticipantPosition)  { },
+        [](const ItchStruct::MarketParticipantPosition& marketParticipantPosition)  { prettyPrintMarketParticipantPosition(marketParticipantPosition); },
         [](const ItchStruct::MWCBDeclineLevelMessage& mwcbDeclineLevelMessage)  { },
         [](const ItchStruct::MWCBStatusMessage& mwcbStatusMessage)  { },
         [](const ItchStruct::QuotingPeriodUpdate& quotingPeriodUpdate)  { },

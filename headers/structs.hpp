@@ -1,5 +1,6 @@
 #pragma once
 
+#include <variant>
 #include "types.hpp"
 
 #pragma pack(push, 1)
@@ -256,6 +257,15 @@ namespace ItchStruct {
         ItchType::UnsignedInt32 lowerPriceRangeCollar;
         ItchType::UnsignedInt32 upperPriceRangeCollar;
     };
+
+    using ItchData = std::variant<SystemEventMessage, StockDirectory, 
+        StockTradingAction, RegSHORestriction, MarketParticipantPosition,
+        MWCBDeclineLevelMessage, MWCBStatusMessage, QuotingPeriodUpdate,
+        LULDAuctionCollar, OperationalHalt, AddOrderMessage, 
+        AddOrderMPIDAttributionMessage, OrderExecutedMessage,
+        OrderExecutedWithPriceMessage, OrderCancelMessage,
+        OrderDeleteMessage, OrderReplaceMessage, TradeMessage,
+        CrossTradeMessage, BrokenTradeMessage, NOIIMessage, DLWCRPD>;
 }
 
 #pragma pack(pop)

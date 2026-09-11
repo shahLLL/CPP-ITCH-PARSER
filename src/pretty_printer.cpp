@@ -76,6 +76,19 @@ void prettyPrintMarketParticipantPosition(const ItchStruct::MarketParticipantPos
     std::cout << std::endl;
 }
 
+void prettyPrintMWCBDeclineLevelMessage(const ItchStruct::MWCBDeclineLevelMessage& mwcbDeclineLevelMessage) noexcept {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "MWCB DECLINE LEVEL MESSAGE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << mwcbDeclineLevelMessage.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << mwcbDeclineLevelMessage.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << mwcbDeclineLevelMessage.timeStamp << std::endl;
+    std::cout << "Level I: " << mwcbDeclineLevelMessage.level1 << std::endl;
+    std::cout << "Level II: " << mwcbDeclineLevelMessage.level2 << std::endl;
+    std::cout << "Level III: " << mwcbDeclineLevelMessage.level3 << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -83,7 +96,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::StockTradingAction& stockTradingAction)  { prettyPrintStockTradingAction(stockTradingAction); },
         [](const ItchStruct::RegSHORestriction& regSHORestriction)  { prettyPrintRegSHORestriction(regSHORestriction); },
         [](const ItchStruct::MarketParticipantPosition& marketParticipantPosition)  { prettyPrintMarketParticipantPosition(marketParticipantPosition); },
-        [](const ItchStruct::MWCBDeclineLevelMessage& mwcbDeclineLevelMessage)  { },
+        [](const ItchStruct::MWCBDeclineLevelMessage& mwcbDeclineLevelMessage)  { prettyPrintMWCBDeclineLevelMessage(mwcbDeclineLevelMessage); },
         [](const ItchStruct::MWCBStatusMessage& mwcbStatusMessage)  { },
         [](const ItchStruct::QuotingPeriodUpdate& quotingPeriodUpdate)  { },
         [](const ItchStruct::LULDAuctionCollar& luldAuctionCollar)  { },

@@ -135,3 +135,23 @@ TEST_CASE("ITCH PRINTER TESTCASE #5", "[pretty_print_market_participant_position
     std::string output = redirectedOutput.str();
     REQUIRE(output == expected);
 }
+
+TEST_CASE("ITCH PRINTER TESTCASE #6", "[pretty_print_mwcb_decline_level_message]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nMWCB DECLINE LEVEL MESSAGE\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 221" + 
+        "\nTracking Number: 51" + "\nTimestamp: 62700" + "\nLevel I: 700000" +
+        "\nLevel II: 900000" + "\nLevel III: 1100000\n\n";
+
+    ItchStruct::MWCBDeclineLevelMessage test = ItchStruct::MWCBDeclineLevelMessage{};
+    test.stockLocate = 221;
+    test.trackingNumber = 51;
+    test.timeStamp = 62700;
+    test.level1 = 700000;
+    test.level2 = 900000;
+    test.level3 = 1100000;
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}

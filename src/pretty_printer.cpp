@@ -238,6 +238,22 @@ void prettyPrintOrderReplaceMessage(const ItchStruct::OrderReplaceMessage& order
     std::cout << std::endl;
 }
 
+void prettyPrintTradeMessage(const ItchStruct::TradeMessage& tradeMessage) {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "TRADE MESSAGE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << tradeMessage.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << tradeMessage.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << tradeMessage.timeStamp << std::endl;
+    std::cout << "Order Reference Number: " << tradeMessage.orderReferenceNumber << std::endl;
+    std::cout << "Buy Sell Indicator: " << tradeMessage.buySellIndicator << std::endl;
+    std::cout << "Shares: " << tradeMessage.shares << std::endl;
+    std::cout << "Stock: " << tradeMessage.stock << std::endl;
+    std::cout << "Price: " << tradeMessage.price << std::endl;
+    std::cout << "Match Number: " << tradeMessage.matchNumber << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -257,7 +273,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::OrderCancelMessage& orderCancelMessage)  { prettyPrintOrderCancelMessage(orderCancelMessage); },
         [](const ItchStruct::OrderDeleteMessage& orderDeleteMessage)  { prettyPrintOrderDeleteMessage(orderDeleteMessage); },
         [](const ItchStruct::OrderReplaceMessage& orderReplaceMessage)  { prettyPrintOrderReplaceMessage(orderReplaceMessage); },
-        [](const ItchStruct::TradeMessage& tradeMessage)  { },
+        [](const ItchStruct::TradeMessage& tradeMessage)  { prettyPrintTradeMessage(tradeMessage); },
         [](const ItchStruct::CrossTradeMessage& crossTradeMessage)  { },
         [](const ItchStruct::BrokenTradeMessage& brokenTradeMessage)  { },
         [](const ItchStruct::NOIIMessage& noiiMessage)  { },

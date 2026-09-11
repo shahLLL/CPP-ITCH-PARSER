@@ -201,6 +201,18 @@ void prettyPrintOrderExecutedWithPriceMessage(const ItchStruct::OrderExecutedWit
     std::cout << std::endl;
 }
 
+void prettyPrintOrderCancelMessage(const ItchStruct::OrderCancelMessage& orderCancelMessage) {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "ORDER CANCEL MESSAGE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << orderCancelMessage.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << orderCancelMessage.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << orderCancelMessage.timeStamp << std::endl;
+    std::cout << "Order Reference Number: " << orderCancelMessage.orderReferenceNumber << std::endl;
+    std::cout << "Cancelled Shares: " << orderCancelMessage.cancelledShares << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -217,7 +229,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::AddOrderMPIDAttributionMessage& addOrderMPIDAttributionMessage)  { prettyPrintAddOrderMPIDAttributionMessage(addOrderMPIDAttributionMessage); },
         [](const ItchStruct::OrderExecutedMessage& orderExecutedMessage)  { prettyPrintOrderExecutedMessage(orderExecutedMessage); },
         [](const ItchStruct::OrderExecutedWithPriceMessage& orderExecutedWithPriceMessage)  { prettyPrintOrderExecutedWithPriceMessage(orderExecutedWithPriceMessage); },
-        [](const ItchStruct::OrderCancelMessage& orderCancelMessage)  { },
+        [](const ItchStruct::OrderCancelMessage& orderCancelMessage)  { prettyPrintOrderCancelMessage(orderCancelMessage); },
         [](const ItchStruct::OrderDeleteMessage& orderDeleteMessage)  { },
         [](const ItchStruct::OrderReplaceMessage& orderReplaceMessage)  { },
         [](const ItchStruct::TradeMessage& tradeMessage)  { },

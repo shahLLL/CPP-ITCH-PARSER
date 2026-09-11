@@ -346,3 +346,21 @@ TEST_CASE("ITCH PRINTER TESTCASE #14", "[pretty_print_order_executed_with_price_
     REQUIRE(output == expected);
 }
 
+TEST_CASE("ITCH PRINTER TESTCASE #15", "[pretty_print_order_cancel_message]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nORDER CANCEL MESSAGE\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 1222" + 
+        "\nTracking Number: 90" + "\nTimestamp: 459000" + "\nOrder Reference Number: 2775" + 
+        "\nCancelled Shares: 120\n\n";
+
+    ItchStruct::OrderCancelMessage test = ItchStruct::OrderCancelMessage{};
+    test.stockLocate = 1222;
+    test.trackingNumber = 90;
+    test.timeStamp = 459000;
+    test.orderReferenceNumber = 2775;
+    test.cancelledShares = 120;
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}

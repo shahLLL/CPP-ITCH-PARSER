@@ -35,11 +35,25 @@ void prettyPrintStockDirectory(const ItchStruct::StockDirectory& stockDirectory)
     std::cout << std::endl;
 }
 
+void prettyPrintStockTradingAction(const ItchStruct::StockTradingAction& stockTradingAction) {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "STOCK TRADING ACTION" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << stockTradingAction.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << stockTradingAction.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << stockTradingAction.timeStamp << std::endl;
+    std::cout << "Stock: " << stockTradingAction.stock << std::endl;
+    std::cout << "Trading State: " << stockTradingAction.tradingState << std::endl;
+    std::cout << "Reserved: " << stockTradingAction.reserved << std::endl;
+    std::cout << "Reason: " << stockTradingAction.reason << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
         [](const ItchStruct::StockDirectory& stockDirectory)  { prettyPrintStockDirectory(stockDirectory); },
-        [](const ItchStruct::StockTradingAction& stockTradingAction)  { },
+        [](const ItchStruct::StockTradingAction& stockTradingAction)  { prettyPrintStockTradingAction(stockTradingAction); },
         [](const ItchStruct::RegSHORestriction& regSHORestriction)  { },
         [](const ItchStruct::MarketParticipantPosition& marketParticipantPosition)  { },
         [](const ItchStruct::MWCBDeclineLevelMessage& mwcbDeclineLevelMessage)  { },

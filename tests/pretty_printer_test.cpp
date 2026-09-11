@@ -61,4 +61,29 @@ TEST_CASE("ITCH PRINTER TESTCASE #2", "[pretty_print_stock_directory]") {
     REQUIRE(output == expected);
 }
 
+TEST_CASE("ITCH PRINTER TESTCASE #3", "[pretty_print_stock_trading_action]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nSTOCK TRADING ACTION\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 22" + 
+        "\nTracking Number: 44" + "\nTimestamp: 100990" + "\nStock: AAPL" +
+        "\nTrading State: T" + "\nReserved: Y" + "\nReason: MVI\n\n";
+    ItchStruct::StockTradingAction test = ItchStruct::StockTradingAction{};
+    test.stockLocate = 22;
+    test.trackingNumber = 44;
+    test.timeStamp = 100990;
+    test.stock[0] = 'A';
+    test.stock[1] = 'A';
+    test.stock[2] = 'P';
+    test.stock[3] = 'L';
+    test.tradingState = 'T';
+    test.reserved = 'Y';
+    test.reason[0] = 'M';
+    test.reason[1] = 'V';
+    test.reason[2] = 'I';
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}
+
 

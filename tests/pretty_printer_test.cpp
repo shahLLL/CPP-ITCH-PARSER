@@ -248,3 +248,28 @@ TEST_CASE("ITCH PRINTER TESTCASE #10", "[pretty_print_operational_halt]") {
     std::string output = redirectedOutput.str();
     REQUIRE(output == expected);
 }
+
+TEST_CASE("ITCH PRINTER TESTCASE #10", "[pretty_print_add_order_message]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nADD ORDER MESSAGE\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 214" + 
+        "\nTracking Number: 14" + "\nTimestamp: 8500" + "\nOrder Reference Number: 8990" + 
+        "\nBuy Sell Indicator: B" + "\nShares: 5000" + "\nStock: TSLA" + "\nPrice: 6500\n\n";
+
+    ItchStruct::AddOrderMessage test = ItchStruct::AddOrderMessage{};
+    test.stockLocate = 214;
+    test.trackingNumber = 14;
+    test.timeStamp = 8500;
+    test.orderReferenceNumber = 8990;
+    test.buySellIndicator = 'B';
+    test.shares = 5000;
+    test.stock[0] = 'T';
+    test.stock[1] = 'S';
+    test.stock[2] = 'L';
+    test.stock[3] = 'A';
+    test.price = 6500;
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}

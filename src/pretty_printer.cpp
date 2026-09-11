@@ -173,6 +173,19 @@ void prettyPrintAddOrderMPIDAttributionMessage(const ItchStruct::AddOrderMPIDAtt
     std::cout << std::endl;
 }
 
+void prettyPrintOrderExecutedMessage(const ItchStruct::OrderExecutedMessage& orderExecutedMessage) {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "ORDER EXECUTED MESSAGE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << orderExecutedMessage.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << orderExecutedMessage.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << orderExecutedMessage.timeStamp << std::endl;
+    std::cout << "Order Reference Number: " << orderExecutedMessage.orderReferenceNumber << std::endl;
+    std::cout << "Executed Shares: " << orderExecutedMessage.executedShares << std::endl;
+    std::cout << "Match Number: " << orderExecutedMessage.matchNumber << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -187,7 +200,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::OperationalHalt& operationalHalt)  { prettyPrintOperationalHalt(operationalHalt); },
         [](const ItchStruct::AddOrderMessage& addOrderMessage)  { prettyPrintAddOrderMessage(addOrderMessage); },
         [](const ItchStruct::AddOrderMPIDAttributionMessage& addOrderMPIDAttributionMessage)  { prettyPrintAddOrderMPIDAttributionMessage(addOrderMPIDAttributionMessage); },
-        [](const ItchStruct::OrderExecutedMessage& orderExecutedMessage)  { },
+        [](const ItchStruct::OrderExecutedMessage& orderExecutedMessage)  { prettyPrintOrderExecutedMessage(orderExecutedMessage); },
         [](const ItchStruct::OrderExecutedWithPriceMessage& orderExecutedWithPriceMessage)  { },
         [](const ItchStruct::OrderCancelMessage& orderCancelMessage)  { },
         [](const ItchStruct::OrderDeleteMessage& orderDeleteMessage)  { },

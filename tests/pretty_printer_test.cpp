@@ -303,3 +303,23 @@ TEST_CASE("ITCH PRINTER TESTCASE #12", "[pretty_print_add_order_mpid_attribution
     std::string output = redirectedOutput.str();
     REQUIRE(output == expected);
 }
+
+TEST_CASE("ITCH PRINTER TESTCASE #13", "[pretty_print_order_executed_message]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nORDER EXECUTED MESSAGE\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 805" + 
+        "\nTracking Number: 9" + "\nTimestamp: 908000" + "\nOrder Reference Number: 4875" + 
+        "\nExecuted Shares: 250" + "\nMatch Number: 38\n\n";
+
+    ItchStruct::OrderExecutedMessage test = ItchStruct::OrderExecutedMessage{};
+    test.stockLocate = 805;
+    test.trackingNumber = 9;
+    test.timeStamp = 908000;
+    test.orderReferenceNumber = 4875;
+    test.executedShares = 250;
+    test.matchNumber = 38;
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}

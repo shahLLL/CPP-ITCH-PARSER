@@ -249,7 +249,7 @@ TEST_CASE("ITCH PRINTER TESTCASE #10", "[pretty_print_operational_halt]") {
     REQUIRE(output == expected);
 }
 
-TEST_CASE("ITCH PRINTER TESTCASE #10", "[pretty_print_add_order_message]") {
+TEST_CASE("ITCH PRINTER TESTCASE #11", "[pretty_print_add_order_message]") {
     Catch::RedirectedStdOut redirectedOutput;
     std::string expected = ItchPrinter::dashes + "\nADD ORDER MESSAGE\n" + 
         ItchPrinter::dashes + "\nStock Locate: 214" + 
@@ -268,6 +268,36 @@ TEST_CASE("ITCH PRINTER TESTCASE #10", "[pretty_print_add_order_message]") {
     test.stock[2] = 'L';
     test.stock[3] = 'A';
     test.price = 6500;
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}
+
+TEST_CASE("ITCH PRINTER TESTCASE #12", "[pretty_print_add_order_mpid_attribution_message]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nADD ORDER MPID ATTRIBUTION MESSAGE\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 214" + 
+        "\nTracking Number: 14" + "\nTimestamp: 8500" + "\nOrder Reference Number: 8990" + 
+        "\nBuy Sell Indicator: B" + "\nShares: 5000" + "\nStock: TSLA" + 
+        "\nPrice: 6500" + "\nAttribution: ABCD\n\n";
+
+    ItchStruct::AddOrderMPIDAttributionMessage test = ItchStruct::AddOrderMPIDAttributionMessage{};
+    test.stockLocate = 214;
+    test.trackingNumber = 14;
+    test.timeStamp = 8500;
+    test.orderReferenceNumber = 8990;
+    test.buySellIndicator = 'B';
+    test.shares = 5000;
+    test.stock[0] = 'T';
+    test.stock[1] = 'S';
+    test.stock[2] = 'L';
+    test.stock[3] = 'A';
+    test.price = 6500;
+    test.attribution[0] = 'A';
+    test.attribution[1] = 'B';
+    test.attribution[2] = 'C';
+    test.attribution[3] = 'D';
 
     ItchPrinter::printItchData(test);
     std::string output = redirectedOutput.str();

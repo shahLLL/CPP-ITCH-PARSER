@@ -157,6 +157,22 @@ void prettyPrintAddOrderMessage(const ItchStruct::AddOrderMessage& addOrderMessa
     std::cout << std::endl;
 }
 
+void prettyPrintAddOrderMPIDAttributionMessage(const ItchStruct::AddOrderMPIDAttributionMessage& addOrderMPIDAttributionMessage) {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "ADD ORDER MPID ATTRIBUTION MESSAGE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << addOrderMPIDAttributionMessage.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << addOrderMPIDAttributionMessage.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << addOrderMPIDAttributionMessage.timeStamp << std::endl;
+    std::cout << "Order Reference Number: " << addOrderMPIDAttributionMessage.orderReferenceNumber << std::endl;
+    std::cout << "Buy Sell Indicator: " << addOrderMPIDAttributionMessage.buySellIndicator << std::endl;
+    std::cout << "Shares: " << addOrderMPIDAttributionMessage.shares << std::endl;
+    std::cout << "Stock: " << addOrderMPIDAttributionMessage.stock << std::endl;
+    std::cout << "Price: " << addOrderMPIDAttributionMessage.price << std::endl;
+    std::cout << "Attribution: " << addOrderMPIDAttributionMessage.attribution << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -170,7 +186,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::LULDAuctionCollar& luldAuctionCollar)  { prettyPrintLULDAuctionCollar(luldAuctionCollar); },
         [](const ItchStruct::OperationalHalt& operationalHalt)  { prettyPrintOperationalHalt(operationalHalt); },
         [](const ItchStruct::AddOrderMessage& addOrderMessage)  { prettyPrintAddOrderMessage(addOrderMessage); },
-        [](const ItchStruct::AddOrderMPIDAttributionMessage& addOrderMPIDAttributionMessage)  { },
+        [](const ItchStruct::AddOrderMPIDAttributionMessage& addOrderMPIDAttributionMessage)  { prettyPrintAddOrderMPIDAttributionMessage(addOrderMPIDAttributionMessage); },
         [](const ItchStruct::OrderExecutedMessage& orderExecutedMessage)  { },
         [](const ItchStruct::OrderExecutedWithPriceMessage& orderExecutedWithPriceMessage)  { },
         [](const ItchStruct::OrderCancelMessage& orderCancelMessage)  { },

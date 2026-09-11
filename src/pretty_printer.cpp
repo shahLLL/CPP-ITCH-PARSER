@@ -100,6 +100,20 @@ void prettyPrintMWCBStatusMessage(const ItchStruct::MWCBStatusMessage &mwcbStatu
     std::cout << std::endl;
 }
 
+void prettyPrintQuotingPeriodUpdate(const ItchStruct::QuotingPeriodUpdate &quotingPeriodUpdate) noexcept {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "QUOTING PERIOD UPDATE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << quotingPeriodUpdate.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << quotingPeriodUpdate.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << quotingPeriodUpdate.timeStamp << std::endl;
+    std::cout << "Stock: " << quotingPeriodUpdate.stock << std::endl;
+    std::cout << "IPO Quotation Release Time: " << quotingPeriodUpdate.ipoQuotationReleaseTime << std::endl;
+    std::cout << "IPO Quotation Release Qualifier: " << quotingPeriodUpdate.ipoQuotationReleaseQualifier << std::endl;
+    std::cout << "IPO Price: " << quotingPeriodUpdate.ipoPrice << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -109,7 +123,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::MarketParticipantPosition& marketParticipantPosition)  { prettyPrintMarketParticipantPosition(marketParticipantPosition); },
         [](const ItchStruct::MWCBDeclineLevelMessage& mwcbDeclineLevelMessage)  { prettyPrintMWCBDeclineLevelMessage(mwcbDeclineLevelMessage); },
         [](const ItchStruct::MWCBStatusMessage& mwcbStatusMessage)  { prettyPrintMWCBStatusMessage(mwcbStatusMessage); },
-        [](const ItchStruct::QuotingPeriodUpdate& quotingPeriodUpdate)  { },
+        [](const ItchStruct::QuotingPeriodUpdate& quotingPeriodUpdate)  { prettyPrintQuotingPeriodUpdate(quotingPeriodUpdate); },
         [](const ItchStruct::LULDAuctionCollar& luldAuctionCollar)  { },
         [](const ItchStruct::OperationalHalt& operationalHalt)  { },
         [](const ItchStruct::AddOrderMessage& addOrderMessage)  { },

@@ -172,3 +172,28 @@ TEST_CASE("ITCH PRINTER TESTCASE #7", "[pretty_print_mwcb_status_message]") {
     std::string output = redirectedOutput.str();
     REQUIRE(output == expected);
 }
+
+TEST_CASE("ITCH PRINTER TESTCASE #8", "[pretty_print_quoting_period_update]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nQUOTING PERIOD UPDATE\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 412" + 
+        "\nTracking Number: 20" + "\nTimestamp: 540000" + "\nStock: AMZN" +
+        "\nIPO Quotation Release Time: 40000" + "\nIPO Quotation Release Qualifier: A" +
+        "\nIPO Price: 32000\n\n";
+
+    ItchStruct::QuotingPeriodUpdate test = ItchStruct::QuotingPeriodUpdate{};
+    test.stockLocate = 412;
+    test.trackingNumber = 20;
+    test.timeStamp = 540000;
+    test.stock[0] = 'A';
+    test.stock[1] = 'M';
+    test.stock[2] = 'Z';
+    test.stock[3] = 'N';
+    test.ipoQuotationReleaseTime = 40000;
+    test.ipoQuotationReleaseQualifier = 'A';
+    test.ipoPrice = 32000;
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}

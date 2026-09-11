@@ -197,3 +197,31 @@ TEST_CASE("ITCH PRINTER TESTCASE #8", "[pretty_print_quoting_period_update]") {
     std::string output = redirectedOutput.str();
     REQUIRE(output == expected);
 }
+
+TEST_CASE("ITCH PRINTER TESTCASE #9", "[pretty_print_luld_auction_collar]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nLULD AUCTION COLLAR\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 918" + 
+        "\nTracking Number: 17" + "\nTimestamp: 98000" + "\nStock: TSLA" +
+        "\nAuction Collar Reference Price: 175000" + 
+        "\nUpper Auction Collar Price: 1925000" +
+        "\nLower Auction Collar Price: 150000" +
+        "\nAuction Collar Extension: 2\n\n";
+
+    ItchStruct::LULDAuctionCollar test = ItchStruct::LULDAuctionCollar{};
+    test.stockLocate = 918;
+    test.trackingNumber = 17;
+    test.timeStamp = 98000;
+    test.stock[0] = 'T';
+    test.stock[1] = 'S';
+    test.stock[2] = 'L';
+    test.stock[3] = 'A';
+    test.auctionCollarReferencePrice = 175000;
+    test.upperAuctionCollarPrice = 1925000;
+    test.lowerAuctionCollarPrice = 150000;
+    test.auctionCollarExtension = 2;
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}

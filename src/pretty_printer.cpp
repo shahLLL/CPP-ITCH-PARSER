@@ -114,6 +114,21 @@ void prettyPrintQuotingPeriodUpdate(const ItchStruct::QuotingPeriodUpdate &quoti
     std::cout << std::endl;
 }
 
+void prettyPrintLULDAuctionCollar(const ItchStruct::LULDAuctionCollar &luldAuctionCollar) noexcept {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "LULD AUCTION COLLAR" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << luldAuctionCollar.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << luldAuctionCollar.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << luldAuctionCollar.timeStamp << std::endl;
+    std::cout << "Stock: " << luldAuctionCollar.stock << std::endl;
+    std::cout << "Auction Collar Reference Price: " << luldAuctionCollar.auctionCollarReferencePrice << std::endl;
+    std::cout << "Upper Auction Collar Price: " << luldAuctionCollar.upperAuctionCollarPrice << std::endl;
+    std::cout << "Lower Auction Collar Price: " << luldAuctionCollar.lowerAuctionCollarPrice << std::endl;
+    std::cout << "Auction Collar Extension: " << luldAuctionCollar.auctionCollarExtension << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -124,7 +139,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::MWCBDeclineLevelMessage& mwcbDeclineLevelMessage)  { prettyPrintMWCBDeclineLevelMessage(mwcbDeclineLevelMessage); },
         [](const ItchStruct::MWCBStatusMessage& mwcbStatusMessage)  { prettyPrintMWCBStatusMessage(mwcbStatusMessage); },
         [](const ItchStruct::QuotingPeriodUpdate& quotingPeriodUpdate)  { prettyPrintQuotingPeriodUpdate(quotingPeriodUpdate); },
-        [](const ItchStruct::LULDAuctionCollar& luldAuctionCollar)  { },
+        [](const ItchStruct::LULDAuctionCollar& luldAuctionCollar)  { prettyPrintLULDAuctionCollar(luldAuctionCollar); },
         [](const ItchStruct::OperationalHalt& operationalHalt)  { },
         [](const ItchStruct::AddOrderMessage& addOrderMessage)  { },
         [](const ItchStruct::AddOrderMPIDAttributionMessage& addOrderMPIDAttributionMessage)  { },

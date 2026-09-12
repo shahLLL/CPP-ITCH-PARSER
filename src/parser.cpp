@@ -129,6 +129,10 @@ std::optional<Parser::ParsedVector> Parser::parseFile(Parser::FilePath filePath,
         current_ptr = current_ptr + messageLen + jumper;
     }
 
+    if(munmap(mappedData, fileSize) == -1) {
+        std::perror("Error unmapping");
+    }
+    close(fd);
 
     return itchVector;
 }

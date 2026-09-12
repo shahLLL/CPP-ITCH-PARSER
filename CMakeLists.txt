@@ -42,5 +42,8 @@ catch_discover_tests(unit_tests)
 # Define the executable target
 add_executable(itchparse main.cpp ${SOURCES})
 
+# Create bench executable
+add_executable(bench "bench/bench.cpp" ${SOURCES})
+
 # Apply compiler warning flags
 target_compile_options(itchparse PRIVATE -Wall -Wextra)

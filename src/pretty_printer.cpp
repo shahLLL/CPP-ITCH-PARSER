@@ -269,6 +269,17 @@ void prettyPrintCrossTradeMessage(const ItchStruct::CrossTradeMessage& crossTrad
     std::cout << std::endl;
 }
 
+void prettyPrintBrokenTradeMessage(const ItchStruct::BrokenTradeMessage& brokenTradeMessage) {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "BROKEN TRADE MESSAGE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << brokenTradeMessage.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << brokenTradeMessage.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << brokenTradeMessage.timeStamp << std::endl;
+    std::cout << "Match Number: " << brokenTradeMessage.matchNumber << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -290,7 +301,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::OrderReplaceMessage& orderReplaceMessage)  { prettyPrintOrderReplaceMessage(orderReplaceMessage); },
         [](const ItchStruct::TradeMessage& tradeMessage)  { prettyPrintTradeMessage(tradeMessage); },
         [](const ItchStruct::CrossTradeMessage& crossTradeMessage)  { prettyPrintCrossTradeMessage(crossTradeMessage); },
-        [](const ItchStruct::BrokenTradeMessage& brokenTradeMessage)  { },
+        [](const ItchStruct::BrokenTradeMessage& brokenTradeMessage)  { prettyPrintBrokenTradeMessage(brokenTradeMessage); },
         [](const ItchStruct::NOIIMessage& noiiMessage)  { },
         [](const ItchStruct::DLWCRPD& dlwcrpd)  { },
     }, data);

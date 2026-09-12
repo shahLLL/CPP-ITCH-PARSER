@@ -432,7 +432,7 @@ TEST_CASE("ITCH PRINTER TESTCASE #18", "[pretty_print_trade_message]") {
 }
 
 TEST_CASE("ITCH PRINTER TESTCASE #19", "[pretty_print_cross_trade_message]") {
-     Catch::RedirectedStdOut redirectedOutput;
+    Catch::RedirectedStdOut redirectedOutput;
     std::string expected = ItchPrinter::dashes + "\nCROSS TRADE MESSAGE\n" + 
         ItchPrinter::dashes + "\nStock Locate: 125" + 
         "\nTracking Number: 60" + "\nTimestamp: 90000" + "\nShares: 420" + 
@@ -451,6 +451,24 @@ TEST_CASE("ITCH PRINTER TESTCASE #19", "[pretty_print_cross_trade_message]") {
     test.crossPrice = 30000;
     test.matchNumber = 130;
     test.crossType = 'O';
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}
+
+TEST_CASE("ITCH PRINTER TESTCASE #20", "[pretty_print_broken_trade_message]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nBROKEN TRADE MESSAGE\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 90" + 
+        "\nTracking Number: 400" + "\nTimestamp: 3500" + 
+        "\nMatch Number: 280\n\n";
+
+    ItchStruct::BrokenTradeMessage test = ItchStruct::BrokenTradeMessage{};
+    test.stockLocate = 90;
+    test.trackingNumber = 400;
+    test.timeStamp = 3500;
+    test.matchNumber = 280;
 
     ItchPrinter::printItchData(test);
     std::string output = redirectedOutput.str();

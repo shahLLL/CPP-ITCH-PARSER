@@ -73,3 +73,6 @@ Testing/
 
 # Sample Data
 sample/
+
+#Output Folder
+output/

@@ -69,7 +69,6 @@ std::optional<Parser::ParsedVector> Parser::parseFile(Parser::FilePath filePath,
     current_ptr = current_ptr + jumper;
     while(current_ptr < end_ptr) {
         ItchType::Alpha messageType = static_cast<ItchType::Alpha>(*current_ptr);
-        //std::cout << messageType << std::endl;
         std::optional<MessageSize> messageLengthDecode = Parser::parseMessageLength(messageType);
         if(!messageLengthDecode.has_value()) {
             std::perror("Could not parse messageType.");

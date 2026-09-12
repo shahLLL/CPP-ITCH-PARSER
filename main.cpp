@@ -5,13 +5,9 @@
 #include "headers/structs.hpp"
 #include "headers/pretty_printer.hpp"
 
-void printUsage() {
-    std::cout << "Usage: itchparse <inputfile> [<outputfile>]" << std::endl;
-}
-
 int main(int argc, char* argv[]) {
     if(argc < 2 || argc > 3) {
-        printUsage();
+        std::cout << "Usage: itchparse <inputfile> [<outputfile>]" << std::endl;
         return 1;
     }
     

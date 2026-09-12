@@ -35,7 +35,7 @@ void prettyPrintStockDirectory(const ItchStruct::StockDirectory& stockDirectory)
     std::cout << std::endl;
 }
 
-void prettyPrintStockTradingAction(const ItchStruct::StockTradingAction& stockTradingAction) {
+void prettyPrintStockTradingAction(const ItchStruct::StockTradingAction& stockTradingAction) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "STOCK TRADING ACTION" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -142,7 +142,7 @@ void prettyPrintOperationalHalt(const ItchStruct::OperationalHalt& operationalHa
     std::cout << std::endl;
 }
 
-void prettyPrintAddOrderMessage(const ItchStruct::AddOrderMessage& addOrderMessage) {
+void prettyPrintAddOrderMessage(const ItchStruct::AddOrderMessage& addOrderMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "ADD ORDER MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -157,7 +157,7 @@ void prettyPrintAddOrderMessage(const ItchStruct::AddOrderMessage& addOrderMessa
     std::cout << std::endl;
 }
 
-void prettyPrintAddOrderMPIDAttributionMessage(const ItchStruct::AddOrderMPIDAttributionMessage& addOrderMPIDAttributionMessage) {
+void prettyPrintAddOrderMPIDAttributionMessage(const ItchStruct::AddOrderMPIDAttributionMessage& addOrderMPIDAttributionMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "ADD ORDER MPID ATTRIBUTION MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -173,7 +173,7 @@ void prettyPrintAddOrderMPIDAttributionMessage(const ItchStruct::AddOrderMPIDAtt
     std::cout << std::endl;
 }
 
-void prettyPrintOrderExecutedMessage(const ItchStruct::OrderExecutedMessage& orderExecutedMessage) {
+void prettyPrintOrderExecutedMessage(const ItchStruct::OrderExecutedMessage& orderExecutedMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "ORDER EXECUTED MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -186,7 +186,7 @@ void prettyPrintOrderExecutedMessage(const ItchStruct::OrderExecutedMessage& ord
     std::cout << std::endl;
 }
 
-void prettyPrintOrderExecutedWithPriceMessage(const ItchStruct::OrderExecutedWithPriceMessage& orderExecutedWithPriceMessage) {
+void prettyPrintOrderExecutedWithPriceMessage(const ItchStruct::OrderExecutedWithPriceMessage& orderExecutedWithPriceMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "ORDER EXECUTED WITH PRICE MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -201,7 +201,7 @@ void prettyPrintOrderExecutedWithPriceMessage(const ItchStruct::OrderExecutedWit
     std::cout << std::endl;
 }
 
-void prettyPrintOrderCancelMessage(const ItchStruct::OrderCancelMessage& orderCancelMessage) {
+void prettyPrintOrderCancelMessage(const ItchStruct::OrderCancelMessage& orderCancelMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "ORDER CANCEL MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -213,7 +213,7 @@ void prettyPrintOrderCancelMessage(const ItchStruct::OrderCancelMessage& orderCa
     std::cout << std::endl;
 }
 
-void prettyPrintOrderDeleteMessage(const ItchStruct::OrderDeleteMessage& orderDeleteMessage) {
+void prettyPrintOrderDeleteMessage(const ItchStruct::OrderDeleteMessage& orderDeleteMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "ORDER DELETE MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -224,7 +224,7 @@ void prettyPrintOrderDeleteMessage(const ItchStruct::OrderDeleteMessage& orderDe
     std::cout << std::endl;
 }
 
-void prettyPrintOrderReplaceMessage(const ItchStruct::OrderReplaceMessage& orderReplaceMessage) {
+void prettyPrintOrderReplaceMessage(const ItchStruct::OrderReplaceMessage& orderReplaceMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "ORDER REPLACE MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -238,7 +238,7 @@ void prettyPrintOrderReplaceMessage(const ItchStruct::OrderReplaceMessage& order
     std::cout << std::endl;
 }
 
-void prettyPrintTradeMessage(const ItchStruct::TradeMessage& tradeMessage) {
+void prettyPrintTradeMessage(const ItchStruct::TradeMessage& tradeMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "TRADE MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -254,7 +254,7 @@ void prettyPrintTradeMessage(const ItchStruct::TradeMessage& tradeMessage) {
     std::cout << std::endl;
 }
 
-void prettyPrintCrossTradeMessage(const ItchStruct::CrossTradeMessage& crossTradeMessage) {
+void prettyPrintCrossTradeMessage(const ItchStruct::CrossTradeMessage& crossTradeMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "CROSS TRADE MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -269,7 +269,7 @@ void prettyPrintCrossTradeMessage(const ItchStruct::CrossTradeMessage& crossTrad
     std::cout << std::endl;
 }
 
-void prettyPrintBrokenTradeMessage(const ItchStruct::BrokenTradeMessage& brokenTradeMessage) {
+void prettyPrintBrokenTradeMessage(const ItchStruct::BrokenTradeMessage& brokenTradeMessage) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "BROKEN TRADE MESSAGE" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;
@@ -299,7 +299,7 @@ void prettyPrintNOIIMessage(const ItchStruct::NOIIMessage& noiiMessage) noexcept
     std::cout << std::endl;
 }
 
-void prettyPrintDLWCRPD(const ItchStruct::DLWCRPD& dlwcrpd) {
+void prettyPrintDLWCRPD(const ItchStruct::DLWCRPD& dlwcrpd) noexcept {
     std::cout << ItchPrinter::dashes << std::endl;
     std::cout << "DLWCRPD" << std::endl;
     std::cout << ItchPrinter::dashes << std::endl;

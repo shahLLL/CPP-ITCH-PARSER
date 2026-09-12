@@ -474,3 +474,37 @@ TEST_CASE("ITCH PRINTER TESTCASE #20", "[pretty_print_broken_trade_message]") {
     std::string output = redirectedOutput.str();
     REQUIRE(output == expected);
 }
+
+TEST_CASE("ITCH PRINTER TESTCASE #21", "[pretty_print_noii_message]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nNOII MESSAGE\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 10" + 
+        "\nTracking Number: 101" + "\nTimestamp: 160000" + 
+        "\nPaired Shares: 800" + "\nImbalance Shares: 200" +
+        "\nImbalance Direction: O" + "\nStock: AAPL" + 
+        "\nFar Price: 40000" + "\nNear Price: 30000" +
+        "\nCurrent Reference Price: 32000" + "\nCross Type: O" +
+        "\nPrice Variation Indicator: A\n\n";
+
+    ItchStruct::NOIIMessage test = ItchStruct::NOIIMessage{};
+    test.stockLocate = 10;
+    test.trackingNumber = 101;
+    test.timeStamp = 160000;
+    test.pairedShares = 800;
+    test.imbalanceShares = 200;
+    test.imbalanceDirection = 'O';
+    test.stock[0] = 'A';
+    test.stock[1] = 'A';
+    test.stock[2] = 'P';
+    test.stock[3] = 'L';
+    test.farPrice = 40000;
+    test.nearPrice = 30000;
+    test.currentReferencePrice = 32000;
+    test.crossType = 'O';
+    test.priceVariationIndicator = 'A';
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}
+

@@ -280,6 +280,25 @@ void prettyPrintBrokenTradeMessage(const ItchStruct::BrokenTradeMessage& brokenT
     std::cout << std::endl;
 }
 
+void prettyPrintNOIIMessage(const ItchStruct::NOIIMessage& noiiMessage) noexcept {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "NOII MESSAGE" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << noiiMessage.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << noiiMessage.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << noiiMessage.timeStamp << std::endl;
+    std::cout << "Paired Shares: " << noiiMessage.pairedShares << std::endl;
+    std::cout << "Imbalance Shares: " << noiiMessage.imbalanceShares << std::endl;
+    std::cout << "Imbalance Direction: " << noiiMessage.imbalanceDirection << std::endl;
+    std::cout << "Stock: " << noiiMessage.stock << std::endl;
+    std::cout << "Far Price: " << noiiMessage.farPrice << std::endl;
+    std::cout << "Near Price: " << noiiMessage.nearPrice << std::endl;
+    std::cout << "Current Reference Price: " << noiiMessage.currentReferencePrice << std::endl;
+    std::cout << "Cross Type: " << noiiMessage.crossType << std::endl;
+    std::cout << "Price Variation Indicator: " << noiiMessage.priceVariationIndicator << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -302,7 +321,7 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::TradeMessage& tradeMessage)  { prettyPrintTradeMessage(tradeMessage); },
         [](const ItchStruct::CrossTradeMessage& crossTradeMessage)  { prettyPrintCrossTradeMessage(crossTradeMessage); },
         [](const ItchStruct::BrokenTradeMessage& brokenTradeMessage)  { prettyPrintBrokenTradeMessage(brokenTradeMessage); },
-        [](const ItchStruct::NOIIMessage& noiiMessage)  { },
+        [](const ItchStruct::NOIIMessage& noiiMessage)  { prettyPrintNOIIMessage(noiiMessage); },
         [](const ItchStruct::DLWCRPD& dlwcrpd)  { },
     }, data);
 }

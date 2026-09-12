@@ -1,5 +1,4 @@
 #include "../headers/parser.hpp"
-#include <iostream>
 
 std::optional<Parser::MessageSize> Parser::parseMessageLength(ItchType::Alpha messageType) noexcept {
     switch(messageType) {

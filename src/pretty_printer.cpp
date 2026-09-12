@@ -299,6 +299,24 @@ void prettyPrintNOIIMessage(const ItchStruct::NOIIMessage& noiiMessage) noexcept
     std::cout << std::endl;
 }
 
+void prettyPrintDLWCRPD(const ItchStruct::DLWCRPD& dlwcrpd) {
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "DLWCRPD" << std::endl;
+    std::cout << ItchPrinter::dashes << std::endl;
+    std::cout << "Stock Locate: " << dlwcrpd.stockLocate << std::endl;
+    std::cout << "Tracking Number: " << dlwcrpd.trackingNumber << std::endl;
+    std::cout << "Timestamp: " << dlwcrpd.timeStamp << std::endl;
+    std::cout << "Stock: " << dlwcrpd.stock << std::endl;
+    std::cout << "Open Eligibility Status: " << dlwcrpd.openEligibilityStatus << std::endl;
+    std::cout << "Minimum Allowable Price: " << dlwcrpd.minimumAllowablePrice << std::endl;
+    std::cout << "Maximum Allowable Price: " << dlwcrpd.maximumAllowablePrice << std::endl;
+    std::cout << "Near Execution Price: " << dlwcrpd.nearExecutionPrice << std::endl;
+    std::cout << "Near Execution Time: " << dlwcrpd.nearExecutionTime << std::endl;
+    std::cout << "Lower Price Range Collar: " << dlwcrpd.lowerPriceRangeCollar << std::endl;
+    std::cout << "Upper Price Range Collar: " << dlwcrpd.upperPriceRangeCollar << std::endl;
+    std::cout << std::endl;
+}
+
 void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
     std::visit(overloaded{
         [](const ItchStruct::SystemEventMessage& sytemEventMessage)  { prettyPrintSystemEventMessage(sytemEventMessage); },
@@ -322,6 +340,6 @@ void ItchPrinter::printItchData(const ItchStruct::ItchData& data) noexcept {
         [](const ItchStruct::CrossTradeMessage& crossTradeMessage)  { prettyPrintCrossTradeMessage(crossTradeMessage); },
         [](const ItchStruct::BrokenTradeMessage& brokenTradeMessage)  { prettyPrintBrokenTradeMessage(brokenTradeMessage); },
         [](const ItchStruct::NOIIMessage& noiiMessage)  { prettyPrintNOIIMessage(noiiMessage); },
-        [](const ItchStruct::DLWCRPD& dlwcrpd)  { },
+        [](const ItchStruct::DLWCRPD& dlwcrpd)  {  prettyPrintDLWCRPD(dlwcrpd); },
     }, data);
 }

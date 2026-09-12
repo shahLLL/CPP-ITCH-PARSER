@@ -508,3 +508,33 @@ TEST_CASE("ITCH PRINTER TESTCASE #21", "[pretty_print_noii_message]") {
     REQUIRE(output == expected);
 }
 
+TEST_CASE("ITCH PRINTER TESTCASE #22", "[pretty_print_dlwcrpd]") {
+    Catch::RedirectedStdOut redirectedOutput;
+    std::string expected = ItchPrinter::dashes + "\nDLWCRPD\n" + 
+        ItchPrinter::dashes + "\nStock Locate: 21" + 
+        "\nTracking Number: 410" + "\nTimestamp: 210000" + 
+        "\nStock: MSFT" + "\nOpen Eligibility Status: N" +
+        "\nMinimum Allowable Price: 1500" + "\nMaximum Allowable Price: 3000" +
+        "\nNear Execution Price: 1850" + "\nNear Execution Time: 180000" +
+        "\nLower Price Range Collar: 1200" + "\nUpper Price Range Collar: 1800\n\n";
+
+    ItchStruct::DLWCRPD test = ItchStruct::DLWCRPD{};
+    test.stockLocate = 21;
+    test.trackingNumber = 410;
+    test.timeStamp = 210000;
+    test.stock[0] = 'M';
+    test.stock[1] = 'S';
+    test.stock[2] = 'F';
+    test.stock[3] = 'T';
+    test.openEligibilityStatus = 'N';
+    test.minimumAllowablePrice = 1500;
+    test.maximumAllowablePrice = 3000;
+    test.nearExecutionPrice = 1850;
+    test.nearExecutionTime = 180000;
+    test.lowerPriceRangeCollar = 1200;
+    test.upperPriceRangeCollar = 1800;
+
+    ItchPrinter::printItchData(test);
+    std::string output = redirectedOutput.str();
+    REQUIRE(output == expected);
+}

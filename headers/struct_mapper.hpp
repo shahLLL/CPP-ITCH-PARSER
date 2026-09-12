@@ -1,3 +1,4 @@
+#pragma once
 #include "structs.hpp"
 #include "types.hpp"
 #include "endian_converter.hpp"

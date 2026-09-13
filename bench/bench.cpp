@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <string_view>
 #include <optional>
 #include <fcntl.h>
 #include <unistd.h>
@@ -20,21 +22,40 @@ constexpr double pointSevenFive = 0.75;
 constexpr double pointNine = 0.9;
 constexpr double pointNineNine = 0.99;
 constexpr double pointNineNineNine = 0.999;
+constexpr std::size_t defaultExpectedEntries = 12012;
+constexpr std::string_view expectedNumEntryPrefix = "-n=";
 
 int main(int argc, char* argv[]) {
-    if(argc != 2) {
-        std::cout << "Usage: bench <inputfile>" << std::endl;;
+    // Check Usage
+    if((argc < 2) || (argc > 3)) {
+        std::cout << "Usage: bench <inputfile> [-n]" << std::endl;;
         return 1;
     }
 
-    std::cout << "BENCHING MARKING" << std::endl;
+    size_t numberOfExpectedEntries = defaultExpectedEntries;
+    // Parse -n flag, if provided.
+    if(argc == 3) {
+        std::string_view lastArg(argv[2]);
+        const std::string_view expectedEntryNumStr = lastArg.substr(expectedNumEntryPrefix.size());
 
-    const size_t numberOfExpectedEntries = 12012;
+        try {
+            numberOfExpectedEntries = std::stoi(std::string(expectedEntryNumStr));
+        } catch (const std::invalid_argument& e) {
+            std::cerr << "Error: '" << expectedEntryNumStr << "' is not a valid integer.\n";
+            return 1;
+        } catch (const std::out_of_range& e) {
+            std::cerr << "Error: Value '" << expectedEntryNumStr << "' is out of range for an int.\n";
+            return 1;
+        }
+
+    }
     size_t numberofEntries = 0;
     std::vector<long long> latencies;
     latencies.reserve(numberOfExpectedEntries);
-    const char* filePath = argv[1]; 
+    const char* filePath = argv[1];
+    
 
+    // Open Input File.
     int fd = open(filePath, O_RDONLY);
     if (fd == -1) {
         std::perror("Error opening file");
@@ -64,6 +85,8 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    // Benchmark
+    std::cout << "BENCHING MARKING" << std::endl;
     std::byte* current_ptr = reinterpret_cast<std::byte*>(mappedData);
     const std::byte* end_ptr = current_ptr + fileSize;
     const size_t jumper = 2;
